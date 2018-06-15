@@ -1,0 +1,80 @@
+{
+  "processors": ["stylelint-processor-styled-components"],
+  "extends": [
+    "stylelint-config-recommended",
+    "stylelint-config-styled-components"
+  ],
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "block-no-empty": null,
+    "order/properties-order": [{
+        "emptyLineBefore": "always",
+        "properties": [
+          "content"
+        ]
+      },
+      {
+        "emptyLineBefore": "always",
+        "properties": [
+          "display",
+          "width",
+          "height",
+          "margin",
+          "padding",
+          "flex",
+          "align-self"
+        ]
+      },
+      {
+        "emptyLineBefore": "always",
+        "properties": [
+          "position",
+          "top",
+          "left",
+          "right",
+          "bottom",
+          "z-index"
+        ]
+      },
+      {
+        "emptyLineBefore": "always",
+        "properties": [
+          "flex-direction",
+          "justify-content",
+          "align-items"
+        ]
+      },
+      {
+        "emptyLineBefore": "always",
+        "properties": [
+          "border",
+          "border-radius",
+          "background"
+        ]
+      },
+      {
+        "emptyLineBefore": "always",
+        "properties": [
+          "color",
+          "font-size",
+          "text-align"
+        ]
+      },
+      {
+        "emptyLineBefore": "always",
+        "properties": [
+          "transform",
+          "transition"
+        ]
+      },
+      {
+        "emptyLineBefore": "always",
+        "properties": [
+          "cursor"
+        ]
+      }
+    ]
+  }
+}
