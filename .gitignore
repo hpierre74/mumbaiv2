@@ -24,6 +24,7 @@
 
 .firebaserc
 firebase.json
+database.rules.json
 
 report.html
 

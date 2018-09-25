@@ -20,7 +20,7 @@ SVG.defaultProps = {
 };
 
 SVG.propTypes = {
-  src: PropTypes.element.isRequired,
+  src: PropTypes.string.isRequired,
   height: PropTypes.string,
   width: PropTypes.string,
   alt: PropTypes.string.isRequired,

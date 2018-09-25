@@ -1,9 +1,11 @@
+import { requestPost } from '../../utils/http.utils';
+
 export const SEND_MAIL_BEGIN = 'mail/SEND_MAIL_BEGIN';
 export const SEND_MAIL_SUCCESS = 'mail/SEND_MAIL_SUCCESS';
 export const SEND_MAIL_FAILURE = 'mail/SEND_MAIL_FAILURE';
 export const SEND_MAIL_DISMISS_ERROR = 'mail/SEND_MAIL_ERROR';
 
-const config = { mailServiceUrl: '/mail/sendmail' };
+const config = { mailServiceUrl: 'https://us-central1-mumbai-redux.cloudfunctions.net/sendMail' };
 
 export const sendMail = mail => dispatch => {
   dispatch({
@@ -11,14 +13,8 @@ export const sendMail = mail => dispatch => {
   });
 
   const promise = new Promise((resolve, reject) => {
-    const doRequest = fetch(config.mailServiceUrl, {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      }),
-      body: mail,
-    });
+    const doRequest = requestPost(config.mailServiceUrl, mail);
+
     doRequest.then(
       res => {
         dispatch({
@@ -27,7 +23,6 @@ export const sendMail = mail => dispatch => {
         });
         resolve(res);
       },
-      // Use rejectHandler as the second argument so that render errors won't be caught.
       err => {
         dispatch({
           type: SEND_MAIL_FAILURE,

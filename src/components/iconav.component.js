@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 
   justify-content: space-around;
 
-  background: black;
+  background: transparent;
 `;
 
 const IconWrapper = styled(Link)`

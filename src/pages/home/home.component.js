@@ -10,7 +10,7 @@ const Home = () => (
   <HomeWrapper>
     <NavBar />
     <Jumbotron />
-    <Presentation />
+    <Presentation duration="1.5" animation="slideInUp" />
     <Iconav />
   </HomeWrapper>
 );

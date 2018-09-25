@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
-import { slideInDown, slideInRight, slideInLeft } from 'react-animations';
+import styled from 'styled-components';
 
 import thali from '../../style/images/mc-thali-1.png';
+import dining from '../../style/images/mcbg.jpg';
+import cocktailmc from '../../style/images/cocktailmc2.png';
 import Text from '../../components/text.component';
-import { Title3 } from '../../components/title.components';
-import { SvgImg } from '../../components/svg.component';
-
-const slideInDownAnim = keyframes`${slideInDown}`;
-const slideInLeftAnim = keyframes`${slideInLeft}`;
-const slideInRightAnim = keyframes`${slideInRight}`;
+import { Title1, Title3 } from '../../components/title.components';
+import placeholder from '../../style/images/400x400.png';
+import withAnim from '../../components/withAnim.hoc';
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,82 +19,96 @@ const Wrapper = styled.div`
 `;
 const ItemWrapper = styled.div`
   display: flex;
-  flex-flow: ${window.innerWidth > 600 ? 'row wrap' : 'column'};
 
-  width: 100%;
-  padding: 1.5%;
+  justify-content: space-around;
+  flex-flow: row wrap;
 `;
 
-const Title = Title3.extend`
-  width: ${window.innerWidth > 600 ? '70%' : '100%'};
+const Title = Title1.extend`
   margin: 0 auto;
-  animation: 3.5s ${slideInDownAnim};
-`;
-const TextAside = styled.div`
-  width: ${window.innerWidth > 600 ? '50%' : '100%'};
-  line-height: ${window.innerWidth > 600 ? `4em` : '1.6em'};
+  text-transform: lowercase;
 
-  padding: 0 5% 0 0;
+  position: relative;
+  top: 50%;
+`;
+
+const Intro = styled(Text)`
+  width: 80%;
+  margin: 2.5% auto;
 
   text-align: justify;
-  animation: 1.5s ${slideInRightAnim};
+  font-style: italic;
 `;
 
-const PreSVG = SvgImg.extend`
+const Card = withAnim(styled.div`
+  width: 50%;
+`);
+const CardImage = styled.img`
+  width: 150px;
+  height: 150px;
+
+  border-radius: 204px;
   box-shadow: 0px 0px 5px 1px;
 
-  border-radius: 4px;
-  animation: 1.5s ${slideInLeftAnim};
+  @media (max-width: 1100px) {
+    width: 300px;
+    height: 300px;
+  }
+  @media (max-width: 900px) {
+    width: 225px;
+    height: 225px;
+  }
+  @media (max-width: 600px) {
+    width: 150px;
+    height: 150px;
+  }
+  @media (max-width: 300px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
-class Presentation extends Component {
-  static propTypes = {
-    /* eslint-disable react/no-unused-prop-types */
-    presentation: PropTypes.shape({
-      bar: PropTypes.string,
-      food: PropTypes.string,
-      tapas: PropTypes.string,
-      concept: PropTypes.string,
-    }).isRequired,
-  };
+const Presentation = props => {
+  const { presentation: { concept, food } } = props;
 
-  static getDerivedStateFromProps(nextProps) {
-    return {
-      concept: nextProps.presentation.concept,
-      bar: nextProps.presentation.bar,
-      food: nextProps.presentation.food,
-      tapas: nextProps.presentation.tapas,
-    };
-  }
+  return (
+    <Wrapper>
+      <Title3>{concept}</Title3>
+      <Intro>{food}</Intro>
+      <ItemWrapper>
+        <Card duration="3" animation="slideInDown">
+          <Title>Cocktails</Title>
+          <CardImage src={cocktailmc} alt="placeholder" />
+        </Card>
+        <Card duration="2.5" animation="slideInDown">
+          <Title>Food</Title>
+          <CardImage src={thali} alt="placeholder" />
+        </Card>
+        <Card duration="2" animation="slideInDown">
+          <Title>Menu</Title>
+          <CardImage src={placeholder} alt="placeholder" />
+        </Card>
+        <Card duration="1.5" animation="slideInDown">
+          <Title>Réservation</Title>
+          <CardImage src={dining} alt="placeholder" />
+        </Card>
+      </ItemWrapper>
+    </Wrapper>
+  );
+};
 
-  state = {
-    concept: '',
-    bar: '',
-    tapas: '',
-    food: '',
-  };
+Presentation.defaultProps = {
+  presentation: {
+    concept: null,
+    food: null,
+  },
+};
 
-  render() {
-    const { concept, bar, tapas, food } = this.state;
-
-    return (
-      <Wrapper>
-        <ItemWrapper>
-          <Title>{concept}</Title>
-        </ItemWrapper>
-        {concept && (
-          <ItemWrapper>
-            <TextAside>
-              <Text>{food}</Text>
-              <Text>{tapas}</Text>
-              <Text>{bar}</Text>
-            </TextAside>
-            <PreSVG src={thali} width={window.innerWidth > 600 ? '50%' : '100%'} alt="thali" />
-          </ItemWrapper>
-        )}
-      </Wrapper>
-    );
-  }
-}
+Presentation.propTypes = {
+  presentation: PropTypes.shape({
+    concept: PropTypes.string,
+    food: PropTypes.string,
+  }),
+};
 
 export default Presentation;

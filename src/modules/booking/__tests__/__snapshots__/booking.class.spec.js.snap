@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Booking Functions getBookingsForDate returns bookings 1`] = `
+Array [
+  Object {
+    "comment": "",
+    "date": "2018-09-25",
+    "dateObj": 2018-09-25T10:00:00.000Z,
+    "email": "a@a.fr",
+    "firstname": "a",
+    "id": "a",
+    "lastname": "a",
+    "persons": 5,
+    "tel": "0000000000",
+    "time": "12:00",
+  },
+  Object {
+    "comment": "",
+    "date": "2018-09-25",
+    "dateObj": 2018-09-25T10:00:00.000Z,
+    "email": "a@a.fr",
+    "firstname": "a",
+    "id": "b",
+    "lastname": "b",
+    "persons": 5,
+    "tel": "0000000000",
+    "time": "12:00",
+  },
+  Object {
+    "comment": "",
+    "date": "2018-09-25",
+    "dateObj": 2018-09-25T10:00:00.000Z,
+    "email": "a@a.fr",
+    "firstname": "a",
+    "id": "c",
+    "lastname": "c",
+    "persons": 5,
+    "tel": "0000000000",
+    "time": "12:00",
+  },
+  Object {
+    "comment": "",
+    "date": "2018-09-25",
+    "dateObj": 2018-09-25T10:00:00.000Z,
+    "email": "a@a.fr",
+    "firstname": "a",
+    "id": "d",
+    "lastname": "d",
+    "persons": 5,
+    "tel": "0000000000",
+    "time": "12:00",
+  },
+]
+`;
+
+exports[`Booking Functions getBookingsForDate returns nothing 1`] = `Array []`;

@@ -3,6 +3,7 @@ import { SEND_MAIL_BEGIN, SEND_MAIL_DISMISS_ERROR, SEND_MAIL_FAILURE, SEND_MAIL_
 const initialState = {
   sendMailPending: false,
   sendMailError: null,
+  sendMailSuccess: false,
 };
 
 export default function reducer(state = initialState, action) {
@@ -21,6 +22,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         sendMailPending: false,
         sendMailError: null,
+        sendMailSuccess: true,
       };
 
     case SEND_MAIL_FAILURE:

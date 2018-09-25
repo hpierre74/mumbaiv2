@@ -11,7 +11,7 @@ export const firebaseInit = () => ({
   type: FIREBASE_INIT,
 });
 
-export function loadData(ref) {
+export function loadData(ref, concern) {
   return dispatch => {
     // optionally you can have getState as the second argument
     dispatch({
@@ -25,6 +25,7 @@ export function loadData(ref) {
           dispatch({
             type: LOAD_DATA_SUCCESS,
             data: res.val(),
+            concern,
           });
           resolve(res);
         },

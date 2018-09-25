@@ -7,7 +7,6 @@ import logo from '../logo.svg';
 
 const fadeInAnim = keyframes`${fadeIn}`;
 const Jumbo = styled.div`
-  padding: 10% 0 5%;
   animation: 5s ${fadeInAnim};
 `;
 

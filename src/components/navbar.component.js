@@ -1,37 +1,33 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
-import { fadeInRightBig, fadeInLeftBig, fadeInDown } from 'react-animations';
+import { fadeInLeft } from 'react-animations';
 
 import logo from '../logo.svg';
+import Lang from '../modules/lang/lang.connector';
 
-const fadeInRightAnim = keyframes`${fadeInRightBig}`;
-const fadeInLeftAnim = keyframes`${fadeInLeftBig}`;
-const fadeInDownAnim = keyframes`${fadeInDown}`;
+const fadeInLeftAnim = keyframes`${fadeInLeft}`;
 
 const Navbar = styled.nav`
   display: flex;
-  width: 80%;
+  width: 10%;
   height: 10%;
 
   position: fixed;
   top: 0;
-  left: 10%;
+  left: 0;
 
-  justify-content: space-between;
   align-items: center;
 
-  background: black;
-  flex-flow: row wrap;
+  background: transparent;
+  flex-flow: column;
 
-  animation: 1.5s ${fadeInDownAnim};
+  animation: 1.5s ${fadeInLeftAnim};
 `;
 
 const NavLogoWrapper = styled.div`
-  width: 10%;
+  width: 100%;
   height: 100%;
-
-  animation: 1.5s ${fadeInLeftAnim};
 `;
 
 const Svg = styled.img`
@@ -41,12 +37,7 @@ const Svg = styled.img`
 `;
 
 const Nav = styled.ul`
-  display: flex;
-  width: 30%;
-
-  justify-content: space-around;
-
-  flex-flow: row wrap;
+  padding: 0;
 `;
 
 const NavItem = styled.li`
@@ -56,7 +47,6 @@ const NavItem = styled.li`
 
   color: white;
   list-style: none;
-  animation: 1.5s ${fadeInRightAnim};
   &:hover {
     text-decoration: underline;
   }
@@ -80,6 +70,7 @@ const NavBar = () => (
         <Link to="contact">Contact</Link>
       </NavItem>
     </Nav>
+    <Lang />
   </Navbar>
 );
 export default NavBar;

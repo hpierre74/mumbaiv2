@@ -11,10 +11,11 @@ import firebase from 'firebase/app';
 import 'normalize.css';
 import './style/index.css';
 
-import { loadData } from './modules/firebase/firebase.actions';
 import App from './App';
 import theme from './style/theme';
 import reducers from './reducers';
+import pageContentMiddleware from './middlewares/pageContent.middleware';
+import { configInit } from './modules/app/app.action';
 
 const history = createHistory();
 const routerMiddleware = createRouterMiddleware(history);
@@ -27,7 +28,7 @@ const store = createStore(
     ...reducers,
     router: routerReducer,
   }),
-  composeEnhancers(applyMiddleware(thunk, routerMiddleware)),
+  composeEnhancers(applyMiddleware(thunk, routerMiddleware, pageContentMiddleware)),
 );
 
 const config = {
@@ -40,10 +41,8 @@ const config = {
 };
 
 firebase.initializeApp(config);
-
+store.dispatch(configInit());
 const start = () => {
-  store.dispatch(loadData('content'));
-
   ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>

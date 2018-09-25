@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import Presentation from './presentation.component';
 
-const mapStateToProps = ({ firebase: { content: { presentation } } }) => ({
+const mapStateToProps = ({ pageContent: { content: { presentation } } }) => ({
   presentation,
 });
 
