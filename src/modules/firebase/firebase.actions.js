@@ -24,7 +24,7 @@ export function loadData(ref, concern) {
         res => {
           dispatch({
             type: LOAD_DATA_SUCCESS,
-            data: res.val(),
+            data: res,
             concern,
           });
           resolve(res);

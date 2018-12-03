@@ -4,11 +4,17 @@ import styled from 'styled-components';
 
 const LangWrapper = styled.div`
   width: 80%;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 90vw;
+  @media (max-width: 700px) {
+    left: 80vw;
+  }
 `;
 const Language = styled.h4`
-  display: inline-block;
-  margin: 10%;
-
   cursor: pointer;
 `;
 
@@ -20,7 +26,7 @@ const Lang = props => (
     >
       FR
     </Language>
-    /
+    |
     <Language
       style={props.currentLang === 'en' ? { textDecoration: 'underline' } : { color: 'gray' }}
       onClick={() => props.switchContent('en')}

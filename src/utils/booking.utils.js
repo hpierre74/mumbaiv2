@@ -80,7 +80,7 @@ export const setBooking = booking => {
 export const removeBooking = bookingId => {
   getData(`booker/bookings/${bookingId}`)
     .then(success => {
-      const booking = success.val();
+      const booking = success;
       const updates = [];
       updates[`/bookings/${bookingId}`] = null;
       updates[`/availability/${booking.date}/${booking.service}/${bookingId}`] = null;

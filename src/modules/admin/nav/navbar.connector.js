@@ -1,25 +1,9 @@
 import { connect } from 'react-redux';
 
-import NavBar from './navbar.component';
+import NavBar from './drawer.component';
 
-const mapStateToProps = () =>
-  /* { app: { config: { admin: { pages } } } }, */
-  ({
-    pages: {
-      gestion: {
-        keDueDFesScy1: 'bookings',
-        kDevFvDzDFbvy2: 'schedule',
-        kqFEXeDFy3: 'settings',
-        kDVvcVSSoky4: 'mail',
-      },
-      edition: {
-        kPevGdRJy1: 'book',
-        keSVV55S0y2: 'contact',
-        kDVSeyDC3: 'home',
-        kZCeyEVE4: 'events',
-        kACeFVRy5: 'menu',
-      },
-    },
-  });
+const mapStateToProps = ({ router: { location: { pathname } } }) => ({
+  pathname,
+});
 
 export default connect(mapStateToProps)(NavBar);

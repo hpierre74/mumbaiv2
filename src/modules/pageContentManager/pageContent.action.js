@@ -4,32 +4,21 @@ export const GET_PAGE_CONTENT_BEGIN = 'pageContent/GET_PAGE_CONTENT_BEGIN';
 export const GET_PAGE_CONTENT_SUCCESS = 'pageContent/GET_PAGE_CONTENT_SUCCESS';
 export const GET_PAGE_CONTENT_FAILURE = 'pageContent/GET_PAGE_CONTENT_FAILURE';
 
-export function getPageContent(ref, lang) {
-  return dispatch => {
+export const getPageContent = (ref, lang) => async dispatch => {
+  dispatch({ type: GET_PAGE_CONTENT_BEGIN });
+  try {
+    const pageContent = await getData(`public/content/${lang}/${ref}`);
     dispatch({
-      type: GET_PAGE_CONTENT_BEGIN,
+      type: GET_PAGE_CONTENT_SUCCESS,
+      data: pageContent,
+      path: `public/content/${lang}/${ref}`,
+      page: ref,
     });
-
-    const promise = new Promise((resolve, reject) => {
-      const doRequest = getData(`public/content/${lang}/${ref}`);
-      doRequest.then(
-        res => {
-          dispatch({
-            type: GET_PAGE_CONTENT_SUCCESS,
-            data: res.val(),
-          });
-          resolve(res);
-        },
-        err => {
-          dispatch({
-            type: GET_PAGE_CONTENT_FAILURE,
-            data: { error: err },
-          });
-          reject(err);
-        },
-      );
+  } catch (e) {
+    dispatch({
+      type: GET_PAGE_CONTENT_FAILURE,
+      data: { error: e },
     });
-
-    return promise;
-  };
-}
+    throw new Error('Page content fetch failed');
+  }
+};

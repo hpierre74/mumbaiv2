@@ -34,11 +34,11 @@ a {
   font-family: Signika;
   font-style: normal;
   font-weight: 500;
-  src: url("./fonts/signika-v7-latin-regular.woff");
+  src: url('./fonts/signika-v7-latin-regular.woff');
 }
 @font-face {
   font-family: Blacksword;
   font-style: normal;
   font-weight: 500;
-  src: url("./fonts/Blacksword.woff");
+  src: url('./fonts/Blacksword.woff');
 }

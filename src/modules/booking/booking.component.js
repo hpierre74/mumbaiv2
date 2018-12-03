@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// import Recaptcha from 'react-recaptcha';
-
 import { Title3 } from '../../components/title.components';
 import { PageWrapper as BookingPageWrapper } from '../../components/wrapper.components';
 import { Form, Input, Select, Textarea, Button } from '../../components/form.components';
-import _Booking, { getBookingsForDate } from './booking.class';
-import { setBooking, renderBookableHours } from '../../utils/booking.utils';
+import _Booking from './booking.class';
+import { renderBookableHours } from '../../utils/booking.utils';
 /* eslint-disable no-console */
 
 class Booking extends Component {
@@ -37,18 +35,22 @@ class Booking extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const booking = new _Booking(this.state, this.props.config.maxBookings);
-    booking.add();
-    // setBooking(this.state);
-    this.setState({
-      firstname: '',
-      lastname: '',
-      tel: '',
-      email: '',
-      persons: 0,
-      date: '',
-      time: '',
-      comment: '',
-    });
+    // booking.isBookingPossible().then(res => console.log(res));
+    booking
+      .add()
+      .then(() =>
+        this.setState({
+          firstname: '',
+          lastname: '',
+          tel: '',
+          email: '',
+          persons: 0,
+          date: '',
+          time: '',
+          comment: '',
+        }),
+      )
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -110,13 +112,7 @@ class Booking extends Component {
             width="100%"
             placeholder="Allergies, bébés ..."
           />
-          {/* <Recaptcha
-            sitekey="6LcnsGAUAAAAAFPpq9NnMTVYgtdQU5q8zf4McL-W"
-            render="implicit"
-            onloadCallback={console.log('ok')}
-            verifyCallback={console.log('verified')}
-            theme="dark"
-          /> */}
+
           <Button value="Envoyer" />
         </Form>
       </BookingPageWrapper>

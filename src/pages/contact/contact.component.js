@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 import { slideInDown, slideInLeft } from 'react-animations';
 import { Link } from 'react-router-dom';
@@ -77,65 +77,55 @@ const ContactInfo = styled(Link)`
   }
 `;
 
-class Contact extends Component {
-  //   static propTypes = {
-  //     /* eslint-disable react/no-unused-prop-types */
-  //     contact: PropTypes.shape({
-  //       location: PropTypes.shape({
-  //         adress: PropTypes.string,
-  //         city: PropTypes.string,
-  //         zipcode: PropTypes.string,
-  //       }).isRequired,
-  //     }).isRequired,
-  //   };
+const Contact = props => {
+  const { email, address, lat, lng, tel } = props;
 
-  //   static getDerivedStateFromProps(nextProps) {
-  //     return {};
-  //   }
+  return (
+    <ContactWrapper>
+      <NavBar />
+      <Title>Nous Contacter</Title>
+      <LocationWrapper>
+        <ContactInfoWrapper>
+          <ContactInfo to="#" disabled>
+            <SVG src={mail} alt="mail-icon" width="25px" />
+            <ContactText>{email}</ContactText>
+          </ContactInfo>
+          <ContactInfo to={`tel: +33${tel}`} disabled>
+            <SVG src={phone} alt="phone-icon" width="25px" />
+            <ContactText>{tel}</ContactText>
+          </ContactInfo>
+          <ContactInfo to="#" disabled>
+            <SVG src={facebook} alt="facebook-icon" width="25px" />
+            <ContactText>Mumbai Café</ContactText>
+          </ContactInfo>
+          <ContactInfo to="#" disabled>
+            <SVG src={foodora} alt="foodora-icon" width="35px" />
+            <ContactText>Mumbai Café</ContactText>
+          </ContactInfo>
+          <ContactInfo to="#" disabled>
+            <SVG src={instagram} alt="instagram-icon" width="25px" />
+            <ContactText>mumbaicafe</ContactText>
+          </ContactInfo>
+          <ContactInfo to="#" disabled>
+            <SVG src={location} alt="localisation-icon" width="25px" />
+            <ContactText>{address}</ContactText>
+          </ContactInfo>
+        </ContactInfoWrapper>
+        <MapContainer geo={(lat, lng)} />
+      </LocationWrapper>
+      <Title>Nous écrire</Title>
+      <Mail />
+      <Iconav />
+    </ContactWrapper>
+  );
+};
 
-  state = {};
+Contact.propTypes = {
+  email: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
+  tel: PropTypes.string.isRequired,
+  lat: PropTypes.number.isRequired,
+  lng: PropTypes.number.isRequired,
+};
 
-  render() {
-    // const {} = this.state;
-
-    return (
-      <ContactWrapper>
-        <NavBar />
-        <Title>Nous Contacter</Title>
-        <LocationWrapper>
-          <ContactInfoWrapper>
-            <ContactInfo to="#" disabled>
-              <SVG src={mail} alt="mail-icon" width="25px" />
-              <ContactText>1mumbaicafe@gmail.com</ContactText>
-            </ContactInfo>
-            <ContactInfo to="tel: +33967876545" disabled>
-              <SVG src={phone} alt="phone-icon" width="25px" />
-              <ContactText>0967876545</ContactText>
-            </ContactInfo>
-            <ContactInfo to="#" disabled>
-              <SVG src={facebook} alt="facebook-icon" width="25px" />
-              <ContactText>Mumbai Café</ContactText>
-            </ContactInfo>
-            <ContactInfo to="#" disabled>
-              <SVG src={foodora} alt="foodora-icon" width="35px" />
-              <ContactText>Mumbai Café</ContactText>
-            </ContactInfo>
-            <ContactInfo to="#" disabled>
-              <SVG src={instagram} alt="instagram-icon" width="25px" />
-              <ContactText>mumbaicafe</ContactText>
-            </ContactInfo>
-            <ContactInfo to="#" disabled>
-              <SVG src={location} alt="localisation-icon" width="25px" />
-              <ContactText>6 rue Sainte-Catherine, 69001, LYON</ContactText>
-            </ContactInfo>
-          </ContactInfoWrapper>
-          <MapContainer />
-        </LocationWrapper>
-        <Title>Nous écrire</Title>
-        <Mail />
-        <Iconav />
-      </ContactWrapper>
-    );
-  }
-}
 export default Contact;

@@ -1,9 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import indigo from '@material-ui/core/colors/indigo';
+import red from '@material-ui/core/colors/red';
+import blue from '@material-ui/core/colors/blue';
+
 import { PageWrapper } from '../../components/wrapper.components';
-import NavBar from '../../modules/admin/nav/navbar.connector';
-import Ad from '../../modules/admin/admin.component';
+import Ad from '../../modules/admin/admin.connector';
+
+const muiTheme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+  palette: {
+    type: 'light',
+    primary: indigo,
+    secondary: red,
+    error: red,
+    default: blue,
+  },
+});
 
 const AdminWrapper = styled(PageWrapper)`
   display: flex;
@@ -16,10 +33,11 @@ const AdminWrapper = styled(PageWrapper)`
 `;
 
 const AdminPage = () => (
-  <AdminWrapper>
-    <NavBar />
-    <Ad />
-  </AdminWrapper>
+  <MuiThemeProvider theme={muiTheme}>
+    <AdminWrapper>
+      <Ad />
+    </AdminWrapper>
+  </MuiThemeProvider>
 );
 
 export default AdminPage;

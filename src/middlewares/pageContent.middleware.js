@@ -1,9 +1,10 @@
 // import { INIT } from '../modules/app/app.action';
 import { getPageContent } from '../modules/pageContentManager/pageContent.action';
 import { CHANGE_LANG } from '../modules/lang/lang.actions';
+import { UPDATE_CONTENT_SUCCESS } from '../modules/admin/editor/editor.action';
 
 export default store => next => action => {
-  const { router: { location }, lang: { currentLang } } = store.getState();
+  const { router: { location }, lang: { currentLang }, pageContent: { page } } = store.getState();
   const currentAction = { ...action };
 
   next(currentAction);
@@ -43,6 +44,10 @@ export default store => next => action => {
         }
         default:
       }
+      break;
+    }
+    case UPDATE_CONTENT_SUCCESS: {
+      store.dispatch(getPageContent(page, currentLang));
       break;
     }
 

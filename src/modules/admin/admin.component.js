@@ -1,64 +1,110 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
+
+import Typography from '@material-ui/core/Typography';
+import Toolbar from '@material-ui/core/Toolbar';
+import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import { withStyles } from '@material-ui/core/styles';
+
+import { getData } from '../firebase/firebase.class';
+
+import Toaster from '../toaster/toast.connector';
+import DrawerComponent from './nav/navbar.connector';
 
 const Wrapper = styled.div`
   width: 100%;
 `;
-const pages = {
-  gestion: {
-    keDueDFesScy1: 'bookings',
-    kDevFvDzDFbvy2: 'schedule',
-    kqFEXeDFy3: 'settings',
-    kDVvcVSSoky4: 'mail',
+
+const drawerWidth = 240;
+
+const styles = theme => ({
+  appBar: {
+    marginLeft: drawerWidth,
+    backgroundColor: theme.palette.default,
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
   },
-  edition: {
-    kPevGdRJy1: 'book',
-    keSVV55S0y2: 'contact',
-    kDVSeyDC3: 'home',
-    kZCeyEVE4: 'events',
-    kACeFVRy5: 'menu',
+  iconButton: {
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
   },
-};
+  pageTitle: {
+    margin: '0 auto',
+  },
+});
 
 class AdminRoutes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      landing: true,
+      mobileOpen: false,
+      pages: [],
     };
+    this.handleDrawerToggle = this.handleDrawerToggle.bind(this);
   }
 
-  componentDidMount() {
-    Object.keys(pages).map(listKey => Object.values(pages[listKey]).map(item => this.getComponent(item)));
+  async componentDidMount() {
+    const pages = await getData('private/config/pages');
+
+    return Object.values(pages).map(page => this.getComponent(page));
   }
 
   getComponent(component) {
-    return import(`./bookings/bookings.connector.js`).then(module => this.setState({ [component]: module.default }));
-  }
-
-  toggleAdminHome = () => this.setState({ landing: false });
-
-  renderAdminRoutes = () =>
-    Object.keys(pages).map(listKey =>
-      Object.values(pages[listKey]).map(item => (
-        <Route key={item} path={`/admin/${item}`} component={this.state[item]} />
-      )),
+    return import(`./${component}/${component}.connector.js`).then(module =>
+      this.setState({
+        [component]: module.default,
+        pages: [...this.state.pages, component],
+      }),
     );
+  }
+  handleDrawerToggle = () => {
+    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+  };
+
+  renderAdminRoutes = pages =>
+    pages.map(item => <Route key={item} path={`/admin/${item}`} component={this.state[item]} />);
 
   render() {
+    const { classes, pathname } = this.props;
+
     return (
       <Wrapper>
-        {/* {this.state.landing && <h3>HELLO ADMIN</h3>} */}
-        {this.renderAdminRoutes()}
+        <AppBar className={classes.appBar} color="primary" position="fixed">
+          <Toolbar>
+            <IconButton
+              className={classes.iconButton}
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerToggle}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" noWrap>
+              Mumbai Admin
+            </Typography>
+            <Typography className={classes.pageTitle} variant="h6" color="inherit" noWrap>
+              {pathname.replace('/admin/', '').toUpperCase()}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <DrawerComponent pages={this.state.pages} mobileOpen={this.state.mobileOpen} toggle={this.handleDrawerToggle}>
+          {this.renderAdminRoutes(this.state.pages)}
+        </DrawerComponent>
+        <Toaster />
       </Wrapper>
     );
   }
 }
 
 AdminRoutes.propTypes = {
-  // pages: PropTypes.shape({}).isRequired,
+  classes: PropTypes.shape({}).isRequired,
+  pathname: PropTypes.string.isRequired,
 };
 
-export default AdminRoutes;
+export default withStyles(styles)(AdminRoutes);

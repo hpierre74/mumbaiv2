@@ -1,0 +1,26 @@
+{
+  "-09J7h5ty0MsJkjg": {
+    "title": "Funkalicious",
+    "type": "Soirée Funk",
+    "date": "Le 5 Janvier 2018",
+    "src": "https://www.le-bal.fr/sites/default/files/styles/diaporama_full/public/thumbnails/image/c_martin_argyroglo-1.jpg?itok=0Lvca5Oe",
+    "timestamp": 123456679,
+    "current": true
+  },
+  "-0jgfp7THgsJkjm9g": {
+    "title": "Funkalicious",
+    "type": "Soirée Funk",
+    "date": "Le 5 Janvier 2018",
+    "src": "https://www.le-bal.fr/sites/default/files/styles/diaporama_full/public/thumbnails/image/c_martin_argyroglo-1.jpg?itok=0Lvca5Oe",
+    "timestamp": 123456678,
+    "current": false
+  },
+  "-0978HJjG7KngsJkjg": {
+    "title": "Funkalicious",
+    "type": "Soirée Funk",
+    "date": "Le 5 Janvier 2018",
+    "src": "https://www.le-bal.fr/sites/default/files/styles/diaporama_full/public/thumbnails/image/c_martin_argyroglo-1.jpg?itok=0Lvca5Oe",
+    "timestamp": 123456698,
+    "current": false
+  }
+}

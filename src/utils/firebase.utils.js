@@ -1,11 +1,12 @@
-import firebase from 'firebase/app';
-import 'firebase/database';
+import firebase from '@firebase/app';
+import '@firebase/database';
 
 export function getData(ref) {
   return firebase
     .database()
     .ref(ref)
-    .once('value');
+    .once('value')
+    .then(snapshot => snapshot.val());
 }
 
 export function setData(ref, data) {

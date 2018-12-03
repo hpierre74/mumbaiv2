@@ -1,7 +1,3 @@
-const functions = require('firebase-functions');
+// const functions = require('firebase-functions');
 
-const sanitizeBooking = booking => {
-  
-};
-module.exports = sanitizeBooking;
-functions.database.ref('booker/bookings').onWrite()
+// functions.database.ref('booker/bookings').onWrite();

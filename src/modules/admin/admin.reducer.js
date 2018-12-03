@@ -11,6 +11,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         config: action.config,
       };
+
     default:
       return state;
   }

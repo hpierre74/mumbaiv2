@@ -17,6 +17,8 @@ const Navbar = styled.nav`
   top: 0;
   left: 0;
 
+  z-index: 10000;
+
   align-items: center;
 
   background: transparent;
@@ -38,6 +40,9 @@ const Svg = styled.img`
 
 const Nav = styled.ul`
   padding: 0;
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const NavItem = styled.li`

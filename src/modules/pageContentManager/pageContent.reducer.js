@@ -4,6 +4,8 @@ const initialState = {
   getPageContentPending: false,
   getPageContentError: null,
   content: {},
+  path: null,
+  page: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -23,6 +25,8 @@ export default function reducer(state = initialState, action) {
         getPageContentPending: false,
         getPageContentError: null,
         content: { ...action.data },
+        path: action.path,
+        page: action.page,
       };
 
     case GET_PAGE_CONTENT_FAILURE:
