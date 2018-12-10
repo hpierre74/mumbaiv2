@@ -5,9 +5,9 @@ import Video from '../style/videos/intro.mp4';
 
 const StyledPlayer = styled.video`
   width: 100%;
-  height: 60vh;
+  height: 100%;
   @media (max-width: 700px) {
-    height: 50vh;
+    height: 40vh;
   }
 `;
 

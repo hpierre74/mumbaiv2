@@ -45,6 +45,14 @@ const muiTheme = createMuiTheme({
         boxShadow: `0px 1px 3px 0px rgba(255, 255, 255, 0.2), 0px 1px 1px 0px rgba(255, 255, 255, 0.14), 0px 2px 1px -1px rgba(255, 255, 255, 0.12)`,
       },
     },
+    MuiCardActionArea: {
+      focusHighlight: {
+        background: 'transparent',
+      },
+      focusVisible: {
+        background: 'transparent',
+      },
+    },
   },
 });
 

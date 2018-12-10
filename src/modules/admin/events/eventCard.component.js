@@ -33,10 +33,10 @@ function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button variant="outlined" size="small" color="primary">
           Edit
         </Button>
-        <Button size="small" color="secondary">
+        <Button variant="outlined" size="small" color="secondary">
           Delete
         </Button>
       </CardActions>

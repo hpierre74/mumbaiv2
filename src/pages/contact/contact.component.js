@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
-import { slideInDown, slideInLeft } from 'react-animations';
 import { Link } from 'react-router-dom';
-
+import styled from 'styled-components';
 import MapContainer from '../../components/LeafMap.component';
 import { PageWrapper as ContactWrapper } from '../../components/wrapper.components';
-import NavBar from '../../components/navbar.component';
 import Mail from '../../modules/mail/mail.connector';
 import { Title3 } from '../../components/title.components';
 import Text from '../../components/text.component';
-import Iconav from '../../components/iconav.component';
 import location from '../../style/images/location.svg';
 import mail from '../../style/images/contact.svg';
 import phone from '../../style/images/phone-call.svg';
@@ -18,9 +14,6 @@ import facebook from '../../style/images/facebook.svg';
 import foodora from '../../style/images/foodora.svg';
 import instagram from '../../style/images/instagram.svg';
 import SVG from '../../components/svg.component';
-
-const slideInDownAnim = keyframes`${slideInDown}`;
-const slideInLeftAnim = keyframes`${slideInLeft}`;
 
 const LocationWrapper = styled.div`
   display: flex;
@@ -31,11 +24,10 @@ const LocationWrapper = styled.div`
   justify-content: center;
 `;
 
-const Title = Title3.extend`
+const Title = styled(Title3)`
   width: ${window.innerWidth > 600 ? '70%' : '100%'};
   margin: 0 auto;
   padding: 5% 0;
-  animation: 1.5s ${slideInDownAnim};
   @media (max-width: 700px) {
   }
 `;
@@ -64,7 +56,6 @@ const ContactInfo = styled(Link)`
 
   justify-content: space-between;
   align-items: center;
-  animation: 1s ${slideInLeftAnim};
   @media (max-width: 700px) {
     flex-grow: 0.25;
 
@@ -82,7 +73,6 @@ const Contact = props => {
 
   return (
     <ContactWrapper>
-      <NavBar />
       <Title>Nous Contacter</Title>
       <LocationWrapper>
         <ContactInfoWrapper>
@@ -115,17 +105,24 @@ const Contact = props => {
       </LocationWrapper>
       <Title>Nous écrire</Title>
       <Mail />
-      <Iconav />
     </ContactWrapper>
   );
 };
 
 Contact.propTypes = {
-  email: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
-  tel: PropTypes.string.isRequired,
-  lat: PropTypes.number.isRequired,
-  lng: PropTypes.number.isRequired,
+  email: '',
+  address: '',
+  tel: '',
+  lat: '',
+  lng: ''
+};
+
+Contact.propTypes = {
+  email: PropTypes.string,
+  address: PropTypes.string,
+  tel: PropTypes.string,
+  lat: PropTypes.number,
+  lng: PropTypes.number
 };
 
 export default Contact;

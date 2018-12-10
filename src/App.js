@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
 import theme from './style/mui';
 import NavBar from './modules/navbar/navbar.connector';
 import Home from './pages/home/home.component';
@@ -10,12 +9,11 @@ import Contact from './pages/contact/contact.connector';
 import Booking from './pages/booking/booking.page';
 import Admin from './pages/admin/admin.component';
 import Toaster from './modules/toaster/toast.connector';
-import logo from './logo.svg';
 
 const App = () => (
   <Fragment>
     <MuiThemeProvider theme={theme}>
-      <NavBar mobileOpen={false} toggle={() => console.log('toggle maggle')}>
+      <NavBar>
         <Switch>
           <Route exact path="/" component={Home} />
           <Redirect from="/home" exact to="/" />

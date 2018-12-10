@@ -1,132 +1,226 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import omit from 'lodash/omit';
+import moment from 'moment';
 
-import { Title3 } from '../../components/title.components';
-import { PageWrapper as BookingPageWrapper } from '../../components/wrapper.components';
-import { Form, Input, Select, Textarea, Button } from '../../components/form.components';
-import _Booking from './booking.class';
-import { renderBookableHours } from '../../utils/booking.utils';
-/* eslint-disable no-console */
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import Divider from '@material-ui/core/Divider';
 
-class Booking extends Component {
+import { Row, Col } from '../../components/grid.components';
+import Confirm from '../../components/confirm.component';
+
+import { setData, getNewKey } from '../firebase/firebase.class';
+import DateInput from '../../components/datepicker.component';
+
+moment.locale('fr-fr');
+
+export default class EventForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.defaultState = {
       firstname: '',
       lastname: '',
+      persons: '',
       tel: '',
       email: '',
-      persons: '',
-      date: '',
-      time: '',
-      comment: '',
+      date: moment(),
+      hours: '',
+      timestamp: null,
+      modal: false
     };
+    this.state = {
+      ...this.defaultState
+    };
+    this.toggleModal = this.toggleModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  componentDidMount = () => {};
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
-  handleInputChange = e => {
+  handleDateChange = date =>
     this.setState({
-      [e.target.name]: e.target.value,
+      date,
+      timestamp: date
+        .add(this.state.hours, 'hours')
+        .add(this.state.minutes, 'minutes')
+        .valueOf()
     });
+
+  handleFileChange = e => {
+    this.setState({ [e.target.name]: e.target.files[0] });
+  };
+
+  toggleModal = () => {
+    this.setState({ modal: !this.state.modal });
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    const booking = new _Booking(this.state, this.props.config.maxBookings);
-    // booking.isBookingPossible().then(res => console.log(res));
-    booking
-      .add()
-      .then(() =>
-        this.setState({
-          firstname: '',
-          lastname: '',
-          tel: '',
-          email: '',
-          persons: 0,
-          date: '',
-          time: '',
-          comment: '',
-        }),
-      )
-      .catch(err => console.log(err));
+    this.toggleModal();
+    const { showToast } = this.props;
+    const state = omit(this.state, 'modal');
+    const bookingKey = getNewKey('booker/bookings');
+    const newBooking = {
+      ...state,
+      id: bookingKey,
+      date: this.state.date.format('L')
+    };
+
+    setData(`booker/bookings/${bookingKey}`, newBooking)
+      .then(() => {
+        this.setState({ ...this.defaultState });
+        showToast('success', 'Booking Enregistré !');
+      })
+      .catch(err =>
+        showToast('error', "Oups, votre réservation n'a pas fonctionné", err)
+      );
   };
 
   render() {
     return (
-      <BookingPageWrapper>
-        <Title3>Prendre une Réservation</Title3>
-        <Form onSubmit={this.handleSubmit}>
-          <Input
-            onChange={this.handleInputChange}
-            value={this.state.firstname}
-            name="firstname"
-            placeholder="your firstname"
-          />
-          <Input
-            onChange={this.handleInputChange}
-            value={this.state.lastname}
-            name="lastname"
-            placeholder="your lastname"
-          />
-          <Input
-            onChange={this.handleInputChange}
-            value={this.state.tel}
-            name="tel"
-            placeholder="Votre numéro de réléphone"
-          />
-          <Input
-            onChange={this.handleInputChange}
-            value={this.state.email}
-            name="email"
-            placeholder="Votre adresse email"
-          />
-          <Input
-            onChange={this.handleInputChange}
-            value={this.state.persons}
-            name="persons"
-            placeholder="Le nombre de personnes attendues"
-          />
-          <Input
-            type="date"
-            onChange={this.handleInputChange}
-            value={this.state.date}
-            name="date"
-            placeholder="Le jour de votre réservation"
-          />
-          <Select
-            type="time"
-            onChange={this.handleInputChange}
-            value={this.state.time}
-            name="time"
-            placeholder="L'heure"
+      <Card style={{ margin: '2.5%' }}>
+        <CardHeader title="Réserver une table" />
+        <CardContent>
+          <Row
+            style={{ display: 'flex', justifyContent: 'center' }}
+            container
+            spacing={24}
           >
-            <option />
-            {this.props.config !== null && renderBookableHours(this.props.config.services)}
-          </Select>
-          <Textarea
-            onChange={this.handleInputChange}
-            value={this.state.comment}
-            name="comment"
-            width="100%"
-            placeholder="Allergies, bébés ..."
-          />
-
-          <Button value="Envoyer" />
-        </Form>
-      </BookingPageWrapper>
+            <Col xs={12} md={6}>
+              <TextField
+                required
+                onChange={this.handleChange}
+                name="firstname"
+                value={this.state.firstname}
+                id="firstname"
+                label="Votre prénom"
+                fullWidth
+              />
+            </Col>
+            <Col xs={12} md={6}>
+              <TextField
+                required
+                onChange={this.handleChange}
+                name="lastname"
+                value={this.state.lastname}
+                id="lastname"
+                label="Votre nom"
+                fullWidth
+              />
+            </Col>
+            <Col xs={12} md={6}>
+              <TextField
+                InputLabelProps={{
+                  color: 'red',
+                  background: 'red'
+                }}
+                required
+                onChange={this.handleChange}
+                name="tel"
+                value={this.state.tel}
+                id="tel"
+                label="Téléphone"
+                fullWidth
+              />
+            </Col>
+            <Col xs={12} md={6}>
+              <TextField
+                required
+                onChange={this.handleChange}
+                name="email"
+                value={this.state.email}
+                id="email"
+                label="Email"
+                fullWidth
+              />{' '}
+            </Col>
+            <Col xs={12} md={6}>
+              <Select
+                value={this.state.hours}
+                onChange={this.handleChange}
+                input={<Input name="hours" id="hours" fullWidth />}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="12:00">12:00</MenuItem>
+                <MenuItem value="12:30">12:30</MenuItem>
+                <MenuItem value="13:00">13:00</MenuItem>
+                <MenuItem value="13:30">13:30</MenuItem>
+                <Divider />
+                <MenuItem value="19:00">19:00</MenuItem>
+                <MenuItem value="19:30">19:30</MenuItem>
+                <Divider />
+                <MenuItem value="21:00">21:00</MenuItem>
+                <MenuItem value="21:30">21:30</MenuItem>
+                <MenuItem value="22:00">22:00</MenuItem>
+              </Select>
+            </Col>
+            <Col xs={12} md={6}>
+              <Select
+                value={this.state.persons}
+                onChange={this.handleChange}
+                input={<Input name="persons" id="persons" fullWidth />}
+              >
+                <MenuItem value="" />
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+                <MenuItem value={4}>4</MenuItem>
+                <MenuItem value={5}>5</MenuItem>
+                <MenuItem value={6}>6</MenuItem>
+                <MenuItem value={7}>7</MenuItem>
+                <MenuItem value={8}>8</MenuItem>
+                <MenuItem value={9}>9</MenuItem>
+                <MenuItem value={10}>10</MenuItem>
+              </Select>
+            </Col>
+            <Col xs={12} md={6}>
+              <DateInput
+                date={this.state.date.toDate()}
+                handleChange={this.handleDateChange}
+              />
+            </Col>
+          </Row>
+        </CardContent>
+        <Row
+          style={{ display: 'flex', justifyContent: 'center' }}
+          container
+          spacing={24}
+        >
+          <Col xs={12} md={12}>
+            <Button
+              onClick={this.toggleModal}
+              variant="outlined"
+              color="primary"
+            >
+              Submit Event
+            </Button>
+          </Col>
+          <Col xs={12} md={12}>
+            <Confirm
+              title="Confirmez-vous cette réservation ?"
+              open={this.state.modal}
+              onCancel={this.toggleModal}
+              onSubmit={this.handleSubmit}
+            />
+          </Col>
+        </Row>
+      </Card>
     );
   }
 }
-Booking.defaultProps = {
-  config: null,
-};
-Booking.propTypes = {
-  config: PropTypes.shape({
-    services: PropTypes.shape({}),
-    maxBookings: PropTypes.number,
-  }),
-};
 
-export default Booking;
+EventForm.propTypes = {
+  showToast: PropTypes.func.isRequired
+};

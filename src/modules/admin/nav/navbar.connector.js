@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import NavBar from './drawer.component';
+import NavBar from './navbar.component';
 
 const mapStateToProps = ({ router: { location: { pathname } } }) => ({
   pathname,

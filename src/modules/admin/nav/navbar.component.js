@@ -1,127 +1,106 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, Route } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
-import { Title3 } from '../../../components/title.components';
-import logo from '../../../logo.svg';
-import withAnim from '../../../components/withAnim.hoc';
+import { withStyles } from '@material-ui/core/styles';
 
-const Navbar = styled.nav`
-  display: flex;
-  width: 200px;
-  height: 100vh;
+const drawerWidth = 240;
 
-  background: #25272b;
+const styles = theme => ({
+  root: {
+    display: 'flex',
+  },
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+  },
+  menuButton: {
+    marginRight: 20,
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+  },
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  content: {
+    flexGrow: 1,
+    marginTop: '10%',
+  },
+});
 
-  color: white;
-  text-align: center;
-  line-height: 15px;
-  flex-flow: column;
-  border-right: 1px solid white;
-`;
+const NavBar = props => {
+  const { classes, theme, pages, pathname } = props;
 
-const NavIcon = styled.img`
-  width: 50%;
-  margin: 1em auto;
-`;
-
-const NavDropdown = styled.div``;
-
-const NavList = styled.ul`
-  display: flex;
-  flex-flow: column;
-
-  margin: 0 15px;
-  padding: 0;
-`;
-
-const NavListHeader = styled(Title3)`
-  margin: 0;
-
-  &:hover {
-    color: cyan;
-
-    transform: translateX(5px) translateY(-2px);
-    transition: 0.5s all ease;
-
-    cursor: pointer;
-  }
-`;
-
-const NavItem = withAnim(styled.li`
-  margin: 10px;
-
-  text-align: center;
-  list-style-type: none;
-
-  ${({ active }) =>
-    active
-      ? `
-    color: orange;
-
-    transform: translateY(2px);
-    transition: 0.5s all ease;
-  `
-      : ''};
-  &:hover {
-    color: orange;
-
-    transform: translateY(2px);
-    transition: 0.5s all ease;
-  }
-`);
-
-class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: '',
-    };
-  }
-
-  setActiveNav = itemName => {
-    this.setState({ active: itemName });
-  };
-
-  renderAdminRoutes = pages =>
-    Object.keys(pages).map(listKey =>
-      Object.values(pages[listKey]).map(item => (
-        <Route path={`/admin/${item}`} component={async () => import(`../${item}/${item}.connector.js`)} />
-      )),
-    );
-
-  renderNavItems = () => {
-    const { pages } = this.props;
-
-    return Object.keys(pages).map(listKey => (
-      <NavList key={listKey}>
-        <NavListHeader>{listKey}</NavListHeader>
-        {Object.values(pages[listKey]).map(item => (
-          <NavItem active={this.state.active === item} animation="slideInDown" key={`${listKey}-${item}`}>
-            <Link onClick={() => this.setActiveNav(item)} to={`/admin/${item}`}>
-              {item}
-            </Link>
-          </NavItem>
+  const drawer = (
+    <div>
+      <List>
+        <ListItem selected={pathname === `/admin/`} component={Link} to="/admin/" button key="dashboard">
+          <ListItemText primary="DASHBOARD" />
+        </ListItem>
+        {pages.map(text => (
+          <ListItem component={Link} to={`/admin/${text}`} selected={pathname === `/admin/${text}`} button key={text}>
+            <ListItemText primary={text.toUpperCase()} />
+          </ListItem>
         ))}
-      </NavList>
-    ));
-  };
+      </List>
+    </div>
+  );
 
-  render() {
-    return (
-      <Navbar>
-        <Link to="/">
-          <NavIcon src={logo} alt="mumbai" />
-        </Link>
-        <NavDropdown>{this.renderNavItems()}</NavDropdown>
-      </Navbar>
-    );
-  }
-}
-
-NavBar.propTypes = {
-  pages: PropTypes.shape({}).isRequired,
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+      <nav className={classes.drawer}>
+        <Hidden smUp implementation="css">
+          <Drawer
+            variant="temporary"
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={props.mobileOpen}
+            onClose={props.toggle}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            ModalProps={{
+              keepMounted: true,
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown implementation="css">
+          <Drawer
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            variant="permanent"
+            open
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+      </nav>
+      <main className={classes.content}>{props.children}</main>
+    </div>
+  );
 };
 
-export default NavBar;
+NavBar.propTypes = {
+  classes: PropTypes.shape({}).isRequired,
+  theme: PropTypes.shape({}).isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]).isRequired,
+  mobileOpen: PropTypes.bool.isRequired,
+  toggle: PropTypes.func.isRequired,
+  pages: PropTypes.arrayOf(PropTypes.string).isRequired,
+  pathname: PropTypes.string.isRequired,
+};
+
+export default withStyles(styles, { withTheme: true })(NavBar);

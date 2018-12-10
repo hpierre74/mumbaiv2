@@ -13,5 +13,5 @@ export default {
   app,
   pageContent,
   admin,
-  toaster,
+  toaster
 };

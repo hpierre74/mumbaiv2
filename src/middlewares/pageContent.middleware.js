@@ -4,11 +4,13 @@ import { CHANGE_LANG } from '../modules/lang/lang.actions';
 import { UPDATE_CONTENT_SUCCESS } from '../modules/admin/editor/editor.action';
 
 export default store => next => action => {
-  const { router: { location }, lang: { currentLang }, pageContent: { page } } = store.getState();
-  const currentAction = { ...action };
+  const {
+    router: { location },
+    lang: { currentLang },
+    pageContent: { page }
+  } = store.getState();
 
-  next(currentAction);
-
+  next(action);
   switch (action.type) {
     case CHANGE_LANG:
       switch (location.pathname) {
@@ -29,7 +31,7 @@ export default store => next => action => {
       }
       break;
     case '@@router/LOCATION_CHANGE': {
-      switch (action.payload.pathname) {
+      switch (action.payload.location.pathname) {
         case '/': {
           store.dispatch(getPageContent('home', currentLang));
           break;

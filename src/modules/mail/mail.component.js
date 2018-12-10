@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Recaptcha from 'react-recaptcha';
+// import Recaptcha from 'react-recaptcha';
 
-import { Form, Input, Textarea, Button } from '../../components/form.components';
+import {
+  Form,
+  Input,
+  Textarea,
+  Button
+} from '../../components/form.components';
 
 class Mail extends Component {
   constructor(props) {
@@ -13,20 +18,18 @@ class Mail extends Component {
       lastname: '',
       email: '',
       object: '',
-      content: '',
+      content: ''
     };
   }
 
-  componentDidMount() {
-    console.log(this);
-  }
+  componentDidMount() {}
   recaptchaLoaded() {}
 
   verifiedRecaptcha() {}
 
   handleInputChange = e => {
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -38,7 +41,7 @@ class Mail extends Component {
       lastname: '',
       email: '',
       object: '',
-      content: '',
+      content: ''
     });
   };
 
@@ -71,14 +74,18 @@ class Mail extends Component {
           width="100%"
           placeholder="object"
         />
-        <Textarea onChange={this.handleInputChange} value={this.state.content} name="content" />
-        <Recaptcha
+        <Textarea
+          onChange={this.handleInputChange}
+          value={this.state.content}
+          name="content"
+        />
+        {/* <Recaptcha
           sitekey="6LcnsGAUAAAAAFPpq9NnMTVYgtdQU5q8zf4McL-W"
           render="explicit"
           onloadCallback={console.log('ok')}
           verifyCallback={console.log('verified')}
           theme="dark"
-        />
+        /> */}
         <Button value="Envoyer" />
       </Form>
     );
@@ -86,7 +93,7 @@ class Mail extends Component {
 }
 
 Mail.propTypes = {
-  sendMailToMumbai: PropTypes.func.isRequired,
+  sendMailToMumbai: PropTypes.func.isRequired
 };
 
 export default Mail;

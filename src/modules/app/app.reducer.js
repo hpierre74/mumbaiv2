@@ -1,8 +1,10 @@
 import { GET_CONFIG_SUCCESS, TOGGLE_NAVBAR } from '../app/app.action';
 
 const initialState = {
-  config: null,
-  mobileOpen: false,
+  config: {
+    pages: {}
+  },
+  mobileOpen: false
 };
 
 export default function reducer(state = initialState, action) {
@@ -10,7 +12,7 @@ export default function reducer(state = initialState, action) {
     case GET_CONFIG_SUCCESS:
       return {
         ...state,
-        config: action.data,
+        config: action.data
       };
 
     case TOGGLE_NAVBAR: {
