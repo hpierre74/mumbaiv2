@@ -7,7 +7,7 @@ export default store => next => action => {
   const {
     router: { location },
     lang: { currentLang },
-    pageContent: { page }
+    pageContent: { page },
   } = store.getState();
 
   next(action);

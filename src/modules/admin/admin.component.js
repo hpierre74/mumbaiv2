@@ -57,12 +57,13 @@ class AdminRoutes extends Component {
 
   getComponent(component) {
     return import(`./${component}/${component}.connector.js`).then(module =>
-      this.setState({
+      this.setState(state => ({
         [component]: module.default,
-        pages: [...this.state.pages, component],
-      }),
+        pages: [...state.pages, component],
+      })),
     );
   }
+
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };

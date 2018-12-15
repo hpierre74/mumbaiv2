@@ -6,16 +6,16 @@ import { toggleNavbar } from '../app/app.action';
 const mapStateToProps = ({
   app: {
     mobileOpen,
-    config: { pages }
-  }
+    config: { pages },
+  },
 }) => ({
   mobileOpen,
-  pages
+  pages,
 });
 
 export default connect(
   mapStateToProps,
   {
-    toggle: toggleNavbar
-  }
+    toggle: toggleNavbar,
+  },
 )(Navbar);

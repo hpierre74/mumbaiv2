@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import Recaptcha from 'react-recaptcha';
 
-import {
-  Form,
-  Input,
-  Textarea,
-  Button
-} from '../../components/form.components';
+import { Form, Input, Textarea, Button } from '../../components/form.components';
 
 class Mail extends Component {
   constructor(props) {
@@ -18,74 +12,47 @@ class Mail extends Component {
       lastname: '',
       email: '',
       object: '',
-      content: ''
+      content: '',
     };
   }
 
   componentDidMount() {}
-  recaptchaLoaded() {}
-
-  verifiedRecaptcha() {}
 
   handleInputChange = e => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   handleSubmit = e => {
+    const { sendMailToAdmin } = this.props;
     e.preventDefault();
-    this.props.sendMailToMumbai(this.state);
+    sendMailToAdmin(this.state);
     this.setState({
       firstname: '',
       lastname: '',
       email: '',
       object: '',
-      content: ''
+      content: '',
     });
   };
 
   render() {
+    const { firstname, lastname, email, object, content } = this.state;
+
     return (
       <Form onSubmit={this.handleSubmit}>
+        <Input onChange={this.handleInputChange} value={firstname} name="firstname" placeholder="your firstname" />
+        <Input onChange={this.handleInputChange} value={lastname} name="lastname" placeholder="your lastname" />
         <Input
           onChange={this.handleInputChange}
-          value={this.state.firstname}
-          name="firstname"
-          placeholder="your firstname"
-        />
-        <Input
-          onChange={this.handleInputChange}
-          value={this.state.lastname}
-          name="lastname"
-          placeholder="your lastname"
-        />
-        <Input
-          onChange={this.handleInputChange}
-          value={this.state.email}
+          value={email}
           name="email"
           width="100%"
           placeholder="your email adress"
         />
-        <Input
-          onChange={this.handleInputChange}
-          value={this.state.object}
-          name="object"
-          width="100%"
-          placeholder="object"
-        />
-        <Textarea
-          onChange={this.handleInputChange}
-          value={this.state.content}
-          name="content"
-        />
-        {/* <Recaptcha
-          sitekey="6LcnsGAUAAAAAFPpq9NnMTVYgtdQU5q8zf4McL-W"
-          render="explicit"
-          onloadCallback={console.log('ok')}
-          verifyCallback={console.log('verified')}
-          theme="dark"
-        /> */}
+        <Input onChange={this.handleInputChange} value={object} name="object" width="100%" placeholder="object" />
+        <Textarea onChange={this.handleInputChange} value={content} name="content" />
         <Button value="Envoyer" />
       </Form>
     );
@@ -93,7 +60,7 @@ class Mail extends Component {
 }
 
 Mail.propTypes = {
-  sendMailToMumbai: PropTypes.func.isRequired
+  sendMailToAdmin: PropTypes.func.isRequired,
 };
 
 export default Mail;

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import omit from 'lodash/omit';
 import PageTabs from '../../../components/tabList.component';
 import { getData } from '../../firebase/firebase.class';
 import EditForm from './editForm.connector';
@@ -15,9 +16,10 @@ class Editor extends PureComponent {
     const { content } = nextProps;
 
     return {
-      content,
+      content: omit(content, ['events']),
     };
   };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -36,9 +38,7 @@ class Editor extends PureComponent {
   };
 
   handleInputChange = () => e => {
-    const content = { ...this.state.content, [e.target.name]: e.target.value };
-
-    this.setState({ content });
+    this.setState(state => ({ content: { ...state.content, [e.target.name]: e.target.value } }));
   };
 
   renderPageContentEditors = content =>

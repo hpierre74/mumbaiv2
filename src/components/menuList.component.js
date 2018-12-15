@@ -14,6 +14,7 @@ class MenuList extends React.Component {
       menuItems: items,
     };
   }
+
   state = {
     anchorEl: null,
     menuItems: [],

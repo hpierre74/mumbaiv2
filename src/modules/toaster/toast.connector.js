@@ -8,4 +8,7 @@ const mapStateToProps = ({ toaster: { visible, content, variant } }) => ({
   content,
   variant,
 });
-export default connect(mapStateToProps, { hideToast })(Toast);
+export default connect(
+  mapStateToProps,
+  { hideToast },
+)(Toast);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Row, Col } from '../../../components/grid.components';
 import EventForm from './eventForm.connector';
@@ -15,7 +16,9 @@ export default class EventManager extends Component {
   }
 
   componentDidMount = async () => {
-    const result = await getData('public/events');
+    const { currentLang } = this.props;
+
+    const result = await getData(`public/content/${currentLang}/home/events`);
     const events = result;
 
     this.setState({ events });
@@ -39,4 +42,6 @@ export default class EventManager extends Component {
   }
 }
 
-EventManager.propTypes = {};
+EventManager.propTypes = {
+  currentLang: PropTypes.string.isRequired,
+};

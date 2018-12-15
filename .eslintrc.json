@@ -1,0 +1,16 @@
+{
+  "extends": "plugin:@m6web/eslint-plugin-react/default",
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "globals": {
+    "ga": false
+  },
+  "rules": {
+    "global-require": "off",
+    "import/no-dynamic-require": "off",
+    "react/destructuring-assignment": "off"
+  }
+}

@@ -8,4 +8,7 @@ const mapStateToProps = ({ toaster: { visible, content } }) => ({
   content,
 });
 
-export default connect(mapStateToProps, { showToast })(EventForm);
+export default connect(
+  mapStateToProps,
+  { showToast },
+)(EventForm);

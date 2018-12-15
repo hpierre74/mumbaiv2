@@ -7,6 +7,9 @@ const mapStateToProps = ({ lang: { currentLang } }) => ({
   currentLang,
 });
 
-export default connect(mapStateToProps, {
-  switchContent,
-})(Lang);
+export default connect(
+  mapStateToProps,
+  {
+    switchContent,
+  },
+)(Lang);

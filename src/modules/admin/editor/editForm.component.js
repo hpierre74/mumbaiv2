@@ -29,11 +29,13 @@ class EditForm extends Component {
   handleInputChange = e => {
     this.setState({ value: e.target.value });
   };
+
   handleSubmit = e => {
     e.preventDefault();
 
     this.props.updateContent(this.props.path, { [this.props.contentName]: this.state.value });
   };
+
   render() {
     return (
       <FluidPaper elevation={1}>

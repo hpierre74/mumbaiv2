@@ -2,7 +2,11 @@ import { connect } from 'react-redux';
 
 import Admin from './admin.component';
 
-const mapStateToProps = ({ router: { location: { pathname } } }) => ({
+const mapStateToProps = ({
+  router: {
+    location: { pathname },
+  },
+}) => ({
   pathname,
 });
 

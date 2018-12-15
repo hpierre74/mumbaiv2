@@ -109,12 +109,12 @@ const Contact = props => {
   );
 };
 
-Contact.propTypes = {
+Contact.defaultProps = {
   email: '',
   address: '',
   tel: '',
   lat: '',
-  lng: ''
+  lng: '',
 };
 
 Contact.propTypes = {
@@ -122,7 +122,7 @@ Contact.propTypes = {
   address: PropTypes.string,
   tel: PropTypes.string,
   lat: PropTypes.number,
-  lng: PropTypes.number
+  lng: PropTypes.number,
 };
 
 export default Contact;

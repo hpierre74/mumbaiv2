@@ -1,5 +1,6 @@
-import fetch from 'isomorphic-fetch';
-export const initializeApp = () =>
-  fetch('https://mumbai-redux.firebaseio.com/public/config.json').then(res =>
-    console.log(res.json())
-  );
+import { requestGet } from './http.utils';
+
+const initializeApp = () =>
+  requestGet('https://mumbai-redux.firebaseio.com/public/config.json').then(res => res.json());
+
+export default initializeApp;

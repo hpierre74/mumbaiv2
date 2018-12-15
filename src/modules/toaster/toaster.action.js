@@ -6,7 +6,9 @@ export const toggleToast = (variant, content, error) => ({ type: TOGGLE_TOAST, v
 
 export const showToast = (variant, content) => ({ type: SHOW_TOAST, variant, content });
 export const hideToast = () => (dispatch, getState) => {
-  const { toaster: { visible } } = getState();
+  const {
+    toaster: { visible },
+  } = getState();
   if (!visible) {
     return;
   }

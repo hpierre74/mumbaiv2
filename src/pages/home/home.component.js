@@ -1,4 +1,5 @@
 import React from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { PageWrapper as HomeWrapper } from '../../components/wrapper.components';
 import Presentation from '../../modules/presentation/presentation.connector';
@@ -8,7 +9,7 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      AsyncPlayer: () => <p>loading...</p>
+      AsyncPlayer: () => <CircularProgress />,
     };
   }
 
@@ -28,14 +29,9 @@ class Home extends React.Component {
     return (
       <HomeWrapper>
         <AsyncPlayer />
-        <Presentation duration="1.5" animation="slideInUp" />
-        <Events
-          title="Exposition Hubert Henry"
-          date="Le 4 janvier 2018"
-          type="Exposition"
-          src="https://firebasestorage.googleapis.com/v0/b/mumbai-redux.appspot.com/o/mcbg.jpg?alt=media&token=b96bf204-4bdd-4211-bdaa-bf0d10ab375e"
-        />
-        <Presentation duration="1.5" animation="slideInUp" />
+        <Presentation />
+        <Events />
+        <Presentation />
       </HomeWrapper>
     );
   }

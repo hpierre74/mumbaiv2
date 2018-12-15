@@ -4,13 +4,13 @@ import Events from './events.component';
 
 const mapStateToProps = ({
   pageContent: {
-    content: { events }
-  }
+    content: { events },
+  },
 }) => ({
-  events
+  events,
 });
 
 export default connect(
   mapStateToProps,
-  {}
+  {},
 )(Events);

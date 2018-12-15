@@ -19,38 +19,38 @@ const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
-    display: 'flex'
+    display: 'flex',
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
-      flexShrink: 0
-    }
+      flexShrink: 0,
+    },
   },
   appBar: {
     marginLeft: drawerWidth,
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   menuButton: {
     marginRight: 20,
     [theme.breakpoints.up('sm')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
   },
   content: {
     flexGrow: 1,
     marginTop: theme.mixins.toolbar.minHeight + 20,
     [theme.breakpoints.up('sm')]: {
-      marginTop: 0
-    }
-  }
+      marginTop: 0,
+    },
+  },
 });
 
 const NavBar = props => {
@@ -65,12 +65,7 @@ const NavBar = props => {
           </ListItemAvatar>
         </ListItem>
         {Object.values(pages).map(page => (
-          <ListItem
-            component={Link}
-            to={`/${page.target}`}
-            button
-            key={page.name}
-          >
+          <ListItem component={Link} to={`/${page.target}`} button key={page.name}>
             <ListItemText primary={page.name.toUpperCase()} />
           </ListItem>
         ))}
@@ -83,15 +78,10 @@ const NavBar = props => {
       <CssBaseline />
       <AppBar position="fixed" color="secondary" className={classes.appBar}>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="Open drawer"
-            onClick={props.toggle}
-            className={classes.menuButton}
-          >
+          <IconButton color="inherit" aria-label="Open drawer" onClick={props.toggle} className={classes.menuButton}>
             <Avatar alt="Mumbai Café" src={logo} />
           </IconButton>
-          <h2> Mumbai Café</h2>
+          <h2>Mumbai Café</h2>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer}>
@@ -102,10 +92,10 @@ const NavBar = props => {
             open={props.mobileOpen}
             onClose={props.toggle}
             classes={{
-              paper: classes.drawerPaper
+              paper: classes.drawerPaper,
             }}
             ModalProps={{
-              keepMounted: true
+              keepMounted: true,
             }}
           >
             {drawer}
@@ -114,7 +104,7 @@ const NavBar = props => {
         <Hidden xsDown implementation="css">
           <Drawer
             classes={{
-              paper: classes.drawerPaper
+              paper: classes.drawerPaper,
             }}
             variant="permanent"
             open
@@ -131,11 +121,10 @@ const NavBar = props => {
 NavBar.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   theme: PropTypes.shape({}).isRequired,
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array])
-    .isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]).isRequired,
   mobileOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
-  pages: PropTypes.shape({}).isRequired
+  pages: PropTypes.shape({}).isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(NavBar);

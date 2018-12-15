@@ -12,6 +12,7 @@ class PageTabs extends React.Component {
       menuItems: items,
     };
   }
+
   state = {
     value: 0,
     menuItems: [],
@@ -24,7 +25,8 @@ class PageTabs extends React.Component {
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.menuItems !== this.state.menuItems) {
       const homePage = Object.values(this.state.menuItems).filter(menuItem => menuItem.path === '/')[0];
-      this.getPageData(homePage.name.toLowerCase());
+
+      this.getPageData(homePage.target);
     }
   };
 
@@ -45,7 +47,7 @@ class PageTabs extends React.Component {
       <Tab
         name={menuItem.name}
         key={menuItem.name}
-        onClick={() => this.getPageData(menuItem.name.toLowerCase())}
+        onClick={() => this.getPageData(menuItem.target)}
         label={menuItem.name}
       />
     ));

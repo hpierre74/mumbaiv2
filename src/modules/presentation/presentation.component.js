@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { Row, Col } from '../../components/grid.components';
 
 const Wrapper = styled.div`
-  height: 40vh;
+  /* height: 40vh; */
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 
 const Presentation = props => {
   const {
-    presentation: { concept, food }
+    presentation: { concept, food },
   } = props;
 
   return (
@@ -36,15 +36,15 @@ const Presentation = props => {
 Presentation.defaultProps = {
   presentation: {
     concept: null,
-    food: null
-  }
+    food: null,
+  },
 };
 
 Presentation.propTypes = {
   presentation: PropTypes.shape({
     concept: PropTypes.string,
-    food: PropTypes.string
-  })
+    food: PropTypes.string,
+  }),
 };
 
 export default Presentation;

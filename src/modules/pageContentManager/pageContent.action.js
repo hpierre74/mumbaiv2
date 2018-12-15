@@ -12,12 +12,12 @@ export const getPageContent = (ref, lang) => async dispatch => {
       type: GET_PAGE_CONTENT_SUCCESS,
       data: pageContent,
       path: `public/content/${lang}/${ref}`,
-      page: ref
+      page: ref,
     });
   } catch (e) {
     dispatch({
       type: GET_PAGE_CONTENT_FAILURE,
-      data: { error: e }
+      data: { error: e },
     });
     throw new Error('Page content fetch failed');
   }

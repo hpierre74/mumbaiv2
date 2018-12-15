@@ -24,7 +24,7 @@ export default class EventForm extends Component {
       title: '',
       subtitle: '',
       type: '',
-      date: moment(),
+      date: moment().toDate(),
       image: '',
       imageName: '',
       modal: false,
@@ -37,36 +37,37 @@ export default class EventForm extends Component {
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+  handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
   handleDateChange = date => this.setState({ date });
 
-  handleFileChange = e => {
-    this.setState({ [e.target.name]: e.target.files[0] });
-  };
+  handleFileChange = e => this.setState({ [e.target.name]: e.target.files[0] });
 
   toggleModal = () => {
-    this.setState({ modal: !this.state.modal });
+    const { modal } = this.state;
+    this.setState({ modal: !modal });
   };
 
   handleSubmit = e => {
     e.preventDefault();
     this.toggleModal();
     const { showToast } = this.props;
+    const { imageName, image, date } = this.state;
 
-    setFile(`public/events/${this.state.imageName}`, this.state.image)
+    setFile(`public/events/${imageName}`, image)
       .then(async success => {
         await this.setState({
           imagePath: success.metadata.fullPath,
           imageUrl: await success.ref.getDownloadURL(),
         });
-        const stringFields = omit({ ...this.state, date: this.state.date.valueOf() }, ['image', 'modal', 'events']);
-        const eventKey = getNewKey('public/events');
-        setData(`public/events/${eventKey}`, stringFields)
+        const eventKey = getNewKey('public/content/fr/events');
+        const buildEvent = omit({ ...this.state, date: date.valueOf(), key: eventKey }, ['image', 'modal', 'events']);
+        const updates = {};
+        updates[`/fr/home/events/${eventKey}`] = buildEvent;
+        updates[`/en/home/events/${eventKey}`] = buildEvent;
+        setData(`public/content`, updates)
           .then(() => {
-            this.setState({ ...this.defaultState });
+            // this.setState({ ...this.defaultState });
             showToast('success', 'Event successfully uploaded !');
           })
           .catch(err => showToast('error', err.message));
@@ -75,6 +76,8 @@ export default class EventForm extends Component {
   };
 
   render() {
+    const { imageName, date, title, subtitle, type, modal } = this.state;
+
     return (
       <Card style={{ margin: '2.5%' }}>
         <CardHeader title="Add event" />
@@ -86,7 +89,7 @@ export default class EventForm extends Component {
                 required
                 onChange={this.handleChange}
                 name="title"
-                value={this.state.title}
+                value={title}
                 id="eventTitle"
                 label="Event Title"
                 fullWidth
@@ -98,7 +101,7 @@ export default class EventForm extends Component {
                 required
                 onChange={this.handleChange}
                 name="subtitle"
-                value={this.state.subtitle}
+                value={subtitle}
                 id="eventSubtitle"
                 label="Event Subtitle"
                 fullWidth
@@ -110,7 +113,7 @@ export default class EventForm extends Component {
                 required
                 onChange={this.handleChange}
                 name="type"
-                value={this.state.type}
+                value={type}
                 id="eventType"
                 label="Event Type"
                 fullWidth
@@ -122,7 +125,7 @@ export default class EventForm extends Component {
                 required
                 onChange={this.handleChange}
                 name="imageName"
-                value={this.state.imageName}
+                value={imageName}
                 id="imageName"
                 label="Image Name"
                 fullWidth
@@ -130,7 +133,7 @@ export default class EventForm extends Component {
             </Col>
 
             <Col xs={12} md={10}>
-              <DateInput date={this.state.date} handleChange={this.handleDateChange} />
+              <DateInput date={date} handleChange={this.handleDateChange} />
             </Col>
             <Col xs={12} md={10}>
               <input
@@ -155,7 +158,7 @@ export default class EventForm extends Component {
           <Col xs={12} md={12}>
             <Confirm
               title="Are you sure you want to save this event ?"
-              open={this.state.modal}
+              open={modal}
               onCancel={this.toggleModal}
               onSubmit={this.handleSubmit}
             />

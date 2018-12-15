@@ -9,4 +9,7 @@ const mapStateToProps = ({ app: { config }, toaster: { visible, content } }) => 
   toastContent: content,
 });
 
-export default connect(mapStateToProps, { showToast })(Booking);
+export default connect(
+  mapStateToProps,
+  { showToast },
+)(Booking);

@@ -26,7 +26,7 @@ export const Select = styled.select`
   border-bottom: 1px solid white;
   background: transparent;
 
-  color: ${({ value }) => (value !== '' ? 'white' : 'grey')};
+  color: ${({ value }) => (value ? 'white' : 'grey')};
 `;
 
 export const Input = styled.input`
@@ -40,7 +40,7 @@ export const Input = styled.input`
   border-bottom: 1px solid white;
   background: transparent;
 
-  color: ${({ value }) => (value !== '' ? 'white' : 'grey')};
+  color: ${({ value }) => (value ? 'white' : 'grey')};
 `;
 
 export const Option = styled.option`

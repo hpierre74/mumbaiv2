@@ -33,10 +33,10 @@ export default class EventForm extends Component {
       date: moment(),
       hours: '',
       timestamp: null,
-      modal: false
+      modal: false,
     };
     this.state = {
-      ...this.defaultState
+      ...this.defaultState,
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -48,20 +48,20 @@ export default class EventForm extends Component {
   };
 
   handleDateChange = date =>
-    this.setState({
+    this.setState(state => ({
       date,
       timestamp: date
-        .add(this.state.hours, 'hours')
-        .add(this.state.minutes, 'minutes')
-        .valueOf()
-    });
+        .add(state.hours, 'hours')
+        .add(state.minutes, 'minutes')
+        .valueOf(),
+    }));
 
   handleFileChange = e => {
     this.setState({ [e.target.name]: e.target.files[0] });
   };
 
   toggleModal = () => {
-    this.setState({ modal: !this.state.modal });
+    this.setState(state => ({ modal: !state.modal }));
   };
 
   handleSubmit = e => {
@@ -73,7 +73,7 @@ export default class EventForm extends Component {
     const newBooking = {
       ...state,
       id: bookingKey,
-      date: this.state.date.format('L')
+      date: this.state.date.format('L'),
     };
 
     setData(`booker/bookings/${bookingKey}`, newBooking)
@@ -81,9 +81,7 @@ export default class EventForm extends Component {
         this.setState({ ...this.defaultState });
         showToast('success', 'Booking Enregistré !');
       })
-      .catch(err =>
-        showToast('error', "Oups, votre réservation n'a pas fonctionné", err)
-      );
+      .catch(err => showToast('error', "Oups, votre réservation n'a pas fonctionné", err));
   };
 
   render() {
@@ -91,11 +89,7 @@ export default class EventForm extends Component {
       <Card style={{ margin: '2.5%' }}>
         <CardHeader title="Réserver une table" />
         <CardContent>
-          <Row
-            style={{ display: 'flex', justifyContent: 'center' }}
-            container
-            spacing={24}
-          >
+          <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
             <Col xs={12} md={6}>
               <TextField
                 required
@@ -122,7 +116,7 @@ export default class EventForm extends Component {
               <TextField
                 InputLabelProps={{
                   color: 'red',
-                  background: 'red'
+                  background: 'red',
                 }}
                 required
                 onChange={this.handleChange}
@@ -186,24 +180,13 @@ export default class EventForm extends Component {
               </Select>
             </Col>
             <Col xs={12} md={6}>
-              <DateInput
-                date={this.state.date.toDate()}
-                handleChange={this.handleDateChange}
-              />
+              <DateInput date={this.state.date.toDate()} handleChange={this.handleDateChange} />
             </Col>
           </Row>
         </CardContent>
-        <Row
-          style={{ display: 'flex', justifyContent: 'center' }}
-          container
-          spacing={24}
-        >
+        <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
           <Col xs={12} md={12}>
-            <Button
-              onClick={this.toggleModal}
-              variant="outlined"
-              color="primary"
-            >
+            <Button onClick={this.toggleModal} variant="outlined" color="primary">
               Submit Event
             </Button>
           </Col>
@@ -222,5 +205,5 @@ export default class EventForm extends Component {
 }
 
 EventForm.propTypes = {
-  showToast: PropTypes.func.isRequired
+  showToast: PropTypes.func.isRequired,
 };
