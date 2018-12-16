@@ -7,7 +7,7 @@ import EventCard from './eventCard.component';
 const EventList = props => {
   const renderEvents = events =>
     Object.values(events).map(event => (
-      <Col xs={12} md={6} key={event.imageUrl}>
+      <Col xs={12} md={6} key={event.key}>
         <EventCard title={event.title} src={event.imageUrl} />
       </Col>
     ));

@@ -1,4 +1,4 @@
-// import * as firebase from '../../firebase/firebase.class';
+// import * as firebase from '../../../utils/firebase.utils';
 // import { shallow } from 'enzyme/';
 // import * as Booking from '../booking.class';
 

@@ -3,6 +3,16 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import withStyles from '@material-ui/core/styles/withStyles';
+
+const styles = theme => ({
+  tabs: {
+    flexFlow: 'column',
+    [theme.breakpoints.up('sm')]: {
+      flexFlow: 'row wrap',
+    },
+  },
+});
 
 class PageTabs extends React.Component {
   static getDerivedStateFromProps(nextProps) {
@@ -16,10 +26,6 @@ class PageTabs extends React.Component {
   state = {
     value: 0,
     menuItems: [],
-  };
-
-  componentDidMount = () => {
-    this.setState({ menuItems: [] });
   };
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -53,6 +59,8 @@ class PageTabs extends React.Component {
     ));
 
   render() {
+    const { classes } = this.props;
+
     return (
       <div>
         <AppBar position="static" color="default">
@@ -61,6 +69,7 @@ class PageTabs extends React.Component {
             onChange={this.handleChange}
             indicatorColor="primary"
             textColor="primary"
+            classes={{ flexContainer: classes.tabs }}
             fullWidth
           >
             {this.renderPageTabs()}
@@ -73,8 +82,9 @@ class PageTabs extends React.Component {
 }
 
 PageTabs.propTypes = {
+  classes: PropTypes.shape({}).isRequired,
   action: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({}), PropTypes.func]).isRequired,
 };
 
-export default PageTabs;
+export default withStyles(styles)(PageTabs);

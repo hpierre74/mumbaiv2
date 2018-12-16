@@ -2,60 +2,49 @@ import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { PageWrapper as HomeWrapper } from '../../components/wrapper.components';
-import Presentation from '../../modules/presentation/presentation.connector';
-import Events from '../../modules/events/events.connector';
+// import Presentation from '../../modules/presentation/presentation.connector';
+// import Events from '../../modules/events/events.connector';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       AsyncPlayer: () => <CircularProgress />,
+      AsyncEvents: () => <CircularProgress />,
+      AsyncPres: () => <CircularProgress />,
     };
   }
 
   componentDidMount = async () => {
     try {
-      const module = await import('../../components/player.component');
-      const AsyncPlayer = module.default;
-      this.setState({ AsyncPlayer });
+      const modulePlayer = await import('../../components/player.component');
+      const moduleEvents = await import('../../modules/events/events.connector');
+      const modulePres = await import('../../modules/presentation/presentation.connector');
+      const AsyncPlayer = modulePlayer.default;
+      const AsyncPres = modulePres.default;
+      const AsyncEvents = moduleEvents.default;
+      this.setState({ AsyncPlayer, AsyncEvents, AsyncPres });
     } catch (e) {
-      this.setState({ AsyncPlayer: () => <p>Houston, we got a problem</p> });
+      this.setState({
+        AsyncPlayer: () => <p>Houston, we got a problem</p>,
+        AsyncEvents: () => <p>Houston, we got a problem</p>,
+        AsyncPres: () => <p>Houston, we got a problem</p>,
+      });
     }
   };
 
   render() {
-    const { AsyncPlayer } = this.state;
+    const { AsyncPlayer, AsyncEvents, AsyncPres } = this.state;
 
     return (
       <HomeWrapper>
         <AsyncPlayer />
-        <Presentation />
-        <Events />
-        <Presentation />
+        <AsyncPres />
+        <AsyncEvents />
+        <AsyncPres />
       </HomeWrapper>
     );
   }
 }
 
 export default Home;
-
-/* <CardList>
-<EventCard
-  title="Exposition Hubert Henry"
-  date="Le 4 janvier 2018"
-  type="Exposition"
-  src="https://firebasestorage.googleapis.com/v0/b/mumbai-redux.appspot.com/o/mcbg.jpg?alt=media&token=b96bf204-4bdd-4211-bdaa-bf0d10ab375e"
-/>
- <EventCard
-  title="Dj Lorem"
-  date="Le 18 janvier 2018"
-  type="Soirée House"
-  src="https://www.sbs.com.au/popasia/sites/sbs.com.au.popasia/files/styles/full/public/hyungwondj.jpg?itok=VQ5_if3T&mtime=1528780088"
-/>
-<EventCard
-  title="Exposition Crânes"
-  date="Le 12 janvier 2018"
-  type="Exposition"
-  src="https://www.le-bal.fr/sites/default/files/styles/diaporama_full/public/thumbnails/image/c_martin_argyroglo-1.jpg?itok=0Lvca5Oe"
-/>
-</CardList> */

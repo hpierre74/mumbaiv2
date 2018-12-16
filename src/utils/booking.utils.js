@@ -1,6 +1,6 @@
 import React from 'react';
 import isString from 'lodash/isString';
-import { setData, getNewKey, getData } from '../modules/firebase/firebase.class';
+import { setData, getNewKey, getData } from './firebase.utils';
 /* eslint-disable no-console */
 export const getPersonsPerService = (date, service) => {
   let persons = 0;

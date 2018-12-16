@@ -1,4 +1,4 @@
-import { getData } from '../firebase/firebase.class';
+import { getData } from '../../utils/firebase.utils';
 
 export const GET_PAGE_CONTENT_BEGIN = 'pageContent/GET_PAGE_CONTENT_BEGIN';
 export const GET_PAGE_CONTENT_SUCCESS = 'pageContent/GET_PAGE_CONTENT_SUCCESS';

@@ -42,6 +42,7 @@ class EditForm extends Component {
         <form>
           <h3>{this.props.contentName.toUpperCase()}</h3>
           <p>{this.props.currentContent}</p>
+
           <TextField
             id="standard-multiline-static"
             name={this.props.contentName}
@@ -54,7 +55,7 @@ class EditForm extends Component {
             fullWidth
           />
           <Button onClick={this.handleSubmit} variant="contained" color="primary">
-            Enregistrer les modifications
+            Submit Change
           </Button>
         </form>
       </FluidPaper>

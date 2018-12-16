@@ -1,4 +1,4 @@
-import { getData } from '../firebase/firebase.class';
+import { getData } from '../../utils/firebase.utils';
 
 export const CONFIG_INIT = 'app/CONFIG_INIT';
 export const GET_CONFIG_BEGIN = 'app/GET_CONFIG_BEGIN';

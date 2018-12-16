@@ -10,9 +10,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Toolbar from '@material-ui/core/Toolbar';
+import AppBar from '@material-ui/core/AppBar';
+import MenuIcon from '@material-ui/icons/Menu';
 import { withStyles } from '@material-ui/core/styles';
 
-import { IconButton, Toolbar, AppBar } from '@material-ui/core';
 import logo from '../../logo.svg';
 
 const drawerWidth = 240;
@@ -79,7 +82,7 @@ const NavBar = props => {
       <AppBar position="fixed" color="secondary" className={classes.appBar}>
         <Toolbar>
           <IconButton color="inherit" aria-label="Open drawer" onClick={props.toggle} className={classes.menuButton}>
-            <Avatar alt="Mumbai Café" src={logo} />
+            <MenuIcon />
           </IconButton>
           <h2>Mumbai Café</h2>
         </Toolbar>

@@ -11,13 +11,16 @@ import CardContent from '@material-ui/core/CardContent';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
-import Divider from '@material-ui/core/Divider';
+import InputLabel from '@material-ui/core/InputLabel';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
 
-import { Row, Col } from '../../components/grid.components';
-import Confirm from '../../components/confirm.component';
-
-import { setData, getNewKey } from '../firebase/firebase.class';
 import DateInput from '../../components/datepicker.component';
+import Confirm from '../../components/confirm.component';
+import { Row, Col } from '../../components/grid.components';
+import { setData, getNewKey } from '../../utils/firebase.utils';
+import { Title3 } from '../../components/title.components';
 
 moment.locale('fr-fr');
 
@@ -30,7 +33,7 @@ export default class EventForm extends Component {
       persons: '',
       tel: '',
       email: '',
-      date: moment(),
+      date: moment().toDate(),
       hours: '',
       timestamp: null,
       modal: false,
@@ -47,14 +50,19 @@ export default class EventForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleDateChange = date =>
-    this.setState(state => ({
+  dateWithTime = ({ date, hours }) =>
+    moment(date)
+      .set({
+        hours: parseInt(hours.substring(0, 2), 10),
+        minutes: parseInt(hours.substring(3, 5), 10),
+      })
+      .toDate();
+
+  handleDateChange = date => {
+    this.setState({
       date,
-      timestamp: date
-        .add(state.hours, 'hours')
-        .add(state.minutes, 'minutes')
-        .valueOf(),
-    }));
+    });
+  };
 
   handleFileChange = e => {
     this.setState({ [e.target.name]: e.target.files[0] });
@@ -73,7 +81,7 @@ export default class EventForm extends Component {
     const newBooking = {
       ...state,
       id: bookingKey,
-      date: this.state.date.format('L'),
+      date: this.dateWithTime({ ...this.state }),
     };
 
     setData(`booker/bookings/${bookingKey}`, newBooking)
@@ -84,10 +92,30 @@ export default class EventForm extends Component {
       .catch(err => showToast('error', "Oups, votre réservation n'a pas fonctionné", err));
   };
 
+  getBookableHours = services =>
+    Object.values(services)
+      .filter(service => service.bookableHours)
+      .map(service => Object.values(service.bookableHours))
+      .reduce((acc, curr) =>
+        [...acc, ...curr].sort((a, b) => parseInt(a.replace(':', ''), 10) - parseInt(b.replace(':', ''), 10)),
+      );
+
+  renderServiceChoice = services => {
+    if (services) {
+      return this.getBookableHours(services).map(service => (
+        <MenuItem key={service} value={`${service}`}>
+          {service}
+        </MenuItem>
+      ));
+    }
+
+    return null;
+  };
+
   render() {
     return (
       <Card style={{ margin: '2.5%' }}>
-        <CardHeader title="Réserver une table" />
+        <CardHeader component={Title3} title="Réserver une table" />
         <CardContent>
           <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
             <Col xs={12} md={6}>
@@ -139,6 +167,9 @@ export default class EventForm extends Component {
               />{' '}
             </Col>
             <Col xs={12} md={6}>
+              <InputLabel style={{ display: 'flex' }} htmlFor="hours">
+                Heure de la réservation
+              </InputLabel>
               <Select
                 value={this.state.hours}
                 onChange={this.handleChange}
@@ -147,20 +178,14 @@ export default class EventForm extends Component {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="12:00">12:00</MenuItem>
-                <MenuItem value="12:30">12:30</MenuItem>
-                <MenuItem value="13:00">13:00</MenuItem>
-                <MenuItem value="13:30">13:30</MenuItem>
-                <Divider />
-                <MenuItem value="19:00">19:00</MenuItem>
-                <MenuItem value="19:30">19:30</MenuItem>
-                <Divider />
-                <MenuItem value="21:00">21:00</MenuItem>
-                <MenuItem value="21:30">21:30</MenuItem>
-                <MenuItem value="22:00">22:00</MenuItem>
+
+                {this.renderServiceChoice(this.props.config.services)}
               </Select>
             </Col>
             <Col xs={12} md={6}>
+              <InputLabel style={{ display: 'flex' }} htmlFor="persons">
+                Nombre de personnes
+              </InputLabel>
               <Select
                 value={this.state.persons}
                 onChange={this.handleChange}
@@ -180,14 +205,14 @@ export default class EventForm extends Component {
               </Select>
             </Col>
             <Col xs={12} md={6}>
-              <DateInput date={this.state.date.toDate()} handleChange={this.handleDateChange} />
+              <DateInput date={this.state.date} handleChange={this.handleDateChange} />
             </Col>
           </Row>
         </CardContent>
         <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
           <Col xs={12} md={12}>
             <Button onClick={this.toggleModal} variant="outlined" color="primary">
-              Submit Event
+              Réserver
             </Button>
           </Col>
           <Col xs={12} md={12}>
@@ -196,7 +221,25 @@ export default class EventForm extends Component {
               open={this.state.modal}
               onCancel={this.toggleModal}
               onSubmit={this.handleSubmit}
-            />
+            >
+              <List>
+                <ListItemText>
+                  <Typography color="secondary">
+                    {`Vous êtes Mr. ${this.state.firstname} ${this.state.lastname}`}
+                  </Typography>
+                </ListItemText>
+                <ListItemText>
+                  <Typography color="secondary">{`Vous êtes joignable au ${this.state.tel}`}</Typography>
+                </ListItemText>
+                <ListItemText>
+                  <Typography gutterBottom color="secondary" component="p">
+                    {`Vous réservez pour ${this.state.persons}, le  ${moment(this.state.date).format(
+                      'DD-MM-YYYY HH:mm',
+                    )}`}
+                  </Typography>
+                </ListItemText>
+              </List>
+            </Confirm>
           </Col>
         </Row>
       </Card>
@@ -206,4 +249,8 @@ export default class EventForm extends Component {
 
 EventForm.propTypes = {
   showToast: PropTypes.func.isRequired,
+  config: PropTypes.shape({
+    pages: PropTypes.shape({}),
+    services: PropTypes.shape({}),
+  }).isRequired,
 };

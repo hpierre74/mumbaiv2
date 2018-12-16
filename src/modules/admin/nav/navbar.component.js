@@ -28,13 +28,16 @@ const styles = theme => ({
       display: 'none',
     },
   },
-  toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
   },
   content: {
     flexGrow: 1,
-    marginTop: '10%',
+    marginTop: '15%',
+    width: '-webkit-fill-available',
+    [theme.breakpoints.up('sm')]: {
+      marginTop: '7.5%',
+    },
   },
 });
 

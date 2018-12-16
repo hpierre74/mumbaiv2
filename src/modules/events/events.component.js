@@ -69,7 +69,7 @@ function SingleLineGridList(props) {
         Nos Events
       </Typography>
 
-      <GridList className={classes.gridList} cols={window.innerWidth > 600 ? 2.5 : 1.3}>
+      <GridList className={classes.gridList} cols={window.innerWidth > 600 ? 2.7 : 1.3}>
         {renderEventTiles()}
       </GridList>
     </div>

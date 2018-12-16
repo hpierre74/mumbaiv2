@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import PowerOff from '@material-ui/icons/SettingsPowerRounded';
 import { withStyles } from '@material-ui/core/styles';
-
-import { getData } from '../firebase/firebase.class';
 
 import Toaster from '../toaster/toast.connector';
 import DrawerComponent from './nav/navbar.connector';
+import Login from '../auth/login.connector';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -45,15 +45,30 @@ class AdminRoutes extends Component {
     this.state = {
       mobileOpen: false,
       pages: [],
+      rendered: false,
     };
     this.handleDrawerToggle = this.handleDrawerToggle.bind(this);
   }
 
-  async componentDidMount() {
-    const pages = await getData('private/config/pages');
+  shouldComponentUpdate = async (nextProps, nextState) => {
+    if (!this.props.isAdmin && nextProps.isAdmin) {
+      this.props.configInitAdmin();
+    }
+    if (this.state.rendered || nextState.rendered) {
+      return false;
+    }
 
-    return Object.values(pages).map(page => this.getComponent(page));
-  }
+    const { config } = nextProps;
+    if (config) {
+      await Promise.all([Object.values(config.pages).map(page => this.getComponent(page))]).then(() =>
+        this.setState({ rendered: true }),
+      );
+
+      return true;
+    }
+
+    return false;
+  };
 
   getComponent(component) {
     return import(`./${component}/${component}.connector.js`).then(module =>
@@ -68,35 +83,53 @@ class AdminRoutes extends Component {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
-  renderAdminRoutes = pages =>
-    pages.map(item => <Route key={item} path={`/admin/${item}`} component={this.state[item]} />);
+  renderAdminRoutes = pages => {
+    if (!pages) {
+      return null;
+    }
+
+    return pages.map(item => <Route key={item} path={`/admin/${item}`} component={this.state[item]} />);
+  };
 
   render() {
-    const { classes, pathname } = this.props;
+    const { classes, pathname, isAdmin } = this.props;
 
     return (
       <Wrapper>
-        <AppBar className={classes.appBar} color="primary" position="fixed">
-          <Toolbar>
-            <IconButton
-              className={classes.iconButton}
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerToggle}
+        {isAdmin && (
+          <div>
+            <AppBar className={classes.appBar} color="primary" position="fixed">
+              <Toolbar>
+                <IconButton
+                  className={classes.iconButton}
+                  color="inherit"
+                  aria-label="Open drawer"
+                  onClick={this.handleDrawerToggle}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" color="inherit" noWrap>
+                  Mumbai Admin
+                </Typography>
+                <Typography className={classes.pageTitle} variant="h6" color="inherit" noWrap>
+                  {pathname.replace('/admin/', '').toUpperCase()}
+                </Typography>
+                <IconButton component={Link} to="/" color="secondary" aria-label="Logout" onClick={this.props.logout}>
+                  <PowerOff />
+                </IconButton>
+              </Toolbar>
+            </AppBar>
+            <DrawerComponent
+              pages={this.state.pages}
+              mobileOpen={this.state.mobileOpen}
+              toggle={this.handleDrawerToggle}
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              Mumbai Admin
-            </Typography>
-            <Typography className={classes.pageTitle} variant="h6" color="inherit" noWrap>
-              {pathname.replace('/admin/', '').toUpperCase()}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <DrawerComponent pages={this.state.pages} mobileOpen={this.state.mobileOpen} toggle={this.handleDrawerToggle}>
-          {this.renderAdminRoutes(this.state.pages)}
-        </DrawerComponent>
+              {this.renderAdminRoutes(this.state.pages)}
+            </DrawerComponent>
+          </div>
+        )}
+        {!isAdmin && <Login />}
+
         <Toaster />
       </Wrapper>
     );
@@ -106,6 +139,9 @@ class AdminRoutes extends Component {
 AdminRoutes.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   pathname: PropTypes.string.isRequired,
+  configInitAdmin: PropTypes.func.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(AdminRoutes);

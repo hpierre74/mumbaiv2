@@ -30,15 +30,10 @@ a {
   text-decoration: none;
 }
 
-/* @font-face {
-  font-family: Signika;
-  font-style: normal;
-  font-weight: 500;
-  src: url('./fonts/signika-v7-latin-regular.woff');
-} */
 @font-face {
   font-family: Blacksword;
   font-style: normal;
   font-weight: 500;
+  font-display: auto;
   src: url('./fonts/Blacksword.woff');
 }

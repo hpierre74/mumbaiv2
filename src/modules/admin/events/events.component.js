@@ -5,7 +5,7 @@ import { Row, Col } from '../../../components/grid.components';
 import EventForm from './eventForm.connector';
 import EventList from './eventList.component';
 
-import { getData } from '../../firebase/firebase.class';
+import { getData } from '../../../utils/firebase.utils';
 
 export default class EventManager extends Component {
   constructor(props) {

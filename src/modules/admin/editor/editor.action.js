@@ -1,4 +1,4 @@
-import { setData } from '../../firebase/firebase.class';
+import { setData } from '../../../utils/firebase.utils';
 
 export const TOGGLE_CONTENT_MODAL = 'editor/TOGGLE_CONTENT_MODAL';
 export const toggleContentModal = () => ({ type: TOGGLE_CONTENT_MODAL });

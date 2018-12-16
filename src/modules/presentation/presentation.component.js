@@ -5,12 +5,12 @@ import Typography from '@material-ui/core/Typography';
 import { Row, Col } from '../../components/grid.components';
 
 const Wrapper = styled.div`
-  /* height: 40vh; */
   margin: 0 auto;
   display: flex;
   align-items: center;
+  padding: 10%;
   @media (max-width: 650px) {
-    height: 50vh;
+    padding: 12.5%;
   }
 `;
 
@@ -23,10 +23,10 @@ const Presentation = props => {
     <Wrapper>
       <Row style={{ display: 'flex', justifyContent: 'center' }}>
         <Col sm={10} xs={10} md={10}>
-          <Typography gutterBottom variant="h5" component="h3">
+          <Typography gutterBottom variant="h5" component="h3" align="justify">
             {concept}
           </Typography>
-          <Typography>{food}</Typography>
+          <Typography align="justify">{food}</Typography>
         </Col>
       </Row>
     </Wrapper>

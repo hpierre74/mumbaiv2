@@ -1,27 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
-export default class MapContainer extends React.Component {
-  render() {
-    const position = [45.7680692, 4.8329078];
-    const map = (
-      <Map style={{ width: '100%', height: '400px' }} center={position} zoom={16}>
-        <TileLayer
-          url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-          attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-        />
-        <Marker position={position}>
-          <Popup>
-            <span>
-              A pretty CSS3 popup.
-              <br />
-              Easily customizable.
-            </span>
-          </Popup>
-        </Marker>
-      </Map>
-    );
-
-    return map;
+const MapContainer = props => {
+  const { geo, address } = props;
+  const position = geo;
+  if (!geo[0]) {
+    return null;
   }
-}
+
+  return (
+    <Map style={{ width: '100%', height: '400px' }} center={position} zoom={16}>
+      <TileLayer
+        url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+        attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+      />
+      <Marker position={position}>
+        <Popup>
+          <p>{address}</p>
+        </Popup>
+      </Marker>
+    </Map>
+  );
+};
+
+MapContainer.propTypes = {
+  geo: PropTypes.arrayOf(PropTypes.number).isRequired,
+  address: PropTypes.string.isRequired,
+};
+
+export default MapContainer;

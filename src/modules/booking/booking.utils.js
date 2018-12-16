@@ -1,4 +1,4 @@
-import { setData, getData, getNewKey } from '../firebase/firebase.class';
+import { setData, getData, getNewKey } from '../../utils/firebase.utils';
 
 export const getBooking = id => getData(`booker/bookings/${id}`);
 

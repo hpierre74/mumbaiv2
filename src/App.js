@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './style/mui';
@@ -10,6 +10,8 @@ import Contact from './pages/contact/contact.connector';
 import Booking from './pages/booking/booking.page';
 import Toaster from './modules/toaster/toast.connector';
 import Admin from './pages/admin/admin.component';
+import Food from './pages/food/food.component';
+import Cocktails from './pages/cocktails/cocktails.component';
 
 const App = () => (
   <Fragment>
@@ -17,14 +19,18 @@ const App = () => (
       <NavBar>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/home" component={Home} />
+          <Redirect from="/home" to="/" />
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/book" component={Booking} />
+          <Route exact path="/food" component={Food} />
+          <Route exact path="/cocktails" component={Cocktails} />
         </Switch>
         <Toaster />
       </NavBar>
     </MuiThemeProvider>
-    <Route path="/admin" component={Admin} />
+    <Switch>
+      <Route path="/admin" component={Admin} />
+    </Switch>
   </Fragment>
 );
 

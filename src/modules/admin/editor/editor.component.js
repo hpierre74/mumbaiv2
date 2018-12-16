@@ -3,20 +3,22 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import PageTabs from '../../../components/tabList.component';
-import { getData } from '../../firebase/firebase.class';
+// import { getData } from '../../../utils/firebase.utils';
 import EditForm from './editForm.connector';
+import { Row, Col } from '../../../components/grid.components';
 
 const EditorWrapper = styled.div`
-  width: 80%;
-  margin: 0 auto;
+  width: 95%;
+  margin: 0% auto;
 `;
 
 class Editor extends PureComponent {
   static getDerivedStateFromProps = nextProps => {
-    const { content } = nextProps;
+    const { content, config } = nextProps;
 
     return {
       content: omit(content, ['events']),
+      pages: config.pages,
     };
   };
 
@@ -28,10 +30,10 @@ class Editor extends PureComponent {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  componentDidMount = async () => {
-    const pages = await getData('public/config/pages');
-    this.setPages(pages);
-  };
+  // componentDidMount = async () => {
+  //   const pages = await getData('public/config/pages');
+  //   this.setPages(pages);
+  // };
 
   setPages = pages => {
     this.setState({ pages });
@@ -46,41 +48,48 @@ class Editor extends PureComponent {
       switch (typeof content[contentKey]) {
         case 'string': {
           return (
-            <EditForm
-              key={contentKey}
-              path={`${this.props.path}/`}
-              handleInputChange={e => this.handleInputChange(e)}
-              currentContent={content[contentKey]}
-              contentName={contentKey}
-              value={this.state.content[contentKey]}
-            />
+            <Col key={contentKey} sm={12} xs={12} md={6}>
+              <EditForm
+                key={contentKey}
+                path={`${this.props.path}/`}
+                handleInputChange={this.handleInputChange}
+                currentContent={content[contentKey]}
+                contentName={contentKey}
+                value={this.state.content[contentKey]}
+              />
+            </Col>
           );
         }
         case 'number': {
           return (
-            <EditForm
-              key={contentKey}
-              path={`${this.props.path}/`}
-              handleInputChange={this.handleInputChange}
-              currentContent={content[contentKey]}
-              contentName={contentKey}
-              value={this.state.content[contentKey]}
-            />
+            <Col key={contentKey} sm={12} xs={12} md={6}>
+              <EditForm
+                key={contentKey}
+                path={`${this.props.path}/`}
+                handleInputChange={this.handleInputChange}
+                currentContent={content[contentKey]}
+                contentName={contentKey}
+                value={this.state.content[contentKey]}
+              />
+            </Col>
           );
         }
         case 'object': {
           return Object.keys(content[contentKey]).map(subContentKey => (
-            <EditForm
-              key={subContentKey}
-              path={`${this.props.path}/${contentKey}/`}
-              currentContent={content[contentKey][subContentKey]}
-              contentName={subContentKey}
-              value={this.state.content[contentKey][subContentKey]}
-            />
+            <Col key={subContentKey} sm={12} xs={12} md={6}>
+              <EditForm
+                key={subContentKey}
+                path={`${this.props.path}/${contentKey}/`}
+                handleInputChange={this.handleInputChange}
+                currentContent={content[contentKey][subContentKey]}
+                contentName={subContentKey}
+                value={this.state.content[contentKey][subContentKey]}
+              />
+            </Col>
           ));
         }
         default:
-          return false;
+          return null;
       }
     });
 
@@ -88,7 +97,7 @@ class Editor extends PureComponent {
     return (
       <EditorWrapper>
         <PageTabs items={this.state.pages} action={this.props.getPageContent}>
-          <div>{this.renderPageContentEditors(this.state.content)}</div>
+          <Row>{this.renderPageContentEditors(this.state.content)}</Row>
         </PageTabs>
       </EditorWrapper>
     );

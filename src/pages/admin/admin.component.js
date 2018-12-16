@@ -7,7 +7,7 @@ import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
 
 import { PageWrapper } from '../../components/wrapper.components';
-import Ad from '../../modules/admin/admin.connector';
+import Admin from '../../modules/admin/admin.connector';
 
 const muiTheme = createMuiTheme({
   typography: {
@@ -35,7 +35,7 @@ const AdminWrapper = styled(PageWrapper)`
 const AdminPage = () => (
   <MuiThemeProvider theme={muiTheme}>
     <AdminWrapper>
-      <Ad />
+      <Admin />
     </AdminWrapper>
   </MuiThemeProvider>
 );

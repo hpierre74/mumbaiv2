@@ -4,10 +4,10 @@ import Contact from './contact.component';
 
 const mapStateToProps = ({
   pageContent: {
-    content: { adress, email, lat, lng, social, tel },
+    content: { address, email, lat, lng, social, tel },
   },
 }) => ({
-  adress,
+  address,
   email,
   tel,
   lat,

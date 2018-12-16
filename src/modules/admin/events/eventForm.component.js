@@ -12,7 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import { Row, Col } from '../../../components/grid.components';
 import Confirm from '../../../components/confirm.component';
 
-import { setFile, setData, getNewKey } from '../../firebase/firebase.class';
+import { setFile, setData, getNewKey } from '../../../utils/firebase.utils';
 import DateInput from '../../../components/datepicker.component';
 
 moment.locale('fr');
@@ -67,7 +67,7 @@ export default class EventForm extends Component {
         updates[`/en/home/events/${eventKey}`] = buildEvent;
         setData(`public/content`, updates)
           .then(() => {
-            // this.setState({ ...this.defaultState });
+            this.setState({ ...this.defaultState });
             showToast('success', 'Event successfully uploaded !');
           })
           .catch(err => showToast('error', err.message));

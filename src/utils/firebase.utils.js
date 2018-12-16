@@ -1,6 +1,7 @@
 import firebase from '@firebase/app';
 import '@firebase/database';
 import '@firebase/storage';
+import '@firebase/auth';
 
 const config = {
   apiKey: `${process.env.REACT_APP_FIREBASE_APIKEY}`,
@@ -13,8 +14,14 @@ const config = {
 
 firebase.initializeApp(config);
 
-const database = firebase.database();
+export const database = firebase.database();
 export const storage = firebase.storage();
+export const auth = firebase.auth();
+export const signOut = () => auth.signOut();
+export const signIn = ({ email, password }) =>
+  auth
+    .setPersistence(firebase.auth.Auth.Persistence.NONE)
+    .then(() => firebase.auth().signInWithEmailAndPassword(email, password));
 
 export const getFile = ref => storage.ref(ref).getDowloadUrl();
 
