@@ -6,8 +6,8 @@ import indigo from '@material-ui/core/colors/indigo';
 import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
 
+import { CircularProgress } from '@material-ui/core';
 import { PageWrapper } from '../../components/wrapper.components';
-import Admin from '../../modules/admin/admin.connector';
 
 const muiTheme = createMuiTheme({
   typography: {
@@ -32,12 +32,35 @@ const AdminWrapper = styled(PageWrapper)`
   color: black;
 `;
 
-const AdminPage = () => (
-  <MuiThemeProvider theme={muiTheme}>
-    <AdminWrapper>
-      <Admin />
-    </AdminWrapper>
-  </MuiThemeProvider>
-);
+class AdminPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      AsyncAdmin: () => <CircularProgress />,
+    };
+  }
+
+  componentDidMount = async () => {
+    try {
+      const module = await import('../../modules/admin/admin.connector');
+      const AsyncAdmin = module.default;
+      this.setState({ AsyncAdmin });
+    } catch (e) {
+      this.setState({ AsyncAdmin: () => <p>Houston we ve got a problem</p> });
+    }
+  };
+
+  render() {
+    const { AsyncAdmin } = this.state;
+
+    return (
+      <MuiThemeProvider theme={muiTheme}>
+        <AdminWrapper>
+          <AsyncAdmin />
+        </AdminWrapper>
+      </MuiThemeProvider>
+    );
+  }
+}
 
 export default AdminPage;
