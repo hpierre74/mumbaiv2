@@ -50,27 +50,22 @@ class AdminRoutes extends Component {
     this.handleDrawerToggle = this.handleDrawerToggle.bind(this);
   }
 
-  shouldComponentUpdate = async (nextProps, nextState) => {
+  shouldComponentUpdate = async nextProps => {
     if (!this.props.isAdmin && nextProps.isAdmin) {
       this.props.configInitAdmin();
-    }
-    if (this.state.rendered || nextState.rendered) {
+
       return false;
     }
 
     const { config } = nextProps;
-    if (config) {
-      await Promise.all([Object.values(config.pages).map(page => this.getComponent(page))]).then(() =>
-        this.setState({ rendered: true }),
-      );
-
-      return true;
+    if (!this.props.config && config) {
+      await Promise.all([Object.values(config.pages).map(page => this.getComponent(page))]);
     }
 
     return false;
   };
 
-  getComponent(component) {
+  async getComponent(component) {
     return import(`./${component}/${component}.connector.js`).then(module =>
       this.setState(state => ({
         [component]: module.default,
@@ -88,7 +83,7 @@ class AdminRoutes extends Component {
       return null;
     }
 
-    return pages.map(item => <Route key={item} path={`/admin/${item}`} component={this.state[item]} />);
+    return pages.map(item => <Route key={item} exact path={`/admin/${item}`} component={this.state[item]} />);
   };
 
   render() {
@@ -129,12 +124,15 @@ class AdminRoutes extends Component {
           </div>
         )}
         {!isAdmin && <Login />}
-
         <Toaster />
       </Wrapper>
     );
   }
 }
+
+AdminRoutes.defaultProps = {
+  config: null,
+};
 
 AdminRoutes.propTypes = {
   classes: PropTypes.shape({}).isRequired,
@@ -142,6 +140,7 @@ AdminRoutes.propTypes = {
   configInitAdmin: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
+  config: PropTypes.shape({}),
 };
 
 export default withStyles(styles)(AdminRoutes);

@@ -1,12 +1,11 @@
 import React from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { PageWrapper as ContactWrapper } from '../../components/wrapper.components';
 
 class Contact extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      AsyncContact: () => <CircularProgress />,
+      AsyncContact: () => <div />,
     };
   }
 

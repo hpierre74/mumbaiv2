@@ -50,9 +50,9 @@ const NavBar = props => {
         <ListItem selected={pathname === `/admin/`} component={Link} to="/admin/" button key="dashboard">
           <ListItemText primary="DASHBOARD" />
         </ListItem>
-        {pages.map(text => (
-          <ListItem component={Link} to={`/admin/${text}`} selected={pathname === `/admin/${text}`} button key={text}>
-            <ListItemText primary={text.toUpperCase()} />
+        {pages.map(page => (
+          <ListItem component={Link} to={`/admin/${page}`} selected={pathname === `/admin/${page}`} button key={page}>
+            <ListItemText primary={page.toUpperCase()} />
           </ListItem>
         ))}
       </List>

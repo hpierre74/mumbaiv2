@@ -31,6 +31,10 @@ export const setFile = (ref, file) =>
     .child(ref)
     .put(file);
 
+export const deleteFile = ref => {
+  storage.ref(ref).delete();
+};
+
 export const storageRef = ref => storage.ref(ref);
 
 export async function getData(ref) {

@@ -143,7 +143,7 @@ export default class EventForm extends Component {
                 label="Event Image"
                 type="file"
                 name="image"
-                accept="image/png, image/jpg, image/jpeg"
+                accept="image/png, image/jpg, image/jpeg, image/webp"
                 onChange={this.handleFileChange}
               />
             </Col>

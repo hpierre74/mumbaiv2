@@ -10,7 +10,4 @@ const mapStateToProps = ({
   pathname,
 });
 
-export default connect(
-  mapStateToProps,
-  {},
-)(NavBar);
+export default connect(mapStateToProps)(NavBar);

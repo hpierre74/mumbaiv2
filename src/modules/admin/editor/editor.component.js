@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import PageTabs from '../../../components/tabList.component';
-// import { getData } from '../../../utils/firebase.utils';
 import EditForm from './editForm.connector';
 import { Row, Col } from '../../../components/grid.components';
 
@@ -29,11 +28,6 @@ class Editor extends PureComponent {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
-
-  // componentDidMount = async () => {
-  //   const pages = await getData('public/config/pages');
-  //   this.setPages(pages);
-  // };
 
   setPages = pages => {
     this.setState({ pages });
