@@ -1,15 +1,11 @@
 import { connect } from 'react-redux';
 
 import EventManager from './events.component';
-import { showToast } from '../../toaster/toaster.action';
+import { getEvents } from './events.action';
 
-const mapStateToProps = ({ toaster: { visible, content }, lang: { currentLang } }) => ({
-  visible,
-  content,
-  currentLang,
-});
+const mapStateToProps = ({ events: { events } }) => ({ events });
 
 export default connect(
   mapStateToProps,
-  { showToast },
+  { getEvents },
 )(EventManager);

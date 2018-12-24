@@ -11,8 +11,6 @@ import CardContent from '@material-ui/core/CardContent';
 
 import { Row, Col } from '../../../components/grid.components';
 import Confirm from '../../../components/confirm.component';
-
-import { setFile, setData, getNewKey } from '../../../utils/firebase.utils';
 import DateInput from '../../../components/datepicker.component';
 
 moment.locale('fr');
@@ -51,28 +49,8 @@ export default class EventForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.toggleModal();
-    const { showToast } = this.props;
-    const { imageName, image, date } = this.state;
-
-    setFile(`public/events/${imageName}`, image)
-      .then(async success => {
-        await this.setState({
-          imagePath: success.metadata.fullPath,
-          imageUrl: await success.ref.getDownloadURL(),
-        });
-        const eventKey = getNewKey('public/content/fr/events');
-        const buildEvent = omit({ ...this.state, date: date.valueOf(), key: eventKey }, ['image', 'modal', 'events']);
-        const updates = {};
-        updates[`/fr/home/events/${eventKey}`] = buildEvent;
-        updates[`/en/home/events/${eventKey}`] = buildEvent;
-        setData(`public/content`, updates)
-          .then(() => {
-            this.setState({ ...this.defaultState });
-            showToast('success', 'Event successfully uploaded !');
-          })
-          .catch(err => showToast('error', err.message));
-      })
-      .catch(err => showToast('error', err.message));
+    const { setEvent } = this.props;
+    setEvent(omit(this.state, ['modal', 'events']));
   };
 
   render() {
@@ -170,5 +148,5 @@ export default class EventForm extends Component {
 }
 
 EventForm.propTypes = {
-  showToast: PropTypes.func.isRequired,
+  setEvent: PropTypes.func.isRequired,
 };

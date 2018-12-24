@@ -21,8 +21,11 @@ const history = createHistory();
 const routerMiddleware = createRouterMiddleware(history);
 
 /* eslint-disable no-underscore-dangle */
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      predicate: () => process.env.NODE_ENV === 'development',
+    })
+  : compose;
 const store = createStore(
   combineReducers({
     router: connectRouter(history),

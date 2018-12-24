@@ -19,7 +19,6 @@ export default function reducer(state = initialState, action) {
     case LOGOUT_SUCCESS: {
       return { ...state, isAdmin: false };
     }
-
     default:
       return state;
   }

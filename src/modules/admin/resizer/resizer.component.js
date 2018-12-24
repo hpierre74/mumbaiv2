@@ -35,14 +35,8 @@ export default class Resizer extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.toggleModal();
-    // const { showToast } = this.props;
-    // const { imageName, image } = this.state;
 
     this.resizeImage();
-    // .then(() => {
-    //   showToast('success', 'Event successfully uploaded !');
-    // })
-    // .catch(err => showToast('error', err.message));
   };
 
   resizeImage = () => {

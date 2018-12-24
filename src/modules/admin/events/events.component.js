@@ -5,23 +5,9 @@ import { Row, Col } from '../../../components/grid.components';
 import EventForm from './eventForm.connector';
 import EventList from './eventList.component';
 
-import { getData } from '../../../utils/firebase.utils';
-
 export default class EventManager extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      events: [],
-    };
-  }
-
-  componentDidMount = async () => {
-    const { currentLang } = this.props;
-
-    const result = await getData(`public/content/${currentLang}/home/events`);
-    const events = result;
-
-    this.setState({ events });
+  componentDidMount = () => {
+    this.props.getEvents();
   };
 
   render() {
@@ -33,7 +19,7 @@ export default class EventManager extends Component {
               <EventForm />
             </Col>
             <Col xs={12} md={7}>
-              {this.state.events ? <EventList events={this.state.events} /> : <p>loading...</p>}
+              {this.props.events ? <EventList events={this.props.events} /> : <p>loading...</p>}
             </Col>
           </Row>
         </Col>
@@ -43,5 +29,6 @@ export default class EventManager extends Component {
 }
 
 EventManager.propTypes = {
-  currentLang: PropTypes.string.isRequired,
+  getEvents: PropTypes.func.isRequired,
+  events: PropTypes.shape({}).isRequired,
 };

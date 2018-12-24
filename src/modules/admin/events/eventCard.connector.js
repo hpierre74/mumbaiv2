@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import EventForm from './eventForm.component';
+import EventCard from './eventCard.component';
 import { setEvent } from './events.action';
 
 const mapStateToProps = () => ({});
@@ -8,4 +8,4 @@ const mapStateToProps = () => ({});
 export default connect(
   mapStateToProps,
   { setEvent },
-)(EventForm);
+)(EventCard);
