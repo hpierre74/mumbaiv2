@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Input from '@material-ui/core/Input';
 import fr from 'date-fns/locale/fr';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 
 const dateFormat = (date, formatStr) =>
   format(date, formatStr, {

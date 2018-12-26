@@ -25,6 +25,9 @@ export default class EventForm extends Component {
       date: moment().toDate(),
       image: '',
       imageName: '',
+      imagePath: '',
+      imageUrl: '',
+      key: '',
       modal: false,
     };
     this.state = {
@@ -34,6 +37,8 @@ export default class EventForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
   }
+
+  componentDidMount = () => {};
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -50,6 +55,7 @@ export default class EventForm extends Component {
     e.preventDefault();
     this.toggleModal();
     const { setEvent } = this.props;
+
     setEvent(omit(this.state, ['modal', 'events']));
   };
 

@@ -21,6 +21,16 @@ const styles = {
 function MediaCard(props) {
   const { classes } = props;
 
+  const deleteEvent = e => {
+    e.preventDefault();
+    props.deleteEvent(props.data);
+  };
+
+  const setEditEvent = e => {
+    e.preventDefault();
+    props.setEditEvent(props.data);
+  };
+
   return (
     <Card className={classes.card}>
       <CardMedia className={classes.media} image={props.src} title="Click to see more" />
@@ -30,10 +40,10 @@ function MediaCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="outlined" size="small" color="primary">
+        <Button variant="outlined" size="small" color="primary" onClick={setEditEvent}>
           Edit
         </Button>
-        <Button variant="outlined" size="small" color="secondary">
+        <Button variant="outlined" size="small" color="secondary" onClick={deleteEvent}>
           Delete
         </Button>
       </CardActions>
@@ -45,6 +55,9 @@ MediaCard.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   src: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  data: PropTypes.shape({}).isRequired,
+  deleteEvent: PropTypes.func.isRequired,
+  setEditEvent: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(MediaCard);

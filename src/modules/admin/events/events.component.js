@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Row, Col } from '../../../components/grid.components';
 import EventForm from './eventForm.connector';
+import EventEdit from './eventEdit.connector';
 import EventList from './eventList.component';
+import Confirm from '../../../components/confirm.component';
 
 export default class EventManager extends Component {
   componentDidMount = () => {
@@ -11,6 +13,8 @@ export default class EventManager extends Component {
   };
 
   render() {
+    const { events, selectedEvent, openEdit, updateEvent, unsetEditEvent } = this.props;
+
     return (
       <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
         <Col xs={12} md={12}>
@@ -19,7 +23,14 @@ export default class EventManager extends Component {
               <EventForm />
             </Col>
             <Col xs={12} md={7}>
-              {this.props.events ? <EventList events={this.props.events} /> : <p>loading...</p>}
+              {events ? <EventList events={events} /> : <p>loading...</p>}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Confirm title="Edit Event" open={openEdit} onCancel={unsetEditEvent} onSubmit={updateEvent}>
+                {selectedEvent ? <EventEdit /> : null}
+              </Confirm>
             </Col>
           </Row>
         </Col>
@@ -31,4 +42,8 @@ export default class EventManager extends Component {
 EventManager.propTypes = {
   getEvents: PropTypes.func.isRequired,
   events: PropTypes.shape({}).isRequired,
+  selectedEvent: PropTypes.shape({}).isRequired,
+  openEdit: PropTypes.bool.isRequired,
+  updateEvent: PropTypes.func.isRequired,
+  unsetEditEvent: PropTypes.func.isRequired,
 };

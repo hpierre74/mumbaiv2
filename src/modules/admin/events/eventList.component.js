@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Row, Col } from '../../../components/grid.components';
-import EventCard from './eventCard.component';
+import EventCard from './eventCard.connector';
 
 const EventList = props => {
   const renderEvents = events =>
     Object.values(events).map(event => (
       <Col xs={12} md={6} key={event.key}>
-        <EventCard title={event.title} src={event.imageUrl} />
+        <EventCard name={event.key} data={event} title={event.title} src={event.imageUrl} />
       </Col>
     ));
 
