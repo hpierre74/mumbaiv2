@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,6 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import PowerOff from '@material-ui/icons/SettingsPowerRounded';
 import { withStyles } from '@material-ui/core/styles';
+
+import { renderRoutes } from '../../utils/routing.utils';
 
 import Toaster from '../toaster/toast.connector';
 import DrawerComponent from './nav/navbar.connector';
@@ -83,7 +85,7 @@ class AdminRoutes extends Component {
       return null;
     }
 
-    return pages.map(item => <Route key={item} exact path={`/admin/${item}`} component={this.state[item]} />);
+    return renderRoutes('/admin/', pages, this.state);
   };
 
   render() {
