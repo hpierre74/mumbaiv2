@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
@@ -7,7 +6,6 @@ import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
 
 import { CircularProgress } from '@material-ui/core';
-import { PageWrapper } from '../../components/wrapper.components';
 
 const muiTheme = createMuiTheme({
   typography: {
@@ -21,16 +19,6 @@ const muiTheme = createMuiTheme({
     default: blue,
   },
 });
-
-const AdminWrapper = styled(PageWrapper)`
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-
-  background: rgba(255, 255, 255, 1);
-
-  color: black;
-`;
 
 class AdminPage extends React.Component {
   constructor(props) {
@@ -55,9 +43,7 @@ class AdminPage extends React.Component {
 
     return (
       <MuiThemeProvider theme={muiTheme}>
-        <AdminWrapper>
-          <AsyncAdmin />
-        </AdminWrapper>
+        <AsyncAdmin />
       </MuiThemeProvider>
     );
   }

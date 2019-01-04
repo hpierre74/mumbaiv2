@@ -8,7 +8,6 @@ import createHistory from 'history/createBrowserHistory';
 import { ThemeProvider } from 'styled-components';
 import * as serviceWorker from './serviceWorker';
 
-import 'normalize.css';
 import './style/index.css';
 
 import App from './App';

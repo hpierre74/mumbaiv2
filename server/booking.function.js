@@ -1,3 +1,5 @@
 // const functions = require('firebase-functions');
 
-// functions.database.ref('booker/bookings').onWrite();
+// const bookingFilter = functions.database.ref('/bookings/{bookingId}').onWrite((snap) => {
+//   const booking = snap.val();
+// )};

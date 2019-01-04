@@ -17,7 +17,6 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD_BOOKING_SUCCESS:
-      // The request is success
       return {
         ...state,
         addBookingPending: false,
@@ -25,7 +24,6 @@ export default function reducer(state = initialState, action) {
       };
 
     case ADD_BOOKING_FAILURE:
-      // The request is failed
       return {
         ...state,
         addBookingPending: false,
