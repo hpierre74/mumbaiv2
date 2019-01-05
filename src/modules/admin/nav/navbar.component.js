@@ -51,8 +51,8 @@ const NavBar = props => {
           <ListItemText primary="DASHBOARD" />
         </ListItem>
         {pages.map(page => (
-          <ListItem component={Link} to={`/admin/${page}`} selected={pathname === `/admin/${page}`} button key={page}>
-            <ListItemText primary={page.toUpperCase()} />
+          <ListItem component={Link} to={page.path} selected={pathname === page.path} button key={page.name}>
+            <ListItemText primary={page.name} />
           </ListItem>
         ))}
       </List>
@@ -96,13 +96,16 @@ const NavBar = props => {
   );
 };
 
+NavBar.defaultProps = {
+  children: null,
+};
 NavBar.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   theme: PropTypes.shape({}).isRequired,
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
   mobileOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
-  pages: PropTypes.arrayOf(PropTypes.string).isRequired,
+  pages: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   pathname: PropTypes.string.isRequired,
 };
 

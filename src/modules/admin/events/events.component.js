@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { Row, Col } from '../../../components/grid.components';
 import EventForm from './eventForm.connector';
 import EventEdit from './eventEdit.connector';
@@ -23,7 +24,7 @@ export default class EventManager extends Component {
               <EventForm />
             </Col>
             <Col xs={12} md={7}>
-              {events ? <EventList events={events} /> : <p>loading...</p>}
+              {events ? <EventList events={events} /> : <CircularProgress />}
             </Col>
           </Row>
           <Row>

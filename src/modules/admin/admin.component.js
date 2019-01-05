@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -17,13 +16,13 @@ import Toaster from '../toaster/toast.connector';
 import DrawerComponent from './nav/navbar.connector';
 import Login from '../auth/login.connector';
 
-const Wrapper = styled.div`
-  width: 100%;
-`;
-
 const drawerWidth = 240;
 
 const styles = theme => ({
+  wrapper: {
+    width: '100%',
+    color: 'black',
+  },
   appBar: {
     marginLeft: drawerWidth,
     backgroundColor: theme.palette.default,
@@ -44,6 +43,7 @@ const styles = theme => ({
 class AdminRoutes extends Component {
   constructor(props) {
     super(props);
+    this.init = false;
     this.state = {
       mobileOpen: false,
       pages: [],
@@ -53,8 +53,9 @@ class AdminRoutes extends Component {
   }
 
   shouldComponentUpdate = async nextProps => {
-    if (!this.props.isAdmin && nextProps.isAdmin) {
+    if (!this.init && nextProps.isAdmin) {
       this.props.configInitAdmin();
+      this.init = true;
 
       return false;
     }
@@ -68,9 +69,9 @@ class AdminRoutes extends Component {
   };
 
   async getComponent(component) {
-    return import(`./${component}/${component}.connector.js`).then(module =>
+    return import(`./${component.target}/${component.target}.connector.js`).then(module =>
       this.setState(state => ({
-        [component]: module.default,
+        [component.name]: module.default,
         pages: [...state.pages, component],
       })),
     );
@@ -80,19 +81,21 @@ class AdminRoutes extends Component {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
-  renderAdminRoutes = pages => {
-    if (!pages) {
+  renderAdminRoutes = () => {
+    const { config } = this.props;
+    if (!config) {
       return null;
     }
+    const { pages } = config;
 
-    return renderRoutes('/admin/', pages, this.state);
+    return renderRoutes(pages, this.state);
   };
 
   render() {
     const { classes, pathname, isAdmin } = this.props;
 
     return (
-      <Wrapper>
+      <div className={classes.wrapper}>
         {isAdmin && (
           <div>
             <AppBar className={classes.appBar} color="primary" position="fixed">
@@ -106,7 +109,7 @@ class AdminRoutes extends Component {
                   <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" color="inherit" noWrap>
-                  Mumbai Admin
+                  Admin
                 </Typography>
                 <Typography className={classes.pageTitle} variant="h6" color="inherit" noWrap>
                   {pathname.replace('/admin/', '').toUpperCase()}
@@ -121,13 +124,13 @@ class AdminRoutes extends Component {
               mobileOpen={this.state.mobileOpen}
               toggle={this.handleDrawerToggle}
             >
-              {this.renderAdminRoutes(this.state.pages)}
+              {this.renderAdminRoutes()}
             </DrawerComponent>
           </div>
         )}
         {!isAdmin && <Login />}
         <Toaster />
-      </Wrapper>
+      </div>
     );
   }
 }
@@ -142,7 +145,9 @@ AdminRoutes.propTypes = {
   configInitAdmin: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
-  config: PropTypes.shape({}),
+  config: PropTypes.shape({
+    pages: PropTypes.shape({}),
+  }),
 };
 
 export default withStyles(styles)(AdminRoutes);

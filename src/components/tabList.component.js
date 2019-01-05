@@ -70,7 +70,7 @@ class PageTabs extends React.Component {
             indicatorColor="primary"
             textColor="primary"
             classes={{ flexContainer: classes.tabs }}
-            fullWidth
+            variant="fullWidth"
           >
             {this.renderPageTabs()}
           </Tabs>

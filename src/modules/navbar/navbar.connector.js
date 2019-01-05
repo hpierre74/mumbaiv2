@@ -7,7 +7,7 @@ import renderOrNothing from '../../components/renderOrNothing.hoc';
 const mapStateToProps = ({
   app: {
     mobileOpen,
-    config: { pages },
+    config: { pages, name },
   },
   router: {
     location: { pathname },
@@ -15,6 +15,7 @@ const mapStateToProps = ({
 }) => ({
   mobileOpen,
   pages,
+  name,
   isUser: !pathname.includes('admin'),
 });
 
