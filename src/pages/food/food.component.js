@@ -5,8 +5,8 @@ import Article from '../../components/article.component';
 import Menu from '../../components/menu.component';
 
 const Food = () => (
-  <Section title="Une cuisine de partage">
-    <SubSection title="Menu">
+  <Section>
+    <SubSection title="Food Menu">
       <Menu src="https://placekitten.com/360/500" />
     </SubSection>
     <SubSection title="Les Thalis">

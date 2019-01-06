@@ -5,8 +5,8 @@ import Article from '../../components/article.component';
 import Menu from '../../components/menu.component';
 
 const Cocktails = () => (
-  <Section title="Bar à Cocktails">
-    <SubSection title="Menu">
+  <Section>
+    <SubSection title="Cocktails Menu">
       <Menu src="https://placekitten.com/360/1200" />
     </SubSection>
     <SubSection title="Compétitions">
