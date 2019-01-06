@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import { withStyles } from '@material-ui/core/styles';
 
-const FluidPaper = styled(Paper)`
-  padding: 5%;
-  margin: 2.5% 0;
-`;
+const styles = {
+  card: {
+    padding: '5%',
+    margin: '2.5% 0',
+  },
+};
 
 class EditForm extends Component {
   constructor(props) {
@@ -37,8 +39,10 @@ class EditForm extends Component {
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
-      <FluidPaper elevation={1}>
+      <Card className={classes.card}>
         <form>
           <h3>{this.props.contentName.toUpperCase()}</h3>
           <p>{this.props.currentContent}</p>
@@ -58,7 +62,7 @@ class EditForm extends Component {
             Submit Change
           </Button>
         </form>
-      </FluidPaper>
+      </Card>
     );
   }
 }
@@ -69,6 +73,7 @@ EditForm.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   updateContent: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
+  classes: PropTypes.shape({}).isRequired,
 };
 
-export default EditForm;
+export default withStyles(styles)(EditForm);

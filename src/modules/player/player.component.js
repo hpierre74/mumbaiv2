@@ -1,23 +1,28 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
-const StyledPlayer = styled.video`
-  width: 100%;
-  height: 100%;
-  @media (max-width: 700px) {
-    height: 30vh;
-  }
-`;
+const styles = theme => ({
+  container: {
+    width: '100%',
+    height: '100%',
+    [theme.breakpoints.down('sm')]: {
+      height: '30vh',
+    },
+  },
+});
 
 const Player = props => (
-  <StyledPlayer controls autoPlay muted>
+  <video className={props.classes.container} controls autoPlay muted>
     <source src={props.video} type="video/mp4" />
-  </StyledPlayer>
+  </video>
 );
 
 Player.propTypes = {
   video: PropTypes.string.isRequired,
+  classes: PropTypes.shape({
+    container: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
-export default Player;
+export default withStyles(styles)(Player);

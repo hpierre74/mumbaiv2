@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Typography from '@material-ui/core/Typography';
 import { Row, Col } from './grid.components';
-import { Title3 } from './title.components';
 
 const Section = props => (
   <Row>
     <Col sm={12} xs={12} md={12}>
-      <Title3>{props.title}</Title3>
+      <Typography variant="h3" component="h5">
+        {props.title}
+      </Typography>
       <div>{props.children}</div>
     </Col>
   </Row>

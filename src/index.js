@@ -5,13 +5,11 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter, connectRouter, routerMiddleware as createRouterMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
-import { ThemeProvider } from 'styled-components';
 import * as serviceWorker from './serviceWorker';
 
 import './style/index.css';
 
 import App from './App';
-import theme from './style/theme';
 import reducers from './reducers';
 import pageContentMiddleware from './middlewares/pageContent.middleware';
 import toasterMiddleware from './middlewares/toaster.middleware';
@@ -39,9 +37,7 @@ store.dispatch(configInit());
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <ThemeProvider theme={{ ...theme }}>
-        <App />
-      </ThemeProvider>
+      <App />
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root'),

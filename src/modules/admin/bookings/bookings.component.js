@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 // import PropTypes from 'prop-types';
 import DatePicker from '../../../components/datepicker.component';
 import BookingsTable from './bookings.table';
-
-const SectionsWrapper = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-
-  margin: 2.5%;
-`;
 
 class BookingManager extends Component {
   constructor(props) {
@@ -33,10 +25,10 @@ class BookingManager extends Component {
 
   render() {
     return (
-      <SectionsWrapper>
+      <div>
         <DatePicker date={this.state.startDate} handleChange={this.handleChange} />
         <BookingsTable bookings={this.state.bookings} />
-      </SectionsWrapper>
+      </div>
     );
   }
 }
