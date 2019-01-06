@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "@firebase/app": "^0.3.5",
-    "@firebase/auth": "^0.9.0",
-    "@firebase/database": "^0.3.7",
+    "@firebase/auth": "^0.9.1",
+    "@firebase/database": "^0.3.8",
     "@firebase/storage": "^0.2.4",
     "@material-ui/core": "^3.6.1",
     "@material-ui/icons": "^3.0.1",
@@ -21,9 +21,9 @@
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
-    "react": "^16.6.3",
+    "react": "^16.7.x",
     "react-datepicker": "^2.0.0",
-    "react-dom": "^16.6.3",
+    "react-dom": "^16.7.x",
     "react-leaflet": "^1.x.x",
     "react-recaptcha": "^2.3.10",
     "react-redux": "^5.0.7",
@@ -32,7 +32,6 @@
     "recharts": "^1.4.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^4.1.2",
     "superagent": "^4.0.0"
   },
   "devDependencies": {
@@ -40,13 +39,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.4",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "jest-styled-components": "^5.0.1",
-    "stylelint": "^9.2.1",
-    "stylelint-config-recommended": "^2.1.0",
-    "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-order": "^0.8.1",
-    "stylelint-processor-styled-components": "^1.3.1"
+    "eslint-plugin-jsx-a11y": "^6.1.2"
   },
   "scripts": {
     "dev": "react-scripts start",
@@ -60,7 +53,6 @@
     "lint": "eslint",
     "lint:js": "eslint src/ --cache",
     "lint:fn": "eslint server/ --cache",
-    "lint:css": "stylelint './src/**/*.js'",
     "format": "prettier-eslint --write 'src/**/*.js'",
     "format:dry-run": "prettier-eslint --list-different 'src/**/*.js'"
   },

@@ -20,7 +20,6 @@ import DateInput from '../../components/datepicker.component';
 import Confirm from '../../components/confirm.component';
 import { Row, Col } from '../../components/grid.components';
 import { setData, getNewKey } from '../../utils/firebase.utils';
-import { Title3 } from '../../components/title.components';
 
 moment.locale('fr-fr');
 
@@ -115,7 +114,7 @@ export default class EventForm extends Component {
   render() {
     return (
       <Card style={{ margin: '2.5%' }}>
-        <CardHeader component={Title3} title="Réserver une table" />
+        <CardHeader component="h3" title="Réserver une table" />
         <CardContent>
           <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
             <Col xs={12} md={6}>

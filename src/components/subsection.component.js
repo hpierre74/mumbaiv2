@@ -7,7 +7,7 @@ import { Row } from './grid.components';
 
 const SubSection = props => (
   <Card style={{ margin: '2.5%' }}>
-    <CardHeader component="h6" title={props.title} />
+    <CardHeader disableTypography component="h3" title={props.title} />
     <CardContent>
       <Row spacing={24}>{props.children}</Row>
     </CardContent>

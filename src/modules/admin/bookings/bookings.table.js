@@ -36,9 +36,7 @@ function BookingsTable(props) {
           <TableRow>
             <TableCell className={classes.cell}>Nom Prénom</TableCell>
             <TableCell className={classes.cell}>Date</TableCell>
-            <TableCell className={classes.cell} numeric>
-              Personnes
-            </TableCell>
+            <TableCell className={classes.cell}>Personnes</TableCell>
             <TableCell className={classes.cell}>Heure</TableCell>
             <TableCell className={classes.cell}>Téléphone</TableCell>
           </TableRow>
@@ -51,7 +49,7 @@ function BookingsTable(props) {
                   {row.name}
                 </TableCell>
                 <TableCell>{moment(row.date).format('DD-MM-YYYY HH:mm')}</TableCell>
-                <TableCell numeric>{row.persons}</TableCell>
+                <TableCell>{row.persons}</TableCell>
                 <TableCell>{row.hour}</TableCell>
                 <TableCell>{row.tel}</TableCell>
               </TableRow>

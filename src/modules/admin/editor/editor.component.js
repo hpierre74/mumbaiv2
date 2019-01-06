@@ -1,15 +1,19 @@
 import React, { PureComponent } from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
+
+import withStyles from '@material-ui/core/styles/withStyles';
+
 import PageTabs from '../../../components/tabList.component';
 import EditForm from './editForm.connector';
 import { Row, Col } from '../../../components/grid.components';
 
-const EditorWrapper = styled.div`
-  width: 95%;
-  margin: 0% auto;
-`;
+const styles = () => ({
+  container: {
+    width: '95%',
+    margin: '0 auto',
+  },
+});
 
 class Editor extends PureComponent {
   static getDerivedStateFromProps = nextProps => {
@@ -88,12 +92,14 @@ class Editor extends PureComponent {
     });
 
   render() {
+    const { classes } = this.props;
+
     return (
-      <EditorWrapper>
+      <div className={classes.container}>
         <PageTabs items={this.state.pages} action={this.props.getPageContent}>
           <Row>{this.renderPageContentEditors(this.state.content)}</Row>
         </PageTabs>
-      </EditorWrapper>
+      </div>
     );
   }
 }
@@ -103,8 +109,9 @@ Editor.defaultProps = {
 
 Editor.propTypes = {
   // lang: PropTypes.string.isRequired,
+  classes: PropTypes.shape({}).isRequired,
   path: PropTypes.string,
   getPageContent: PropTypes.func.isRequired,
 };
 
-export default Editor;
+export default withStyles(styles)(Editor);

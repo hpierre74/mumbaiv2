@@ -14,6 +14,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Col } from './grid.components';
 
 const styles = theme => ({
+  col: {
+    margin: '0 auto',
+  },
   card: {
     maxWidth: 400,
     margin: '0 auto',
@@ -51,7 +54,7 @@ class ArticleCard extends React.Component {
     const { classes } = this.props;
 
     return (
-      <Col style={{ margin: '0 auto' }} sm={6} md={6} xs={12}>
+      <Col className={classes.col} sm={6} md={4} lg={3} xs={12}>
         <Card className={classes.card}>
           <CardHeader title="1ère place pour Juan Carlo" subheader="Concours Petit Paumé" />
           <CardMedia className={classes.media} image="https://placekitten.com/300/300" title="Paella dish" />

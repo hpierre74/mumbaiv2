@@ -1,38 +1,56 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import classNames from 'classnames';
+
+import { withStyles } from '@material-ui/core/styles';
+
 import SVG from '../../components/svg.component';
 import logo from '../../logo.svg';
 
-const FullScreen = styled.div`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: 100000;
-  width: 100%;
-  height: 100%;
-  background: #0a0a0a;
-  transition: all 0.5s;
-  visibility: ${({ visible }) => (visible ? 'block' : 'hidden')};
-  opacity: ${({ visible }) => (visible ? 1 : 0)};
-`;
+const styles = {
+  container: {
+    position: 'absolute',
+    top: '0px',
+    left: '0px',
+    zIndex: 100000,
+    width: '100vw',
+    height: '100vh',
+    background: '#0a0a0a',
+    transition: 'all 0.5s',
+  },
+  visible: {
+    opacity: 1,
+    visibility: 'block',
+  },
+  hidden: {
+    visibility: 'hidden',
+    opacity: 0,
+  },
+};
+
 class Splash extends Component {
   componentDidMount = () => {
-    this.props.showSplash();
+    if (!this.props.splashed) {
+      this.props.showSplash();
+    }
   };
 
   render() {
+    const { classes, splash } = this.props;
+
     return (
-      <FullScreen visible={this.props.splash}>
+      <div className={classNames(classes.container, splash ? classes.visible : classes.hidden)}>
         <SVG src={logo} width="300px" alt="logo" />
-      </FullScreen>
+      </div>
     );
   }
 }
 
 Splash.propTypes = {
   splash: PropTypes.bool.isRequired,
+  splashed: PropTypes.bool.isRequired,
   showSplash: PropTypes.func.isRequired,
+  classes: PropTypes.shape({}).isRequired,
 };
 
-export default Splash;
+export default withStyles(styles)(Splash);

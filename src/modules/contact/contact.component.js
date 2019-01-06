@@ -7,7 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Mail from '../mail/mail.connector';
-import { Title3 } from '../../components/title.components';
 import { Row, Col } from '../../components/grid.components';
 
 const MapContainer = lazy(() => import('../../components/LeafMap.component'));
@@ -20,7 +19,7 @@ const Contact = props => {
     <Row>
       <Col sm={12} xs={12} md={12}>
         <Card style={{ margin: '2.5%' }}>
-          <CardHeader component={Title3} title="Nous Contacter" />
+          <CardHeader component="h3" title="Nous Contacter" />
           <CardContent>
             <Suspense fallback={<CircularProgress />}>
               <ContactList email={email} address={address} tel={tel} social={social} />
@@ -30,12 +29,7 @@ const Contact = props => {
         </Card>
       </Col>
       <Col sm={12} xs={12} md={12}>
-        <Card style={{ margin: '2.5%' }}>
-          <CardHeader component={Title3} title="Nous Ecrire" />
-          <CardContent>
-            <Mail />
-          </CardContent>
-        </Card>
+        <Mail />
       </Col>
     </Row>
   );
