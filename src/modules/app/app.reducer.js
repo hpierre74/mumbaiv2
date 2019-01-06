@@ -7,6 +7,7 @@ const initialState = {
     modules: {},
   },
   splash: false,
+  splashed: false,
   initialized: false,
   mobileOpen: false,
 };
@@ -26,7 +27,7 @@ export default function reducer(state = initialState, action) {
       return { ...state, splash: false, initialized: true };
 
     case SHOW_SPLASH:
-      return { ...state, splash: true };
+      return { ...state, splash: true, splashed: true };
 
     default:
       return state;

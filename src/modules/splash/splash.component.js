@@ -18,7 +18,9 @@ const FullScreen = styled.div`
 `;
 class Splash extends Component {
   componentDidMount = () => {
-    this.props.showSplash();
+    if (!this.props.splashed) {
+      this.props.showSplash();
+    }
   };
 
   render() {
@@ -32,6 +34,7 @@ class Splash extends Component {
 
 Splash.propTypes = {
   splash: PropTypes.bool.isRequired,
+  splashed: PropTypes.bool.isRequired,
   showSplash: PropTypes.func.isRequired,
 };
 

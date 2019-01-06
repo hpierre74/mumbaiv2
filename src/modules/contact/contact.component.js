@@ -30,12 +30,7 @@ const Contact = props => {
         </Card>
       </Col>
       <Col sm={12} xs={12} md={12}>
-        <Card style={{ margin: '2.5%' }}>
-          <CardHeader component={Title3} title="Nous Ecrire" />
-          <CardContent>
-            <Mail />
-          </CardContent>
-        </Card>
+        <Mail />
       </Col>
     </Row>
   );

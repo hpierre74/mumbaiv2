@@ -70,7 +70,7 @@ const NavBar = props => {
           </ListItemAvatar>
         </ListItem>
         {Object.values(pages).map(page => (
-          <ListItem component={Link} to={`/${page.target}`} button key={page.name}>
+          <ListItem component={Link} to={page.path} button key={page.name}>
             <ListItemIcon>
               <NavIcon name={page.target} />
             </ListItemIcon>
