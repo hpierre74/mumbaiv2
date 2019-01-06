@@ -4,6 +4,7 @@ const initialState = {
   visible: false,
   content: null,
   variant: 'info',
+  options: {},
 };
 
 export default function reducer(state = initialState, action) {
@@ -22,6 +23,7 @@ export default function reducer(state = initialState, action) {
         visible: true,
         content: action.content,
         variant: action.variant,
+        options: action.options,
       };
 
     case HIDE_TOAST:
@@ -29,6 +31,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         visible: false,
         content: null,
+        options: {},
       };
     default:
       return state;

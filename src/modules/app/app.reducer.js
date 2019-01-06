@@ -4,6 +4,7 @@ import { HIDE_SPLASH, SHOW_SPLASH } from '../splash/splash.action';
 const initialState = {
   config: {
     pages: {},
+    modules: {},
   },
   splash: false,
   initialized: false,

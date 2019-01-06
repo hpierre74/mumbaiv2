@@ -14,6 +14,7 @@ import App from './App';
 import theme from './style/theme';
 import reducers from './reducers';
 import pageContentMiddleware from './middlewares/pageContent.middleware';
+import toasterMiddleware from './middlewares/toaster.middleware';
 import { configInit } from './modules/app/app.action';
 
 const history = createHistory();
@@ -30,7 +31,7 @@ const store = createStore(
     router: connectRouter(history),
     ...reducers,
   }),
-  composeEnhancers(applyMiddleware(thunk, routerMiddleware, pageContentMiddleware)),
+  composeEnhancers(applyMiddleware(thunk, routerMiddleware, pageContentMiddleware, toasterMiddleware)),
 );
 
 store.dispatch(configInit());

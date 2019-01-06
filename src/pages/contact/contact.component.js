@@ -1,5 +1,4 @@
 import React from 'react';
-import { PageWrapper as ContactWrapper } from '../../components/wrapper.components';
 
 class Contact extends React.Component {
   constructor(props) {
@@ -24,11 +23,7 @@ class Contact extends React.Component {
   render() {
     const { AsyncContact } = this.state;
 
-    return (
-      <ContactWrapper>
-        <AsyncContact />
-      </ContactWrapper>
-    );
+    return <AsyncContact />;
   }
 }
 

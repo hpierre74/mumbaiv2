@@ -14,9 +14,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import MenuIcon from '@material-ui/icons/Menu';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { withStyles } from '@material-ui/core/styles';
 
 import logo from '../../logo.svg';
+import NavIcon from './navicon.component';
 
 const drawerWidth = 240;
 
@@ -57,18 +59,21 @@ const styles = theme => ({
 });
 
 const NavBar = props => {
-  const { classes, theme, pages } = props;
+  const { classes, theme, pages, name } = props;
 
   const drawer = (
     <div>
       <List>
         <ListItem alignItems="center">
           <ListItemAvatar>
-            <Avatar alt="Mumbai Café" src={logo} />
+            <Avatar alt={name} src={logo} />
           </ListItemAvatar>
         </ListItem>
         {Object.values(pages).map(page => (
           <ListItem component={Link} to={`/${page.target}`} button key={page.name}>
+            <ListItemIcon>
+              <NavIcon name={page.target} />
+            </ListItemIcon>
             <ListItemText primary={page.name.toUpperCase()} />
           </ListItem>
         ))}
@@ -84,7 +89,7 @@ const NavBar = props => {
           <IconButton color="inherit" aria-label="Open drawer" onClick={props.toggle} className={classes.menuButton}>
             <MenuIcon />
           </IconButton>
-          <h2>Mumbai Café</h2>
+          <h2>{name}</h2>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer}>
@@ -120,7 +125,9 @@ const NavBar = props => {
     </div>
   );
 };
-
+NavBar.defaultProps = {
+  name: '',
+};
 NavBar.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   theme: PropTypes.shape({}).isRequired,
@@ -128,6 +135,7 @@ NavBar.propTypes = {
   mobileOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
   pages: PropTypes.shape({}).isRequired,
+  name: PropTypes.string,
 };
 
 export default withStyles(styles, { withTheme: true })(NavBar);

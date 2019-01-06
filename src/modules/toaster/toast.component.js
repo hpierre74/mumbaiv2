@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
@@ -12,13 +11,16 @@ import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
+import NewIcon from '@material-ui/icons/FiberNew';
 import { withStyles } from '@material-ui/core';
+import classNames from 'classnames';
 
 const variantIcon = {
   success: CheckCircleIcon,
   warning: WarningIcon,
   error: ErrorIcon,
   info: InfoIcon,
+  new: NewIcon,
 };
 
 const styles = theme => ({
@@ -41,16 +43,27 @@ const styles = theme => ({
     opacity: 0.9,
     marginRight: theme.spacing.unit,
   },
+  snackBar: {
+    flexWrap: 'nowrap',
+    [theme.breakpoints.up('md')]: {
+      width: '100%',
+    },
+  },
+  snackBarContent: {
+    flexWrap: 'nowrap',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '60%',
+    },
+  },
+  snackContent: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  snackAction: {
+    marginLeft: '10px',
+    textAlign: 'justify',
+  },
 });
-
-const ToastContent = styled.span`
-  display: flex;
-  align-items: center;
-`;
-
-const ToastMessage = styled.p`
-  margin-left: 10px;
-`;
 
 class Toaster extends React.Component {
   handleClose = (event, reason) => {
@@ -63,10 +76,12 @@ class Toaster extends React.Component {
 
   render() {
     const { classes, content, variant, visible } = this.props;
+
     const Icon = variantIcon[variant];
 
     return (
       <Snackbar
+        className={classes.snackBar}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
@@ -76,13 +91,13 @@ class Toaster extends React.Component {
         onClose={this.handleClose}
       >
         <SnackbarContent
-          className={classes[variant]}
+          className={classNames(classes[variant], classes.snackBarContent)}
           aria-describedby="client-snackbar"
           message={
-            <ToastContent id="client-snackbar">
+            <span className={classes.snackContent} id="client-snackbar">
               <Icon />
-              <ToastMessage>{content}</ToastMessage>
-            </ToastContent>
+              <p className={classes.snackAction}>{content}</p>
+            </span>
           }
           action={[
             <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleClose}>
@@ -97,6 +112,7 @@ class Toaster extends React.Component {
 
 Toaster.defaultProps = {
   content: '',
+  options: {},
 };
 
 Toaster.propTypes = {
@@ -104,7 +120,8 @@ Toaster.propTypes = {
   visible: PropTypes.bool.isRequired,
   hideToast: PropTypes.func.isRequired,
   content: PropTypes.string,
-  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
+  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info', 'new']).isRequired,
+  options: PropTypes.shape({}),
 };
 
 export default withStyles(styles)(Toaster);

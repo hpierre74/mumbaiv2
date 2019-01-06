@@ -6,7 +6,7 @@ const StyledPlayer = styled.video`
   width: 100%;
   height: 100%;
   @media (max-width: 700px) {
-    height: 40vh;
+    height: 30vh;
   }
 `;
 

@@ -1,35 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Jumbotron from './jumbotron.component';
 import { Row, Col } from '../../components/grid.components';
 
-const Wrapper = styled.div`
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  padding: 10%;
-  @media (max-width: 650px) {
-    padding: 12.5%;
-  }
-`;
+const styles = theme => ({
+  wrapper: {
+    margin: '0 auto',
+    display: 'flex',
+    alignItems: 'center',
+    [theme.breakpoints.up('xs')]: {
+      padding: '10% 2.5%',
+    },
+    [theme.breakpoints.up('sm')]: {
+      padding: '5% 2.5%',
+    },
+    [theme.breakpoints.up('md')]: {
+      padding: '2.5% 2.5%',
+    },
+  },
+  title: {
+    padding: '5%',
+  },
+  button: {
+    width: '90%',
+    margin: '1% auto',
+  },
+  label: {
+    display: 'flex',
+    flexFlow: 'column',
+    lineHeight: '30px',
+  },
+});
 
 const Presentation = props => {
   const {
-    presentation: { concept, food },
+    presentation: { concept },
+    classes,
   } = props;
 
   return (
-    <Wrapper>
-      <Row style={{ display: 'flex', justifyContent: 'center' }}>
-        <Col sm={10} xs={10} md={10}>
-          <Typography gutterBottom variant="h5" component="h3" align="justify">
-            {concept}
-          </Typography>
-          <Typography align="justify">{food}</Typography>
+    <div className={classes.wrapper}>
+      <Row justify="center">
+        <Col sm={12} xs={12} md={10}>
+          <Row justify="space-around">
+            <Col sm={12} xs={12} md={12}>
+              <Typography className={classes.title} gutterBottom variant="h5" component="h3" align="center">
+                {concept}
+              </Typography>
+            </Col>
+          </Row>
+          <Jumbotron />
         </Col>
       </Row>
-    </Wrapper>
+    </div>
   );
 };
 
@@ -45,6 +70,7 @@ Presentation.propTypes = {
     concept: PropTypes.string,
     food: PropTypes.string,
   }),
+  classes: PropTypes.shape({}).isRequired,
 };
 
-export default Presentation;
+export default withStyles(styles)(Presentation);

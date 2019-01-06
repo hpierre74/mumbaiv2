@@ -8,8 +8,8 @@ import NavBar from './modules/navbar/navbar.connector';
 import Home from './pages/home/home.component';
 import Admin from './pages/admin/admin.component';
 
-const Contact = lazy(() => import('./pages/contact/contact.connector'));
-const Booking = lazy(() => import('./pages/booking/booking.page'));
+const Contact = lazy(() => import('./pages/contact/contact.component'));
+const Booking = lazy(() => import('./pages/book/book.component'));
 const Toaster = lazy(() => import('./modules/toaster/toast.connector'));
 const Food = lazy(() => import('./pages/food/food.component'));
 const Cocktails = lazy(() => import('./pages/cocktails/cocktails.component'));

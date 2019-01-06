@@ -12,7 +12,7 @@ const FullScreen = styled.div`
   width: 100%;
   height: 100%;
   background: #0a0a0a;
-  transition: all 0.75s;
+  transition: all 0.5s;
   visibility: ${({ visible }) => (visible ? 'block' : 'hidden')};
   opacity: ${({ visible }) => (visible ? 1 : 0)};
 `;

@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import { Row, Col } from './grid.components';
-import { PageWrapper } from './wrapper.components';
 
 const Container = styled.div`
   width: 100%;
@@ -43,7 +42,7 @@ class Confirm extends React.Component {
       <Dialog fullWidth aria-labelledby="confirm-dialog" {...other}>
         <Container>
           <Title>{title}</Title>
-          <PageWrapper>{this.props.children}</PageWrapper>
+          <div>{this.props.children}</div>
           <Actions>
             <Row>
               <Col xs={6} md={6} sm={6}>

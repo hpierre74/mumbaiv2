@@ -1,6 +1,5 @@
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { PageWrapper as BookingWrapper } from '../../components/wrapper.components';
 
 class Booking extends React.Component {
   constructor(props) {
@@ -25,11 +24,7 @@ class Booking extends React.Component {
   render() {
     const { AsyncBooking } = this.state;
 
-    return (
-      <BookingWrapper>
-        <AsyncBooking />
-      </BookingWrapper>
-    );
+    return <AsyncBooking />;
   }
 }
 

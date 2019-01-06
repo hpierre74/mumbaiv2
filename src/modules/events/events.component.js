@@ -33,7 +33,6 @@ const styles = theme => ({
     width: '50px',
   },
   list: {
-    height: '300px',
     '&:hover': {
       cursor: 'grab',
     },
@@ -46,13 +45,34 @@ const styles = theme => ({
   },
 });
 
+const widthPercent = window.innerWidth;
+
+const colsWidth = width => {
+  if (width > 1500) {
+    return 3;
+  }
+  if (width > 1250) {
+    return 2.5;
+  }
+  if (width > 1000) {
+    return 1.75;
+  }
+  if (width > 700) {
+    return 1.5;
+  }
+  if (width > 500) {
+    return 1.25;
+  }
+
+  return 1;
+};
+
 function SingleLineGridList(props) {
   const { classes, events } = props;
-
   const renderEventTiles = () =>
     Object.values(events).map(event => (
-      <GridListTile rows={1.75} className={classes.list} key={event.key}>
-        <img width="300px" height="100%" src={event.imageUrl} alt={event.title} />
+      <GridListTile rows={2} className={classes.list} key={event.key}>
+        <img width="400px" height="100%" src={event.imageUrl} alt={event.title} />
         <GridListTileBar
           title={event.title}
           classes={{
@@ -66,12 +86,13 @@ function SingleLineGridList(props) {
   return events ? (
     <div className={classes.root}>
       <Typography className={classes.gridTitle} align="left" gutterBottom variant="h4" component="h3">
-        Nos Events
+        Nos Actus
       </Typography>
 
-      <GridList className={classes.gridList} cols={window.innerWidth % 2}>
+      <GridList cols={colsWidth(widthPercent)} className={classes.gridList}>
         {renderEventTiles()}
       </GridList>
+      <div style={{ padding: '15%' }}>ccs</div>
     </div>
   ) : null;
 }
