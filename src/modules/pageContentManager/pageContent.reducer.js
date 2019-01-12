@@ -1,4 +1,5 @@
 import { GET_PAGE_CONTENT_BEGIN, GET_PAGE_CONTENT_FAILURE, GET_PAGE_CONTENT_SUCCESS } from './pageContent.action';
+import { GET_INSTAGRAM_FEED_SUCCESS } from '../instagram/instagram.action';
 
 const initialState = {
   getPageContentPending: false,
@@ -35,6 +36,15 @@ export default function reducer(state = initialState, action) {
         ...state,
         getPageContentPending: false,
         getPageContentError: action.data.error,
+      };
+
+    case GET_INSTAGRAM_FEED_SUCCESS:
+      return {
+        ...state,
+        content: {
+          ...state.content,
+          instafeed: action.feed,
+        },
       };
 
     default:

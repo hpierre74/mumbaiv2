@@ -13,15 +13,10 @@ const styles = theme => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
+    padding: '10% 0%',
   },
   gridTitle: {
-    position: 'relative',
-    top: '50px',
-    left: '0px',
-    paddingLeft: '4%',
-    zIndex: '2',
-    width: '100%',
-    background: 'linear-gradient(to right, rgba(0,0,0,0.7),rgba(0,0,0,0.1), rgba(0,0,0,0))',
+    padding: '2.5% 0',
   },
   gridList: {
     flexWrap: 'nowrap',
@@ -85,14 +80,13 @@ function SingleLineGridList(props) {
 
   return events ? (
     <div className={classes.root}>
-      <Typography className={classes.gridTitle} align="left" gutterBottom variant="h4" component="h3">
+      <Typography className={classes.gridTitle} align="left" gutterBottom variant="h5" component="h3">
         Nos Actus
       </Typography>
 
       <GridList cols={colsWidth(widthPercent)} className={classes.gridList}>
         {renderEventTiles()}
       </GridList>
-      <div style={{ padding: '15%' }}>ccs</div>
     </div>
   ) : null;
 }

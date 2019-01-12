@@ -24,7 +24,7 @@ export default function reducer(state = initialState, action) {
       return { ...state, mobileOpen: !state.mobileOpen };
 
     case HIDE_SPLASH:
-      return { ...state, splash: false, initialized: true };
+      return { ...state, splash: false };
 
     case SHOW_SPLASH:
       return { ...state, splash: true, splashed: true };
