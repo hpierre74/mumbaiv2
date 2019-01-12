@@ -17,7 +17,7 @@ const sendEmail = (request, response) =>
     // setup email data with unicode symbols
     const mailOptions = {
       from: `mumbaicafelyon@gmail.com`,
-      to: to || `1mumbaicafe@gmail.com`,
+      to: to || `pierrehuyghe.pro@gmail.com`,
       subject: `DEMANDE CLIENT : ${object}`,
       html: `
         <h4>${firstname} ${lastname} vous a envoyé un message :</h4>

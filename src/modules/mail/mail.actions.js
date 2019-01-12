@@ -5,7 +5,7 @@ export const SEND_MAIL_SUCCESS = 'mail/SEND_MAIL_SUCCESS';
 export const SEND_MAIL_FAILURE = 'mail/SEND_MAIL_FAILURE';
 export const SEND_MAIL_DISMISS_ERROR = 'mail/SEND_MAIL_ERROR';
 
-const config = { mailServiceUrl: '/contact/sendmail' };
+const config = { mailServiceUrl: 'https://us-central1-mumbai-redux.cloudfunctions.net/sendMail' };
 
 export const sendMail = mail => dispatch => {
   dispatch({
