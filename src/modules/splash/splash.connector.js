@@ -3,10 +3,16 @@ import { connect } from 'react-redux';
 import Splash from './splash.component';
 import { showSplash } from './splash.action';
 
-const mapStateToProps = ({ app: { splash, splashed, initialized } }) => ({
+const mapStateToProps = ({
+  app: {
+    splash,
+    splashed,
+    config: { modules },
+  },
+}) => ({
   splash,
-  initialized,
   splashed,
+  modules,
 });
 
 export default connect(

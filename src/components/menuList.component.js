@@ -61,6 +61,6 @@ class MenuList extends React.Component {
   }
 }
 
-MenuList.propTypes = { action: PropTypes.func.isRequired };
+MenuList.propTypes = { action: PropTypes.func.isRequired, items: PropTypes.array.isRequired };
 
 export default MenuList;

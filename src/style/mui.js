@@ -28,6 +28,20 @@ const muiTheme = createMuiTheme({
       paper: '#0a0a0a',
       default: '#0a0a0a',
     },
+    // type: 'light',
+    // primary: {
+    //   main: '#000000',
+    //   light: '#2c2c2c',
+    //   dark: '#000000',
+    // },
+    // secondary: {
+    //   main: '#eae62e',
+    //   light: '#ffff68',
+    //   dark: '#b4b400',
+    // },
+    // error: red,
+    // default: blue,
+
     action: {
       active: 'rgba(255, 255, 255, 0.54)',
       hover: 'rgba(255, 255, 255, 0.08)',

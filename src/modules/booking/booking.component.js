@@ -112,14 +112,7 @@ export default class EventForm extends Component {
       <Card style={{ margin: '2.5%' }}>
         <CardHeader component="h3" title="Réserver une table" />
         <CardContent>
-          <Row
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-            container
-            spacing={24}
-          >
+          <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
             <Col xs={12} md={6}>
               <TextField
                 required
@@ -211,14 +204,7 @@ export default class EventForm extends Component {
             </Col>
           </Row>
         </CardContent>
-        <Row
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-          container
-          spacing={24}
-        >
+        <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
           <Col xs={12} md={12}>
             <Button onClick={this.toggleModal} variant="outlined" color="primary">
               Réserver

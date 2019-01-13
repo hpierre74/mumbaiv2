@@ -65,7 +65,6 @@ const Jumbotron = props => {
       </Col>
       <Col sm={4} xs={12} md={4}>
         <Button
-          // onClick={}
           classes={{ label: classes.label }}
           className={classes.button}
           size="large"

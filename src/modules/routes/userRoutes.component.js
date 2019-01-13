@@ -1,15 +1,14 @@
 import React, { lazy, Suspense } from 'react';
 import { Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-// import Home from '../../pages/home/home.component';
 const Home = lazy(() => import('../../pages/home/home.component'));
-
 const Contact = lazy(() => import('../../pages/contact/contact.component'));
 const Booking = lazy(() => import('../../pages/book/book.component'));
 const Food = lazy(() => import('../../pages/food/food.component'));
 const Cocktails = lazy(() => import('../../pages/cocktails/cocktails.component'));
 
-class ClientRoutes extends React.Component {
+class UserRoutes extends React.Component {
   componentDidMount = () => {
     this.props.getComponents();
   };
@@ -27,4 +26,8 @@ class ClientRoutes extends React.Component {
   }
 }
 
-export default ClientRoutes;
+UserRoutes.propTypes = {
+  getComponents: PropTypes.func.isRequired,
+};
+
+export default UserRoutes;

@@ -8,16 +8,18 @@ const mapStateToProps = ({
   pageContent: {
     content: { presentation },
   },
+  app: {
+    config: { modules, pages },
+  },
   components,
 }) => ({
   presentation,
   components,
+  modules,
+  pages,
 });
 
 export default connect(
   mapStateToProps,
-  {
-    showToast,
-    getComponents,
-  },
+  { showToast, getComponents },
 )(UserRoutes);

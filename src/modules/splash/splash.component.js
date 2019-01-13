@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import SVG from '../../components/svg.component';
 import logo from '../../logo.svg';
 
-const styles = {
+const styles = theme => ({
   container: {
     position: 'absolute',
     top: '0px',
@@ -15,7 +15,7 @@ const styles = {
     zIndex: 100000,
     width: '100vw',
     height: '100vh',
-    background: '#0a0a0a',
+    background: theme.palette.secondary.light,
     transition: 'all 0.5s',
   },
   visible: {
@@ -26,12 +26,15 @@ const styles = {
     visibility: 'hidden',
     opacity: 0,
   },
-};
+});
 
 class Splash extends Component {
-  componentDidMount = () => {
-    if (!this.props.splashed) {
-      this.props.showSplash();
+  componentDidMount = () => {};
+
+  componentDidUpdate = () => {
+    const { modules, splashed, showSplash } = this.props;
+    if (!splashed && modules.splash) {
+      showSplash();
     }
   };
 
@@ -51,6 +54,7 @@ Splash.propTypes = {
   splashed: PropTypes.bool.isRequired,
   showSplash: PropTypes.func.isRequired,
   classes: PropTypes.shape({}).isRequired,
+  modules: PropTypes.shape({}).isRequired,
 };
 
 export default withStyles(styles)(Splash);

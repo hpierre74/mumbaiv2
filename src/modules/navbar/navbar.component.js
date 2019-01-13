@@ -51,7 +51,7 @@ const styles = theme => ({
 });
 
 const NavBar = props => {
-  const { classes, theme, pages, name } = props;
+  const { classes, theme, pages, name, modules } = props;
 
   const drawer = (
     <div>
@@ -61,14 +61,17 @@ const NavBar = props => {
             <Avatar alt={name} src={logo} />
           </ListItemAvatar>
         </ListItem>
-        {Object.values(pages).map(page => (
-          <ListItem component={Link} to={page.path} button key={page.name}>
-            <ListItemIcon>
-              <NavIcon name={page.target} />
-            </ListItemIcon>
-            <ListItemText primary={page.name.toUpperCase()} />
-          </ListItem>
-        ))}
+        {Object.values(pages).map(
+          page =>
+            modules[page.target].enabled && (
+              <ListItem component={Link} to={page.path} button key={page.name}>
+                <ListItemIcon>
+                  <NavIcon name={page.target} />
+                </ListItemIcon>
+                <ListItemText color="primary" primary={page.name.toUpperCase()} />
+              </ListItem>
+            ),
+        )}
       </List>
     </div>
   );
@@ -76,7 +79,7 @@ const NavBar = props => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" color="secondary" className={classes.appBar}>
+      <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar>
           <IconButton color="inherit" aria-label="Open drawer" onClick={props.toggle} className={classes.menuButton}>
             <MenuIcon />
@@ -98,7 +101,7 @@ const NavBar = props => {
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
-          <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
+          <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open color="primary">
             {drawer}
           </Drawer>
         </Hidden>
@@ -116,6 +119,7 @@ NavBar.propTypes = {
   toggle: PropTypes.func.isRequired,
   pages: PropTypes.shape({}).isRequired,
   name: PropTypes.string,
+  modules: PropTypes.shape({}).isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(NavBar);

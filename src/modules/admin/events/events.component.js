@@ -17,14 +17,7 @@ export default class EventManager extends Component {
     const { events, selectedEvent, openEdit, updateEvent, unsetEditEvent } = this.props;
 
     return (
-      <Row
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-        container
-        spacing={24}
-      >
+      <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
         <Col xs={12} md={12}>
           <Row spacing={8}>
             <Col xs={12} md={5}>

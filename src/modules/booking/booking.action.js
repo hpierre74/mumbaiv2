@@ -8,32 +8,12 @@ export const DELETE_BOOKING_FAILURE = 'booking/DELETE_BOOKING_FAILURE';
 
 export const addBooking = booking => dispatch => {
   setBooking(booking)
-    .then(success =>
-      dispatch({
-        type: ADD_BOOKING_SUCCESS,
-        success,
-      }),
-    )
-    .catch(err =>
-      dispatch({
-        type: ADD_BOOKING_FAILURE,
-        err,
-      }),
-    );
+    .then(success => dispatch({ type: ADD_BOOKING_SUCCESS, success }))
+    .catch(err => dispatch({ type: ADD_BOOKING_FAILURE, err }));
 };
 
 export const deleteBooking = bookingId => dispatch => {
   removeBooking(bookingId)
-    .then(success =>
-      dispatch({
-        type: DELETE_BOOKING_SUCCESS,
-        success,
-      }),
-    )
-    .catch(err =>
-      dispatch({
-        type: DELETE_BOOKING_FAILURE,
-        err,
-      }),
-    );
+    .then(success => dispatch({ type: DELETE_BOOKING_SUCCESS, success }))
+    .catch(err => dispatch({ type: DELETE_BOOKING_FAILURE, err }));
 };

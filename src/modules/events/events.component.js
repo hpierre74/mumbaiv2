@@ -70,7 +70,7 @@ function SingleLineGridList(props) {
 
   return events ? (
     <div className={classes.root}>
-      <Typography className={classes.gridTitle} align="left" gutterBottom variant="h5" component="h3">
+      <Typography color="primary" className={classes.gridTitle} align="left" gutterBottom variant="h5" component="h3">
         Nos Actus
       </Typography>
 

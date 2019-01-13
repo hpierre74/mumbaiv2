@@ -12,22 +12,10 @@ export const getInstagramFeed = accessToken => async dispatch => {
 
     const feed = data
       .filter(element => element.type !== 'video')
-      .reduce(
-        (acc, current) => [
-          ...acc,
-          {
-            url: current.images.low_resolution.url,
-            link: current.link,
-          },
-        ],
-        [],
-      )
+      .reduce((acc, current) => [...acc, { url: current.images.low_resolution.url, link: current.link }], [])
       .slice(0, isClientDesktop ? 8 : 4);
 
-    dispatch({
-      type: GET_INSTAGRAM_FEED_SUCCESS,
-      feed,
-    });
+    dispatch({ type: GET_INSTAGRAM_FEED_SUCCESS, feed });
   } catch (e) {
     dispatch({ type: GET_INSTAGRAM_FEED_FAILURE });
   }

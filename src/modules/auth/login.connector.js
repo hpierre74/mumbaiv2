@@ -7,8 +7,5 @@ const mapStateToProps = () => ({});
 
 export default connect(
   mapStateToProps,
-  {
-    login,
-    logout,
-  },
+  { login, logout },
 )(Login);
