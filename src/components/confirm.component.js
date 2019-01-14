@@ -61,6 +61,10 @@ class Confirm extends React.Component {
 
 Confirm.propTypes = {
   title: PropTypes.string.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  classes: PropTypes.shape({}).isRequired,
+  children: PropTypes.oneOf([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 };
 
 export default withStyles(styles)(Confirm);

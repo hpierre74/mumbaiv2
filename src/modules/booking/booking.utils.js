@@ -10,7 +10,11 @@ export const getBookingByLastname = async lastname => {
 
 export const setBooking = booking => {
   const id = getNewKey('booker/bookings');
-  const newBooking = { ...booking, id, date: booking.date.toDate() };
+  const newBooking = {
+    ...booking,
+    id,
+    date: booking.date.toDate(),
+  };
 
   return setData(`booker/bookings/${id}`, newBooking);
 };

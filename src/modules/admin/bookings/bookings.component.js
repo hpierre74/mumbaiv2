@@ -18,9 +18,7 @@ class BookingManager extends Component {
   };
 
   handleChange(date) {
-    this.setState({
-      startDate: date,
-    });
+    this.setState({ startDate: date });
   }
 
   render() {

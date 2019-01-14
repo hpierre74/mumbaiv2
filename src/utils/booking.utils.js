@@ -71,7 +71,10 @@ export const setBooking = booking => {
   }
   const newBookingKey = getNewKey('booker/bookings');
   const updates = {};
-  updates[`/bookings/${newBookingKey}`] = { ...booking, id: newBookingKey };
+  updates[`/bookings/${newBookingKey}`] = {
+    ...booking,
+    id: newBookingKey,
+  };
   updates[`/availability/${booking.date}/${booking.service}/${newBookingKey}`] = { persons: booking.persons };
 
   setData(`booker`, updates);

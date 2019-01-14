@@ -13,9 +13,7 @@ export const toggleContactInfoText = contactInfoType => ({
 const config = { mailUrl: '/contact/sendmail' };
 
 export const sendMail = mail => dispatch => {
-  dispatch({
-    type: SEND_MAIL_BEGIN,
-  });
+  dispatch({ type: SEND_MAIL_BEGIN });
 
   const promise = new Promise((resolve, reject) => {
     const doRequest = fetch(config.mailUrl, {
@@ -49,7 +47,5 @@ export const sendMail = mail => dispatch => {
 };
 
 export function dismissSendMailError() {
-  return {
-    type: SEND_MAIL_DISMISS_ERROR,
-  };
+  return { type: SEND_MAIL_DISMISS_ERROR };
 }

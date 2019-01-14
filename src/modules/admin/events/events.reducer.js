@@ -9,15 +9,26 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_EVENTS_SUCCESS: {
-      return { ...state, events: action.events };
+      return {
+        ...state,
+        events: action.events,
+      };
     }
 
     case SET_EDIT_EVENT: {
-      return { ...state, selectedEvent: action.event, openEdit: true };
+      return {
+        ...state,
+        selectedEvent: action.event,
+        openEdit: true,
+      };
     }
 
     case UNSET_EDIT_EVENT: {
-      return { ...state, selectedEvent: null, openEdit: false };
+      return {
+        ...state,
+        selectedEvent: null,
+        openEdit: false,
+      };
     }
 
     default:

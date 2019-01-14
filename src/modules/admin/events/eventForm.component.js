@@ -30,9 +30,7 @@ export default class EventForm extends Component {
       key: '',
       modal: false,
     };
-    this.state = {
-      ...this.defaultState,
-    };
+    this.state = { ...this.defaultState };
     this.toggleModal = this.toggleModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -66,7 +64,14 @@ export default class EventForm extends Component {
       <Card style={{ margin: '2.5%' }}>
         <CardHeader title="Add event" />
         <CardContent>
-          <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
+          <Row
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+            container
+            spacing={24}
+          >
             <Col xs={12} md={10}>
               <TextField
                 placeholder="NYE 2018/2019, DJ Any"
@@ -133,7 +138,14 @@ export default class EventForm extends Component {
             </Col>
           </Row>
         </CardContent>
-        <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
+        <Row
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+          container
+          spacing={24}
+        >
           <Col xs={12} md={12}>
             <Button onClick={this.toggleModal} variant="contained" color="primary">
               Submit Event
@@ -153,6 +165,4 @@ export default class EventForm extends Component {
   }
 }
 
-EventForm.propTypes = {
-  setEvent: PropTypes.func.isRequired,
-};
+EventForm.propTypes = { setEvent: PropTypes.func.isRequired };

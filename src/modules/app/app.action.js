@@ -11,9 +11,7 @@ export const toggleNavbar = () => ({ type: TOGGLE_NAVBAR });
 
 export function configInit() {
   return dispatch => {
-    dispatch({
-      type: GET_CONFIG_BEGIN,
-    });
+    dispatch({ type: GET_CONFIG_BEGIN });
 
     const promise = new Promise((resolve, reject) => {
       const doRequest = getData(`public/config`);

@@ -8,9 +8,7 @@ export const Row = props => (
   </Grid>
 );
 
-Row.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node]).isRequired,
-};
+Row.propTypes = { children: PropTypes.oneOfType([PropTypes.node]).isRequired };
 
 export const Col = props => (
   <Grid item {...props}>
@@ -18,6 +16,4 @@ export const Col = props => (
   </Grid>
 );
 
-Col.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node]).isRequired,
-};
+Col.propTypes = { children: PropTypes.oneOfType([PropTypes.node]).isRequired };

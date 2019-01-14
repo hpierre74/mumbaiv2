@@ -19,8 +19,6 @@ const EventList = props => {
   );
 };
 
-EventList.propTypes = {
-  events: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.array]).isRequired,
-};
+EventList.propTypes = { events: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.array]).isRequired };
 
 export default EventList;

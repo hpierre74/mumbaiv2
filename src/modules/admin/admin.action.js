@@ -13,6 +13,9 @@ export const configInitAdmin = () => async dispatch => {
       config,
     });
   } catch (err) {
-    dispatch({ type: CONFIG_INIT_ADMIN_SUCCESS, ...err });
+    dispatch({
+      type: CONFIG_INIT_ADMIN_SUCCESS,
+      ...err,
+    });
   }
 };

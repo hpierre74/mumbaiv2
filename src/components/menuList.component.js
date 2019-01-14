@@ -9,9 +9,7 @@ class MenuList extends React.Component {
   static getDerivedStateFromProps(nextProps) {
     const { items } = nextProps;
 
-    return {
-      menuItems: items,
-    };
+    return { menuItems: items };
   }
 
   state = {
@@ -63,8 +61,6 @@ class MenuList extends React.Component {
   }
 }
 
-MenuList.propTypes = {
-  action: PropTypes.func.isRequired,
-};
+MenuList.propTypes = { action: PropTypes.func.isRequired };
 
 export default MenuList;

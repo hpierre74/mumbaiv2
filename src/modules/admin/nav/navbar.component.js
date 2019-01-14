@@ -13,9 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 const drawerWidth = 240;
 
 const styles = theme => ({
-  root: {
-    display: 'flex',
-  },
+  root: { display: 'flex' },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
@@ -24,20 +22,14 @@ const styles = theme => ({
   },
   menuButton: {
     marginRight: 20,
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
+    [theme.breakpoints.up('sm')]: { display: 'none' },
   },
-  drawerPaper: {
-    width: drawerWidth,
-  },
+  drawerPaper: { width: drawerWidth },
   content: {
     flexGrow: 1,
     marginTop: '15%',
     width: '-webkit-fill-available',
-    [theme.breakpoints.up('sm')]: {
-      marginTop: '7.5%',
-    },
+    [theme.breakpoints.up('sm')]: { marginTop: '7.5%' },
   },
 });
 
@@ -69,24 +61,14 @@ const NavBar = props => {
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
             open={props.mobileOpen}
             onClose={props.toggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true,
-            }}
+            classes={{ paper: classes.drawerPaper }}
+            ModalProps={{ keepMounted: true }}
           >
             {drawer}
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant="permanent"
-            open
-          >
+          <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
             {drawer}
           </Drawer>
         </Hidden>
@@ -96,9 +78,7 @@ const NavBar = props => {
   );
 };
 
-NavBar.defaultProps = {
-  children: null,
-};
+NavBar.defaultProps = { children: null };
 NavBar.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   theme: PropTypes.shape({}).isRequired,

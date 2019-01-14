@@ -21,13 +21,23 @@ export default function reducer(state = initialState, action) {
       };
 
     case TOGGLE_NAVBAR:
-      return { ...state, mobileOpen: !state.mobileOpen };
+      return {
+        ...state,
+        mobileOpen: !state.mobileOpen,
+      };
 
     case HIDE_SPLASH:
-      return { ...state, splash: false };
+      return {
+        ...state,
+        splash: false,
+      };
 
     case SHOW_SPLASH:
-      return { ...state, splash: true, splashed: true };
+      return {
+        ...state,
+        splash: true,
+        splashed: true,
+      };
 
     default:
       return state;

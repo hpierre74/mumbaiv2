@@ -11,5 +11,9 @@ const mapStateToProps = ({ events: { events, selectedEvent, openEdit } }) => ({
 
 export default connect(
   mapStateToProps,
-  { getEvents, unsetEditEvent, updateEvent },
+  {
+    getEvents,
+    unsetEditEvent,
+    updateEvent,
+  },
 )(EventManager);

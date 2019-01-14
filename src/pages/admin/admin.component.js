@@ -8,9 +8,7 @@ import blue from '@material-ui/core/colors/blue';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const muiTheme = createMuiTheme({
-  typography: {
-    useNextVariants: true,
-  },
+  typography: { useNextVariants: true },
   palette: {
     type: 'light',
     primary: indigo,
@@ -23,9 +21,7 @@ const muiTheme = createMuiTheme({
 class AdminPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      AsyncAdmin: () => <CircularProgress />,
-    };
+    this.state = { AsyncAdmin: () => <CircularProgress /> };
   }
 
   componentDidMount = async () => {

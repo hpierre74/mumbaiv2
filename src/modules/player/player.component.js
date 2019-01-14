@@ -6,9 +6,7 @@ const styles = theme => ({
   container: {
     width: '100%',
     height: '100%',
-    [theme.breakpoints.down('sm')]: {
-      height: '30vh',
-    },
+    [theme.breakpoints.down('sm')]: { height: '30vh' },
   },
 });
 
@@ -20,9 +18,7 @@ const Player = props => (
 
 Player.propTypes = {
   video: PropTypes.string.isRequired,
-  classes: PropTypes.shape({
-    container: PropTypes.string.isRequired,
-  }).isRequired,
+  classes: PropTypes.shape({ container: PropTypes.string.isRequired }).isRequired,
 };
 
 export default withStyles(styles)(Player);

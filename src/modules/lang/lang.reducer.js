@@ -1,8 +1,6 @@
 import { CHANGE_LANG } from './lang.actions';
 
-const initialState = {
-  currentLang: 'fr',
-};
+const initialState = { currentLang: 'fr' };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {

@@ -12,7 +12,5 @@ const mapStateToProps = ({ app: { config }, pageContent: { content, path, page }
 
 export default connect(
   mapStateToProps,
-  {
-    getPageContent,
-  },
+  { getPageContent },
 )(Editor);

@@ -4,9 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 class Booking extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      AsyncBooking: () => <CircularProgress />,
-    };
+    this.state = { AsyncBooking: () => <CircularProgress /> };
   }
 
   componentDidMount = async () => {
@@ -15,9 +13,7 @@ class Booking extends React.Component {
       const AsyncBooking = module.default;
       this.setState({ AsyncBooking });
     } catch (e) {
-      this.setState({
-        AsyncBooking: () => <p>Houston, we got a problem</p>,
-      });
+      this.setState({ AsyncBooking: () => <p>Houston, we got a problem</p> });
     }
   };
 

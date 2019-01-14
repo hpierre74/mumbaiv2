@@ -24,36 +24,22 @@ const variantIcon = {
 };
 
 const styles = theme => ({
-  success: {
-    backgroundColor: green[600],
-  },
-  error: {
-    backgroundColor: theme.palette.error.dark,
-  },
-  info: {
-    backgroundColor: theme.palette.primary.dark,
-  },
-  warning: {
-    backgroundColor: amber[700],
-  },
-  icon: {
-    fontSize: 20,
-  },
+  success: { backgroundColor: green[600] },
+  error: { backgroundColor: theme.palette.error.dark },
+  info: { backgroundColor: theme.palette.primary.dark },
+  warning: { backgroundColor: amber[700] },
+  icon: { fontSize: 20 },
   iconVariant: {
     opacity: 0.9,
     marginRight: theme.spacing.unit,
   },
   snackBar: {
     flexWrap: 'nowrap',
-    [theme.breakpoints.up('md')]: {
-      width: '100%',
-    },
+    [theme.breakpoints.up('md')]: { width: '100%' },
   },
   snackBarContent: {
     flexWrap: 'nowrap',
-    [theme.breakpoints.up('md')]: {
-      maxWidth: '60%',
-    },
+    [theme.breakpoints.up('md')]: { maxWidth: '60%' },
   },
   snackContent: {
     display: 'flex',

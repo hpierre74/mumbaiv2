@@ -15,9 +15,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     padding: '10% 0%',
   },
-  gridTitle: {
-    padding: '2.5% 0',
-  },
+  gridTitle: { padding: '2.5% 0' },
   gridList: {
     flexWrap: 'nowrap',
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
@@ -27,17 +25,9 @@ const styles = theme => ({
     height: '50px',
     width: '50px',
   },
-  list: {
-    '&:hover': {
-      cursor: 'grab',
-    },
-  },
-  title: {
-    color: theme.palette.primary.light,
-  },
-  titleBar: {
-    background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-  },
+  list: { '&:hover': { cursor: 'grab' } },
+  title: { color: theme.palette.primary.light },
+  titleBar: { background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)' },
 });
 
 const widthPercent = window.innerWidth;
@@ -91,9 +81,7 @@ function SingleLineGridList(props) {
   ) : null;
 }
 
-SingleLineGridList.defaultProps = {
-  events: null,
-};
+SingleLineGridList.defaultProps = { events: null };
 
 SingleLineGridList.propTypes = {
   classes: PropTypes.shape({}).isRequired,

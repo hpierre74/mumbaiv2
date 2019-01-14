@@ -1,8 +1,6 @@
 import { TOGGLE_CONTENT_MODAL } from './editor.action';
 
-const initialState = {
-  submitContentModal: false,
-};
+const initialState = { submitContentModal: false };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {

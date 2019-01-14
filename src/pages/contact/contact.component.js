@@ -3,9 +3,7 @@ import React from 'react';
 class Contact extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      AsyncContact: () => <div />,
-    };
+    this.state = { AsyncContact: () => <div /> };
   }
 
   componentDidMount = async () => {
@@ -14,9 +12,7 @@ class Contact extends React.Component {
       const AsyncContact = module.default;
       this.setState({ AsyncContact });
     } catch (e) {
-      this.setState({
-        AsyncContact: () => <p>Houston, we got a problem</p>,
-      });
+      this.setState({ AsyncContact: () => <p>Houston, we got a problem</p> });
     }
   };
 

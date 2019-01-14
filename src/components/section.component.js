@@ -10,7 +10,5 @@ const Section = props => (
     </Col>
   </Row>
 );
-Section.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node]).isRequired,
-};
+Section.propTypes = { children: PropTypes.oneOfType([PropTypes.node]).isRequired };
 export default Section;

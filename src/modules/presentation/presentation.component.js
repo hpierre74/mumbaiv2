@@ -10,19 +10,11 @@ const styles = theme => ({
     margin: '0 auto',
     display: 'flex',
     alignItems: 'center',
-    [theme.breakpoints.up('xs')]: {
-      padding: '10% 2.5%',
-    },
-    [theme.breakpoints.up('sm')]: {
-      padding: '5% 2.5%',
-    },
-    [theme.breakpoints.up('md')]: {
-      padding: '2.5% 2.5%',
-    },
+    [theme.breakpoints.up('xs')]: { padding: '10% 2.5%' },
+    [theme.breakpoints.up('sm')]: { padding: '5% 2.5%' },
+    [theme.breakpoints.up('md')]: { padding: '2.5% 2.5%' },
   },
-  title: {
-    padding: '5%',
-  },
+  title: { padding: '5%' },
   button: {
     width: '90%',
     margin: '1% auto',

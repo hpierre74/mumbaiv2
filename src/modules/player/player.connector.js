@@ -7,8 +7,6 @@ const mapStateToProps = ({
   pageContent: {
     content: { video },
   },
-}) => ({
-  video,
-});
+}) => ({ video });
 
 export default connect(mapStateToProps)(renderOrNothing(({ video }) => video, Player));

@@ -9,8 +9,6 @@ const Menu = props => (
   </Col>
 );
 
-Menu.propTypes = {
-  src: PropTypes.string.isRequired,
-};
+Menu.propTypes = { src: PropTypes.string.isRequired };
 
 export default Menu;

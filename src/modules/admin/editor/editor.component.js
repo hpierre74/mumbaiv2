@@ -27,9 +27,7 @@ class Editor extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = {
-      pages: [],
-    };
+    this.state = { pages: [] };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
@@ -38,7 +36,12 @@ class Editor extends PureComponent {
   };
 
   handleInputChange = () => e => {
-    this.setState(state => ({ content: { ...state.content, [e.target.name]: e.target.value } }));
+    this.setState(state => ({
+      content: {
+        ...state.content,
+        [e.target.name]: e.target.value,
+      },
+    }));
   };
 
   renderPageContentEditors = content =>
@@ -103,9 +106,7 @@ class Editor extends PureComponent {
     );
   }
 }
-Editor.defaultProps = {
-  path: '',
-};
+Editor.defaultProps = { path: '' };
 
 Editor.propTypes = {
   // lang: PropTypes.string.isRequired,

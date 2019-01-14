@@ -21,7 +21,5 @@ const mapStateToProps = ({
 
 export default connect(
   mapStateToProps,
-  {
-    toggle: toggleNavbar,
-  },
+  { toggle: toggleNavbar },
 )(renderOrNothing(({ isUser }) => isUser, Navbar));

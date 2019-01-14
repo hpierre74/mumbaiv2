@@ -3,9 +3,7 @@ import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
 
 const muiTheme = createMuiTheme({
-  typography: {
-    useNextVariants: true,
-  },
+  typography: { useNextVariants: true },
   palette: {
     type: 'dark',
     secondary: {
@@ -47,12 +45,8 @@ const muiTheme = createMuiTheme({
       },
     },
     MuiCardActionArea: {
-      focusHighlight: {
-        background: 'transparent',
-      },
-      focusVisible: {
-        background: 'transparent',
-      },
+      focusHighlight: { background: 'transparent' },
+      focusVisible: { background: 'transparent' },
     },
   },
 });

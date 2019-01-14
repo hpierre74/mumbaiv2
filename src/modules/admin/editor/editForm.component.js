@@ -15,9 +15,7 @@ const styles = {
 class EditForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: '',
-    };
+    this.state = { value: '' };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }

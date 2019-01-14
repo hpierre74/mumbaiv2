@@ -11,7 +11,5 @@ const mapStateToProps = ({ app: { splash, splashed, initialized } }) => ({
 
 export default connect(
   mapStateToProps,
-  {
-    showSplash,
-  },
+  { showSplash },
 )(Splash);

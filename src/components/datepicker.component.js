@@ -5,17 +5,12 @@ import format from 'date-fns/format';
 import Input from '@material-ui/core/Input';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const dateFormat = (date, formatStr) =>
-  format(date, formatStr, {
-    locale: fr,
-  });
+const dateFormat = (date, formatStr) => format(date, formatStr, { locale: fr });
 class DateInput extends Component {
   constructor(props) {
     super(props);
     this.mounted = false;
-    this.state = {
-      DatePicker: () => <CircularProgress />,
-    };
+    this.state = { DatePicker: () => <CircularProgress /> };
   }
 
   componentDidMount = async () => {

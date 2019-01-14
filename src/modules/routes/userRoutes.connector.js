@@ -16,5 +16,8 @@ const mapStateToProps = ({
 
 export default connect(
   mapStateToProps,
-  { showToast, getComponents },
+  {
+    showToast,
+    getComponents,
+  },
 )(UserRoutes);

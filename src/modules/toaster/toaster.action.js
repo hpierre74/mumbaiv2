@@ -10,7 +10,12 @@ export const toggleToast = (variant, content, error, options) => ({
   options,
 });
 
-export const showToast = (variant, content, options) => ({ type: SHOW_TOAST, variant, content, options });
+export const showToast = (variant, content, options) => ({
+  type: SHOW_TOAST,
+  variant,
+  content,
+  options,
+});
 export const hideToast = () => (dispatch, getState) => {
   const {
     toaster: { visible },

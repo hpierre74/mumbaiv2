@@ -21,7 +21,5 @@ const NavIcon = props => {
   return <Icon />;
 };
 
-NavIcon.propTypes = {
-  name: PropTypes.string.isRequired,
-};
+NavIcon.propTypes = { name: PropTypes.string.isRequired };
 export default NavIcon;

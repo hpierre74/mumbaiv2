@@ -23,9 +23,15 @@ export const getEvents = () => async (dispatch, getState) => {
       lang: { currentLang },
     } = getState();
     const events = await getData(`public/content/${currentLang}/home/events`);
-    dispatch({ type: GET_EVENTS_SUCCESS, events });
+    dispatch({
+      type: GET_EVENTS_SUCCESS,
+      events,
+    });
   } catch (e) {
-    dispatch({ type: GET_EVENTS_FAILURE, ...e });
+    dispatch({
+      type: GET_EVENTS_FAILURE,
+      ...e,
+    });
   }
 };
 
@@ -59,7 +65,10 @@ export const setEvent = event => async dispatch => {
     dispatch(getEvents());
   } catch (e) {
     dispatch(showToast('error', 'Event creation failed !'));
-    dispatch({ type: SET_EVENT_FAILURE, ...e });
+    dispatch({
+      type: SET_EVENT_FAILURE,
+      ...e,
+    });
     throw new Error(e);
   }
 };
@@ -84,7 +93,10 @@ export const deleteEvent = event => async dispatch => {
 };
 
 export const setEditEvent = event => dispatch => {
-  dispatch({ type: SET_EDIT_EVENT, event });
+  dispatch({
+    type: SET_EDIT_EVENT,
+    event,
+  });
 };
 
 export const unsetEditEvent = () => ({ type: UNSET_EDIT_EVENT });
@@ -94,7 +106,10 @@ export const updateEvent = event => async dispatch => {
 
     const fileSuccess = image
       ? await setFile(`public/events/${imageName}`, image)
-      : { metadata: { fullPath: imagePath }, ref: { getDownloadURL: () => imageUrl } };
+      : {
+          metadata: { fullPath: imagePath },
+          ref: { getDownloadURL: () => imageUrl },
+        };
 
     const eventKey = event.key;
     const eventData = omit(
@@ -117,7 +132,10 @@ export const updateEvent = event => async dispatch => {
     dispatch(getEvents());
   } catch (e) {
     dispatch(showToast('error', 'Event update failed !'));
-    dispatch({ type: UPDATE_EVENT_FAILURE, ...e });
+    dispatch({
+      type: UPDATE_EVENT_FAILURE,
+      ...e,
+    });
     throw new Error(e);
   }
 };

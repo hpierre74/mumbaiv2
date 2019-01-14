@@ -8,9 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 const styles = theme => ({
   tabs: {
     flexFlow: 'column',
-    [theme.breakpoints.up('sm')]: {
-      flexFlow: 'row wrap',
-    },
+    [theme.breakpoints.up('sm')]: { flexFlow: 'row wrap' },
   },
 });
 
@@ -18,9 +16,7 @@ class PageTabs extends React.Component {
   static getDerivedStateFromProps(nextProps) {
     const { items } = nextProps;
 
-    return {
-      menuItems: items,
-    };
+    return { menuItems: items };
   }
 
   state = {

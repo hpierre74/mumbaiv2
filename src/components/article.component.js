@@ -14,9 +14,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Col } from './grid.components';
 
 const styles = theme => ({
-  col: {
-    margin: '0 auto',
-  },
+  col: { margin: '0 auto' },
   card: {
     maxWidth: 400,
     margin: '0 auto',
@@ -25,22 +23,14 @@ const styles = theme => ({
     height: 0,
     paddingTop: '56.25%',
   },
-  actions: {
-    display: 'flex',
-  },
+  actions: { display: 'flex' },
   expand: {
     transform: 'rotate(0deg)',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
+    transition: theme.transitions.create('transform', { duration: theme.transitions.duration.shortest }),
     marginLeft: 'auto',
-    [theme.breakpoints.up('sm')]: {
-      marginRight: -8,
-    },
+    [theme.breakpoints.up('sm')]: { marginRight: -8 },
   },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
+  expandOpen: { transform: 'rotate(180deg)' },
 });
 
 class ArticleCard extends React.Component {
@@ -66,9 +56,7 @@ class ArticleCard extends React.Component {
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
             <IconButton
-              className={classnames(classes.expand, {
-                [classes.expandOpen]: this.state.expanded,
-              })}
+              className={classnames(classes.expand, { [classes.expandOpen]: this.state.expanded })}
               onClick={this.handleExpandClick}
               aria-expanded={this.state.expanded}
               aria-label="Show more"
@@ -96,8 +84,6 @@ class ArticleCard extends React.Component {
   }
 }
 
-ArticleCard.propTypes = {
-  classes: PropTypes.shape({}).isRequired,
-};
+ArticleCard.propTypes = { classes: PropTypes.shape({}).isRequired };
 
 export default withStyles(styles)(ArticleCard);

@@ -9,9 +9,7 @@ import { Row, Col } from '../../components/grid.components';
 
 const styles = {
   focusVisible: {},
-  focusHighlight: {
-    backgroundColor: 'transparent',
-  },
+  focusHighlight: { backgroundColor: 'transparent' },
 };
 
 class Instagram extends Component {

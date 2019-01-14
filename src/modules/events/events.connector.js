@@ -6,9 +6,7 @@ const mapStateToProps = ({
   pageContent: {
     content: { events },
   },
-}) => ({
-  events,
-});
+}) => ({ events });
 
 export default connect(
   mapStateToProps,

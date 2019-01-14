@@ -23,9 +23,7 @@ import NavIcon from './navicon.component';
 const drawerWidth = 240;
 
 const styles = theme => ({
-  root: {
-    display: 'flex',
-  },
+  root: { display: 'flex' },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
@@ -41,20 +39,14 @@ const styles = theme => ({
   },
   menuButton: {
     marginRight: 20,
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
+    [theme.breakpoints.up('sm')]: { display: 'none' },
   },
   toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-  },
+  drawerPaper: { width: drawerWidth },
   content: {
     flexGrow: 1,
     marginTop: theme.mixins.toolbar.minHeight + 20,
-    [theme.breakpoints.up('sm')]: {
-      marginTop: 0,
-    },
+    [theme.breakpoints.up('sm')]: { marginTop: 0 },
   },
 });
 
@@ -99,24 +91,14 @@ const NavBar = props => {
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
             open={props.mobileOpen}
             onClose={props.toggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true,
-            }}
+            classes={{ paper: classes.drawerPaper }}
+            ModalProps={{ keepMounted: true }}
           >
             {drawer}
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant="permanent"
-            open
-          >
+          <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
             {drawer}
           </Drawer>
         </Hidden>
@@ -125,9 +107,7 @@ const NavBar = props => {
     </div>
   );
 };
-NavBar.defaultProps = {
-  name: '',
-};
+NavBar.defaultProps = { name: '' };
 NavBar.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   theme: PropTypes.shape({}).isRequired,

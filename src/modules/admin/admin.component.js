@@ -26,18 +26,10 @@ const styles = theme => ({
   appBar: {
     marginLeft: drawerWidth,
     backgroundColor: theme.palette.default,
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
+    [theme.breakpoints.up('sm')]: { width: `calc(100% - ${drawerWidth}px)` },
   },
-  iconButton: {
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  pageTitle: {
-    margin: '0 auto',
-  },
+  iconButton: { [theme.breakpoints.up('sm')]: { display: 'none' } },
+  pageTitle: { margin: '0 auto' },
 });
 
 class AdminRoutes extends Component {
@@ -135,9 +127,7 @@ class AdminRoutes extends Component {
   }
 }
 
-AdminRoutes.defaultProps = {
-  config: null,
-};
+AdminRoutes.defaultProps = { config: null };
 
 AdminRoutes.propTypes = {
   classes: PropTypes.shape({}).isRequired,
@@ -145,9 +135,7 @@ AdminRoutes.propTypes = {
   configInitAdmin: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
-  config: PropTypes.shape({
-    pages: PropTypes.shape({}),
-  }),
+  config: PropTypes.shape({ pages: PropTypes.shape({}) }),
 };
 
 export default withStyles(styles)(AdminRoutes);

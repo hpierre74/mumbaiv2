@@ -28,9 +28,7 @@ class Mail extends Component {
   }
 
   handleInputChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   handleSubmit = e => {
@@ -58,7 +56,14 @@ class Mail extends Component {
       <Card style={{ margin: '2.5%' }}>
         <CardHeader component="h3" title="NOUS ÉCRIRE" />
         <CardContent>
-          <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
+          <Row
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+            container
+            spacing={24}
+          >
             <Col xs={12} md={6}>
               <TextField
                 required
@@ -117,7 +122,14 @@ class Mail extends Component {
             </Col>
           </Row>
         </CardContent>
-        <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
+        <Row
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+          container
+          spacing={24}
+        >
           <Col xs={12} md={12}>
             <Button onClick={this.toggleModal} variant="outlined" color="primary">
               Envoyer
@@ -148,8 +160,6 @@ class Mail extends Component {
   }
 }
 
-Mail.propTypes = {
-  sendMailToAdmin: PropTypes.func.isRequired,
-};
+Mail.propTypes = { sendMailToAdmin: PropTypes.func.isRequired };
 
 export default Mail;

@@ -18,9 +18,7 @@ export default class Resizer extends Component {
       imageName: '',
       modal: false,
     };
-    this.state = {
-      ...this.defaultState,
-    };
+    this.state = { ...this.defaultState };
     this.toggleModal = this.toggleModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -51,7 +49,14 @@ export default class Resizer extends Component {
       <Card style={{ margin: '2.5%' }}>
         <CardHeader title="Resize File" />
         <CardContent>
-          <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
+          <Row
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+            container
+            spacing={24}
+          >
             <Col xs={12} md={10}>
               <input
                 required
@@ -66,7 +71,14 @@ export default class Resizer extends Component {
             </Col>
           </Row>
         </CardContent>
-        <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
+        <Row
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+          container
+          spacing={24}
+        >
           <Col xs={12} md={12}>
             <Button onClick={this.toggleModal} variant="contained" color="primary">
               Submit Event
@@ -85,7 +97,3 @@ export default class Resizer extends Component {
     );
   }
 }
-
-Resizer.propTypes = {
-  // showToast: PropTypes.func.isRequired,
-};

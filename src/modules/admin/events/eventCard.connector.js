@@ -7,5 +7,9 @@ const mapStateToProps = () => ({});
 
 export default connect(
   mapStateToProps,
-  { setEvent, deleteEvent, setEditEvent },
+  {
+    setEvent,
+    deleteEvent,
+    setEditEvent,
+  },
 )(EventCard);

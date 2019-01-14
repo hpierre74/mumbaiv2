@@ -8,9 +8,7 @@ export const SEND_MAIL_DISMISS_ERROR = 'mail/SEND_MAIL_ERROR';
 const config = { mailServiceUrl: 'https://us-central1-mumbai-redux.cloudfunctions.net/sendMail' };
 
 export const sendMail = mail => dispatch => {
-  dispatch({
-    type: SEND_MAIL_BEGIN,
-  });
+  dispatch({ type: SEND_MAIL_BEGIN });
 
   const promise = new Promise((resolve, reject) => {
     const doRequest = requestPost(config.mailServiceUrl, mail);
@@ -37,7 +35,5 @@ export const sendMail = mail => dispatch => {
 };
 
 export function dismissSendMailError() {
-  return {
-    type: SEND_MAIL_DISMISS_ERROR,
-  };
+  return { type: SEND_MAIL_DISMISS_ERROR };
 }

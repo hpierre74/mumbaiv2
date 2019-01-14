@@ -6,7 +6,5 @@ import { updateContent } from './editor.action';
 const mapStateToProps = () => ({});
 export default connect(
   mapStateToProps,
-  {
-    updateContent,
-  },
+  { updateContent },
 )(EditForm);

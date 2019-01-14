@@ -10,7 +10,5 @@ const mapStateToProps = ({ mail: { sendMailSuccess, sendMailPending } }) => ({
 
 export default connect(
   mapStateToProps,
-  {
-    sendMailToAdmin: sendMail,
-  },
+  { sendMailToAdmin: sendMail },
 )(Mail);

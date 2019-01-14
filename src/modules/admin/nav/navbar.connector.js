@@ -6,8 +6,6 @@ const mapStateToProps = ({
   router: {
     location: { pathname },
   },
-}) => ({
-  pathname,
-});
+}) => ({ pathname });
 
 export default connect(mapStateToProps)(NavBar);

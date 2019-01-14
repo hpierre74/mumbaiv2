@@ -15,15 +15,9 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
   },
-  table: {
-    minWidth: 700,
-  },
-  header: {
-    background: theme.palette.primary[500],
-  },
-  cell: {
-    color: '#FFFFFF',
-  },
+  table: { minWidth: 700 },
+  header: { background: theme.palette.primary[500] },
+  cell: { color: '#FFFFFF' },
 });
 
 function BookingsTable(props) {
