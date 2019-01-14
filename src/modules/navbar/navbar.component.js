@@ -79,7 +79,7 @@ const NavBar = props => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" color="primary" className={classes.appBar}>
+      <AppBar position="fixed" color="secondary" className={classes.appBar}>
         <Toolbar>
           <IconButton color="inherit" aria-label="Open drawer" onClick={props.toggle} className={classes.menuButton}>
             <MenuIcon />
