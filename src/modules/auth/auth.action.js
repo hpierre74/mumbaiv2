@@ -9,20 +9,11 @@ export const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
 
 export const login = ({ email, password }) => async dispatch => {
   try {
-    const success = await signIn({
-      email,
-      password,
-    });
-    dispatch({
-      type: LOGIN_SUCCESS,
-      success,
-    });
+    const success = await signIn({ email, password });
+    dispatch({ type: LOGIN_SUCCESS, success });
     dispatch(showToast('success', 'You successfully logged in'));
   } catch (e) {
-    dispatch({
-      type: LOGIN_FAILURE,
-      e,
-    });
+    dispatch({ type: LOGIN_FAILURE, e });
     dispatch(showToast('error', 'Login Failed'));
   }
 };
@@ -30,10 +21,7 @@ export const login = ({ email, password }) => async dispatch => {
 export const logout = () => async dispatch => {
   try {
     const success = await signOut();
-    dispatch({
-      type: LOGOUT_SUCCESS,
-      success,
-    });
+    dispatch({ type: LOGOUT_SUCCESS, success });
     dispatch(showToast('success', 'You successfully logged out'));
   } catch (e) {
     dispatch({ type: LOGOUT_FAILURE });

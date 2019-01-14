@@ -9,7 +9,7 @@ const Instagram = lazy(() => import('../../modules/instagram/instagram.connector
 
 const Home = () => (
   <div>
-    <Splash />
+    {false && <Splash />}
     <Suspense fallback={<div />}>
       <Player />
       <Presentation />

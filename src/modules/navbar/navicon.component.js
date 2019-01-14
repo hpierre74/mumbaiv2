@@ -6,6 +6,8 @@ import CocktailIcon from '@material-ui/icons/LocalBar';
 import FoodIcon from '@material-ui/icons/Restaurant';
 import ContactIcon from '@material-ui/icons/Info';
 import HomeIcon from '@material-ui/icons/Home';
+import DrinkIcon from '@material-ui/icons/LocalDrink';
+import MenuIcon from '@material-ui/icons/LibraryBooks';
 
 const iconVariants = {
   home: HomeIcon,
@@ -13,6 +15,8 @@ const iconVariants = {
   cocktails: CocktailIcon,
   food: FoodIcon,
   contact: ContactIcon,
+  shooters: DrinkIcon,
+  menu: MenuIcon,
 };
 
 const NavIcon = props => {

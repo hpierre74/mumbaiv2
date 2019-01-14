@@ -11,14 +11,7 @@ const MapContainer = props => {
   }
 
   return (
-    <Map
-      style={{
-        width: '100%',
-        height: '400px',
-      }}
-      center={position}
-      zoom={16}
-    >
+    <Map style={{ width: '100%', height: '400px' }} center={position} zoom={16}>
       <TileLayer
         url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

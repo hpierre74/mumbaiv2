@@ -55,7 +55,7 @@ class Instagram extends Component {
       <div style={{ padding: '2.5%' }}>
         <Row spacing={24}>
           <Col md={12} sm={12} xs={12}>
-            <Typography align="center" gutterBottom variant="h5" component="h3">
+            <Typography color="primary" align="center" gutterBottom variant="h5" component="h3">
               Notre Instagram
             </Typography>
           </Col>

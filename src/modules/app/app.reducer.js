@@ -8,7 +8,6 @@ const initialState = {
   },
   splash: false,
   splashed: false,
-  initialized: false,
   mobileOpen: false,
 };
 

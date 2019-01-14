@@ -35,12 +35,7 @@ export default class Login extends Component {
     return (
       <Row justify="center" container>
         <Col xs={12} sm={6} md={6}>
-          <Card
-            style={{
-              margin: '2.5% auto',
-              padding: '2.5%',
-            }}
-          >
+          <Card style={{ margin: '2.5% auto', padding: '2.5%' }}>
             <CardHeader title="Login" />
             <CardContent>
               <Row container spacing={24}>
@@ -69,14 +64,7 @@ export default class Login extends Component {
                 </Col>
               </Row>
             </CardContent>
-            <Row
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-              container
-              spacing={24}
-            >
+            <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
               <Col xs={12} md={12}>
                 <Button onClick={this.handleSubmit} variant="outlined" color="primary">
                   Login

@@ -64,7 +64,7 @@ Confirm.propTypes = {
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   classes: PropTypes.shape({}).isRequired,
-  children: PropTypes.oneOf([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+  children: PropTypes.shape({}).isRequired,
 };
 
 export default withStyles(styles)(Confirm);
