@@ -1,8 +1,8 @@
+import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-
 import configureStore, { history } from './configureStore';
 import * as serviceWorker from './serviceWorker';
 import initializeApp from './utils/init';
@@ -17,8 +17,17 @@ import { showSplash } from './modules/splash/splash.action';
 const init = async () => {
   const config = await initializeApp();
   const store = configureStore();
-  const { dispatch } = store;
-  dispatch(showSplash());
+  const { dispatch, getState } = store;
+  const {
+    router: {
+      location: { pathname },
+    },
+  } = getState();
+
+  if (!pathname.includes('admin')) {
+    dispatch(showSplash());
+  }
+
   dispatch(configInit(config));
 
   ReactDOM.render(

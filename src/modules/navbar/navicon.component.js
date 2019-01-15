@@ -22,7 +22,7 @@ const iconVariants = {
 const NavIcon = props => {
   const Icon = iconVariants[props.name];
 
-  return <Icon />;
+  return <Icon color="secondary" />;
 };
 
 NavIcon.propTypes = { name: PropTypes.string.isRequired };

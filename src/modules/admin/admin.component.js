@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -10,11 +10,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import PowerOff from '@material-ui/icons/SettingsPowerRounded';
 import { withStyles } from '@material-ui/core/styles';
 
-import { renderRoutes } from '../../utils/routing.utils';
+import { renderAdminRoutes } from '../../utils/routing.utils';
 
 import Toaster from '../toaster/toast.connector';
 import DrawerComponent from './nav/navbar.connector';
 import Login from '../auth/login.connector';
+import { CircularProgress } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -39,86 +40,70 @@ class AdminRoutes extends Component {
     this.state = {
       mobileOpen: false,
       pages: [],
-      rendered: false,
     };
     this.handleDrawerToggle = this.handleDrawerToggle.bind(this);
   }
 
-  shouldComponentUpdate = async nextProps => {
-    if (!this.init && nextProps.isAdmin) {
-      this.props.configInitAdmin();
-      this.init = true;
+  componentDidMount = () => {
+    const { isAdmin, configInitAdmin } = this.props;
 
-      return false;
+    if (isAdmin) {
+      configInitAdmin();
     }
-
-    const { config } = nextProps;
-    if (!this.props.config && config) {
-      await Promise.all([Object.values(config.pages).map(page => this.getComponent(page))]);
-    }
-
-    return false;
   };
 
-  async getComponent(component) {
-    return import(`./${component.target}/${component.target}.connector.js`).then(module =>
-      this.setState(state => ({
-        [component.name]: module.default,
-        pages: [...state.pages, component],
-      })),
-    );
-  }
+  componentDidUpdate = () => {
+    const { isAdmin, initialized, configInitAdmin, initializeAdmin, config } = this.props;
+
+    if (isAdmin && !config) {
+      configInitAdmin();
+    }
+
+    if (!initialized && isAdmin && config) {
+      initializeAdmin();
+    }
+  };
 
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
-  renderAdminRoutes = () => {
-    const { config } = this.props;
-    if (!config) {
-      return null;
-    }
-    const { pages } = config;
-
-    return renderRoutes(pages, this.state);
-  };
-
   render() {
-    const { classes, pathname, isAdmin } = this.props;
+    const { classes, pathname, isAdmin, initialized, config } = this.props;
 
     return (
       <div className={classes.wrapper}>
         {isAdmin ? (
-          <div>
-            <AppBar className={classes.appBar} color="primary" position="fixed">
-              <Toolbar>
-                <IconButton
-                  className={classes.iconButton}
-                  color="inherit"
-                  aria-label="Open drawer"
-                  onClick={this.handleDrawerToggle}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" color="inherit" noWrap>
-                  Admin
-                </Typography>
-                <Typography className={classes.pageTitle} variant="h6" color="inherit" noWrap>
-                  {pathname.replace('/admin/', '').toUpperCase()}
-                </Typography>
-                <IconButton component={Link} to="/" color="secondary" aria-label="Logout" onClick={this.props.logout}>
-                  <PowerOff />
-                </IconButton>
-              </Toolbar>
-            </AppBar>
-            <DrawerComponent
-              pages={this.state.pages}
-              mobileOpen={this.state.mobileOpen}
-              toggle={this.handleDrawerToggle}
-            >
-              {this.renderAdminRoutes()}
-            </DrawerComponent>
-          </div>
+          config && (
+            <div>
+              <AppBar className={classes.appBar} color="primary" position="fixed">
+                <Toolbar>
+                  <IconButton
+                    className={classes.iconButton}
+                    color="inherit"
+                    aria-label="Open drawer"
+                    onClick={this.handleDrawerToggle}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                  <Typography variant="h6" color="inherit" noWrap>
+                    Admin
+                  </Typography>
+                  <Typography className={classes.pageTitle} variant="h6" color="inherit" noWrap>
+                    {pathname.replace('/admin/', '').toUpperCase()}
+                  </Typography>
+                  <IconButton component={Link} to="/" color="secondary" aria-label="Logout" onClick={this.props.logout}>
+                    <PowerOff />
+                  </IconButton>
+                </Toolbar>
+              </AppBar>
+              <DrawerComponent pages={config.pages} mobileOpen={this.state.mobileOpen} toggle={this.handleDrawerToggle}>
+                <Suspense fallback={<CircularProgress />}>
+                  <div>{initialized && renderAdminRoutes(config)}</div>
+                </Suspense>
+              </DrawerComponent>
+            </div>
+          )
         ) : (
           <Login />
         )}
@@ -137,6 +122,8 @@ AdminRoutes.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
   config: PropTypes.shape({ pages: PropTypes.shape({}) }),
+  initialized: PropTypes.bool.isRequired,
+  initializeAdmin: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(AdminRoutes);

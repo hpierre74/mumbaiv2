@@ -1,18 +1,19 @@
 import { connect } from 'react-redux';
 
 import Admin from './admin.component';
-import { configInitAdmin } from './admin.action';
+import { configInitAdmin, initializeAdmin } from './admin.action';
 import { logout } from '../auth/auth.action';
 
 const mapStateToProps = ({
   router: {
     location: { pathname },
   },
-  admin: { config, isAdmin },
+  admin: { config, isAdmin, initialized },
 }) => ({
   pathname,
   config,
   isAdmin: !!isAdmin,
+  initialized,
 });
 
 export default connect(
@@ -20,5 +21,6 @@ export default connect(
   {
     configInitAdmin,
     logout,
+    initializeAdmin,
   },
 )(Admin);

@@ -39,8 +39,8 @@ const Presentation = props => {
           <Row justify="space-around">
             <Col sm={12} xs={12} md={12}>
               <Typography
-                color="primary"
                 className={classes.title}
+                color="primary"
                 gutterBottom
                 variant="h5"
                 component="h3"

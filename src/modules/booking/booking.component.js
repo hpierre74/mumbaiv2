@@ -218,15 +218,13 @@ export default class EventForm extends Component {
             >
               <List>
                 <ListItemText>
-                  <Typography color="secondary">
-                    {`Vous êtes Mr. ${this.state.firstname} ${this.state.lastname}`}
-                  </Typography>
+                  <Typography>{`Vous êtes Mr. ${this.state.firstname} ${this.state.lastname}`}</Typography>
                 </ListItemText>
                 <ListItemText>
-                  <Typography color="secondary">{`Vous êtes joignable au ${this.state.tel}`}</Typography>
+                  <Typography>{`Vous êtes joignable au ${this.state.tel}`}</Typography>
                 </ListItemText>
                 <ListItemText>
-                  <Typography gutterBottom color="secondary" component="p">
+                  <Typography gutterBottom component="p">
                     {`Vous réservez pour ${this.state.persons}, le  ${format(
                       new Date(this.state.date),
                       'DD-MM-YYYY HH:mm',

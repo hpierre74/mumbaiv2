@@ -44,15 +44,21 @@ class PageTabs extends React.Component {
     this.setState({ value: index });
   };
 
-  renderPageTabs = () =>
-    Object.values(this.state.menuItems).map(menuItem => (
-      <Tab
-        name={menuItem.name}
-        key={menuItem.name}
-        onClick={() => this.getPageData(menuItem.target)}
-        label={menuItem.name}
-      />
-    ));
+  renderPageTabs = () => {
+    const { modules } = this.props;
+
+    return Object.values(this.state.menuItems).map(
+      menuItem =>
+        modules[menuItem.target].enabled && (
+          <Tab
+            name={menuItem.name}
+            key={menuItem.name}
+            onClick={() => this.getPageData(menuItem.target)}
+            label={menuItem.name}
+          />
+        ),
+    );
+  };
 
   render() {
     const { classes } = this.props;
@@ -81,6 +87,7 @@ PageTabs.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   action: PropTypes.func.isRequired,
   items: PropTypes.shape({}).isRequired,
+  modules: PropTypes.shape({}).isRequired,
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({}), PropTypes.func]).isRequired,
 };
 

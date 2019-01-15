@@ -19,7 +19,7 @@ import Divider from '@material-ui/core/Divider';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import logo from '../../logo.svg';
+import logo from '../../logo-perrok.svg';
 import NavIcon from './navicon.component';
 import SVG from '../../components/svg.component';
 import facebook from '../../style/images/facebook.svg';
@@ -45,13 +45,17 @@ const styles = theme => ({
   },
   menuButton: {
     marginRight: 20,
-    [theme.breakpoints.up('sm')]: { display: 'none' },
+    [theme.breakpoints.up('sm')]: { display: theme.desktop.navbar ? 'none' : 'initial' },
   },
   toolbar: theme.mixins.toolbar,
-  drawerPaper: { width: drawerWidth },
+  drawerPaper: {
+    width: drawerWidth,
+    background: theme.palette.primary.main,
+  },
   content: {
     flexGrow: 1,
     marginTop: theme.mixins.toolbar.minHeight + 20,
+
     [theme.breakpoints.up('sm')]: { marginTop: 0 },
   },
   divider: {
@@ -69,7 +73,7 @@ const NavBar = props => {
 
   const drawer = (
     <div>
-      <List color="primary">
+      <List color="secondary">
         <ListItem alignItems="center">
           <ListItemAvatar>
             <Avatar alt={name} src={logo} />
@@ -79,10 +83,10 @@ const NavBar = props => {
           page =>
             modules[page.target].enabled && (
               <ListItem component={Link} to={page.path} button key={page.name}>
-                <ListItemIcon>
+                <ListItemIcon color="#fff">
                   <NavIcon name={page.target} />
                 </ListItemIcon>
-                <ListItemText color="primary" primary={page.name.toUpperCase()} />
+                <ListItemText color="secondary" secondary={page.name.toUpperCase()} />
               </ListItem>
             ),
         )}
@@ -105,7 +109,7 @@ const NavBar = props => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" color="secondary" className={classes.appBar}>
+      <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar>
           <IconButton color="inherit" aria-label="Open drawer" onClick={props.toggle} className={classes.menuButton}>
             <MenuIcon />
@@ -127,7 +131,14 @@ const NavBar = props => {
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
-          <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
+          <Drawer
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={theme.desktop.navbar ? true : props.mobileOpen}
+            onClose={props.toggle}
+            classes={{ paper: classes.drawerPaper }}
+            ModalProps={{ keepMounted: true }}
+            variant={modules.navbar.desktop ? 'permanent' : 'temporary'}
+          >
             {drawer}
           </Drawer>
         </Hidden>

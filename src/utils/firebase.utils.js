@@ -48,7 +48,36 @@ export function getOrderedData(ref, child) {
   return database
     .ref(ref)
     .orderByChild(child)
-    .once('value');
+    .once('value')
+    .then(snapshot => snapshot.val());
+}
+
+export const getOrderedDataEqual = (ref, child, value) =>
+  database
+    .ref(ref)
+    .orderByChild(child)
+    .equalTo(value)
+    .once('value')
+    .then(snapshot => snapshot.val());
+
+export const getRangedDataEqual = (ref, child, value, start, end) =>
+  database
+    .ref(ref)
+    .orderByChild(child)
+    .equalTo(value)
+    .startAt(start)
+    .endAt(end)
+    .once('value')
+    .then(snapshot => snapshot.val());
+
+export function getRangedData(ref, child, start, end) {
+  return database
+    .ref(ref)
+    .orderByChild(child)
+    .startAt(start)
+    .endAt(end)
+    .once('value')
+    .then(snapshot => snapshot.val());
 }
 
 export function getDataStream(ref, cb) {

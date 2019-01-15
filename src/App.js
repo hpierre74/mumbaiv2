@@ -13,7 +13,7 @@ const Toaster = lazy(() => import('./modules/toaster/toast.connector'));
 
 const App = () => (
   <Fragment>
-    <MuiThemeProvider theme={theme}>
+    <MuiThemeProvider theme={{ ...theme, desktop: { navbar: false } }}>
       <NavBar>
         <Switch>
           <UserRoutes />

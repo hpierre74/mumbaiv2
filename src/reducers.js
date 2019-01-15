@@ -9,16 +9,18 @@ import admin from './modules/admin/admin.reducer';
 import toaster from './modules/toaster/toaster.reducer';
 import events from './modules/admin/events/events.reducer';
 import instagram from './modules/instagram/instagram.reducer';
+import bookings from './modules/admin/bookings/bookings.reducer';
 
 export default history =>
   combineReducers({
     router: connectRouter(history),
+    admin,
     mail,
     lang,
     app,
     pageContent,
     toaster,
-    admin,
     events,
     instagram,
+    bookings,
   });

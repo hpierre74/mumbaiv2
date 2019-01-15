@@ -41,15 +41,21 @@ class DateInput extends Component {
         selected={this.props.date}
         value={dateFormat(this.props.date, 'DD/MM/YYYY')}
         dateFormat="DD/MM/YYYY"
+        minDate={new Date()}
         onChange={this.props.handleChange}
       />
     );
   }
 }
 
+DateInput.defaultProps = {
+  placeholderText: '',
+};
+
 DateInput.propTypes = {
   date: PropTypes.shape({}).isRequired,
   handleChange: PropTypes.func.isRequired,
+  placeholderText: PropTypes.string,
 };
 
 export default DateInput;

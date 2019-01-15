@@ -14,12 +14,11 @@ const ContactList = lazy(() => import('./contactList.component'));
 
 const Contact = props => {
   const { address, email, tel, social, lat, lng } = props;
-
   return (
     <Row>
       <Col sm={12} xs={12} md={12}>
         <Card style={{ margin: '2.5%' }}>
-          <CardHeader component="h3" title="Nous Contacter" />
+          <CardHeader disableTypography component="h3" title="NOUS CONTACTER" />
           <CardContent>
             <Suspense fallback={<CircularProgress />}>
               <ContactList email={email} address={address} tel={tel} social={social} />

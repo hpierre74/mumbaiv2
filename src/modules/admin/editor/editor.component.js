@@ -95,11 +95,11 @@ class Editor extends PureComponent {
     });
 
   render() {
-    const { classes } = this.props;
+    const { classes, config } = this.props;
 
     return (
       <div className={classes.container}>
-        <PageTabs items={this.state.pages} action={this.props.getPageContent}>
+        <PageTabs modules={config.modules} items={this.state.pages} action={this.props.getPageContent}>
           <Row>{this.renderPageContentEditors(this.state.content)}</Row>
         </PageTabs>
       </div>
@@ -110,6 +110,7 @@ Editor.defaultProps = { path: '' };
 
 Editor.propTypes = {
   // lang: PropTypes.string.isRequired,
+  config: PropTypes.shape({}).isRequired,
   classes: PropTypes.shape({}).isRequired,
   path: PropTypes.string,
   getPageContent: PropTypes.func.isRequired,
