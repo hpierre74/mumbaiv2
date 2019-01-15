@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
-import setMinutes from 'date-fns/set_minutes';
-import setHours from 'date-fns/set_hours';
+import setMinutes from 'date-fns/setMinutes';
+import setHours from 'date-fns/setHours';
 import format from 'date-fns/format';
 
 import Button from '@material-ui/core/Button';
@@ -21,9 +21,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DateInput from '../../components/datepicker.component';
 import Confirm from '../../components/confirm.component';
 import { Row, Col } from '../../components/grid.components';
-import { setData, getNewKey } from '../../utils/firebase.utils';
+import { setSeconds } from 'date-fns/esm';
 
-export default class EventForm extends Component {
+export default class BookingForm extends Component {
   constructor(props) {
     super(props);
     this.defaultState = {
@@ -43,6 +43,12 @@ export default class EventForm extends Component {
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (!prevProps.addBookingSuccess && this.props.addBookingSuccess) {
+      this.setState({ ...this.defaultState });
+    }
+  }
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -50,8 +56,9 @@ export default class EventForm extends Component {
   dateWithTime = ({ date, hours }) => {
     const dateWithMinutes = setMinutes(new Date(date), parseInt(hours.substring(3, 5), 10));
     const dateWithHours = setHours(new Date(dateWithMinutes), parseInt(hours.substring(0, 2), 10));
+    const dateWithSeconds = setSeconds(new Date(dateWithHours), 0);
 
-    return dateWithHours;
+    return dateWithSeconds;
   };
 
   handleDateChange = date => {
@@ -66,24 +73,21 @@ export default class EventForm extends Component {
     this.setState(state => ({ modal: !state.modal }));
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
     this.toggleModal();
-    const { showToast } = this.props;
-    const state = omit(this.state, 'modal');
-    const bookingKey = getNewKey('booker/bookings');
-    const newBooking = {
-      ...state,
-      id: bookingKey,
-      date: this.dateWithTime({ ...this.state }),
+    const { submitBooking } = this.props;
+    const date = this.dateWithTime(this.state);
+    const timestamp = date.getTime();
+    const currentTimestamp = Date.now();
+    const booking = {
+      ...omit(this.state, 'modal'),
+      date: date.toString(),
+      timestamp,
+      currentTimestamp,
     };
 
-    setData(`booker/bookings/${bookingKey}`, newBooking)
-      .then(() => {
-        this.setState({ ...this.defaultState });
-        showToast('success', 'Booking Enregistré !');
-      })
-      .catch(err => showToast('error', "Oups, votre réservation n'a pas fonctionné", err));
+    await submitBooking(booking);
   };
 
   getBookableHours = services =>
@@ -93,6 +97,14 @@ export default class EventForm extends Component {
       .reduce((acc, curr) =>
         [...acc, ...curr].sort((a, b) => parseInt(a.replace(':', ''), 10) - parseInt(b.replace(':', ''), 10)),
       );
+
+  renderPersonsChoice = ({ book: { maxPersons } }) => {
+    return Array.apply(null, Array(maxPersons)).map((n, i) => (
+      <MenuItem key={i} value={++i}>
+        {i}
+      </MenuItem>
+    ));
+  };
 
   renderServiceChoice = services => {
     if (services) {
@@ -172,7 +184,6 @@ export default class EventForm extends Component {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-
                 {this.renderServiceChoice(this.props.config.services)}
               </Select>
             </Col>
@@ -186,16 +197,7 @@ export default class EventForm extends Component {
                 input={<Input name="persons" id="persons" fullWidth />}
               >
                 <MenuItem value="" />
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
-                <MenuItem value={6}>6</MenuItem>
-                <MenuItem value={7}>7</MenuItem>
-                <MenuItem value={8}>8</MenuItem>
-                <MenuItem value={9}>9</MenuItem>
-                <MenuItem value={10}>10</MenuItem>
+                {this.renderPersonsChoice(this.props.config.modules)}
               </Select>
             </Col>
             <Col xs={12} md={6}>
@@ -216,24 +218,24 @@ export default class EventForm extends Component {
               onCancel={this.toggleModal}
               onSubmit={this.handleSubmit}
             >
-              <List>
-                <ListItemText>
-                  <Typography color="secondary">
-                    {`Vous êtes Mr. ${this.state.firstname} ${this.state.lastname}`}
-                  </Typography>
-                </ListItemText>
-                <ListItemText>
-                  <Typography color="secondary">{`Vous êtes joignable au ${this.state.tel}`}</Typography>
-                </ListItemText>
-                <ListItemText>
-                  <Typography gutterBottom color="secondary" component="p">
-                    {`Vous réservez pour ${this.state.persons}, le  ${format(
-                      new Date(this.state.date),
-                      'DD-MM-YYYY HH:mm',
-                    )}`}
-                  </Typography>
-                </ListItemText>
-              </List>
+              {this.state.modal && (
+                <List>
+                  <ListItemText>
+                    <Typography>{`Vous êtes Mr. ${this.state.firstname} ${this.state.lastname}`}</Typography>
+                  </ListItemText>
+                  <ListItemText>
+                    <Typography>{`Vous êtes joignable au ${this.state.tel}`}</Typography>
+                  </ListItemText>
+                  <ListItemText>
+                    <Typography gutterBottom component="p">
+                      {`Vous réservez pour ${this.state.persons}, le  ${format(
+                        new Date(this.dateWithTime(this.state)),
+                        'dd-MM-yyyy HH:mm',
+                      )}`}
+                    </Typography>
+                  </ListItemText>
+                </List>
+              )}
             </Confirm>
           </Col>
         </Row>
@@ -242,9 +244,11 @@ export default class EventForm extends Component {
   }
 }
 
-EventForm.propTypes = {
-  showToast: PropTypes.func.isRequired,
+BookingForm.propTypes = {
+  submitBooking: PropTypes.func.isRequired,
+  addBookingSuccess: PropTypes.bool.isRequired,
   config: PropTypes.shape({
+    modules: PropTypes.shape({}),
     pages: PropTypes.shape({}),
     services: PropTypes.shape({}),
   }).isRequired,

@@ -35,6 +35,9 @@ const styles = theme => ({
 
 const NavBar = props => {
   const { classes, theme, pages, pathname } = props;
+  if (!pages) {
+    return null;
+  }
 
   const drawer = (
     <div>
@@ -42,7 +45,7 @@ const NavBar = props => {
         <ListItem selected={pathname === `/admin/`} component={Link} to="/admin/" button key="dashboard">
           <ListItemText primary="DASHBOARD" />
         </ListItem>
-        {pages.map(page => (
+        {Object.values(pages).map(page => (
           <ListItem component={Link} to={page.path} selected={pathname === page.path} button key={page.name}>
             <ListItemText primary={page.name} />
           </ListItem>
@@ -85,7 +88,7 @@ NavBar.propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
   mobileOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
-  pages: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  pages: PropTypes.PropTypes.shape({}).isRequired,
   pathname: PropTypes.string.isRequired,
 };
 

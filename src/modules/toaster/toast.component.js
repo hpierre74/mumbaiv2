@@ -28,6 +28,7 @@ const styles = theme => ({
   error: { backgroundColor: theme.palette.error.dark },
   info: { backgroundColor: theme.palette.primary.dark },
   warning: { backgroundColor: amber[700] },
+  new: { backgroundColor: 'white' },
   icon: { fontSize: 20 },
   iconVariant: {
     opacity: 0.9,
@@ -44,10 +45,14 @@ const styles = theme => ({
   snackContent: {
     display: 'flex',
     alignItems: 'center',
+    color: 'white',
   },
   snackAction: {
     marginLeft: '10px',
     textAlign: 'justify',
+  },
+  colorDark: {
+    color: 'black !important',
   },
 });
 
@@ -65,6 +70,8 @@ class Toaster extends React.Component {
 
     const Icon = variantIcon[variant];
 
+    const applyDarkColor = (variant, classname) =>
+      variant === 'new' ? classNames(classname, classes.colorDark) : classname;
     return (
       <Snackbar
         className={classes.snackBar}
@@ -80,14 +87,14 @@ class Toaster extends React.Component {
           className={classNames(classes[variant], classes.snackBarContent)}
           aria-describedby="client-snackbar"
           message={
-            <span className={classes.snackContent} id="client-snackbar">
+            <span className={applyDarkColor(variant, classes.snackContent)} id="client-snackbar">
               <Icon />
-              <p className={classes.snackAction}>{content}</p>
+              <p className={applyDarkColor(variant, classes.snackAction)}>{content}</p>
             </span>
           }
           action={[
             <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleClose}>
-              <CloseIcon />
+              <CloseIcon color={variant === 'new' ? 'secondary' : 'primary'} />
             </IconButton>,
           ]}
         />

@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import Instagram from './instagram.component';
 import { getInstagramFeed } from './instagram.action';
 
-const mapStateToProps = ({ instagram: { initialized, accessToken, feed, enabled } }) => ({
-  initialized,
-  accessToken,
+const mapStateToProps = ({ instagram: { feed, enabled } }) => ({
   feed,
   enabled,
 });

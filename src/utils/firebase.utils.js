@@ -1,4 +1,5 @@
 import firebase from '@firebase/app';
+import '@firebase/functions';
 import '@firebase/database';
 import '@firebase/storage';
 import '@firebase/auth';
@@ -17,6 +18,9 @@ firebase.initializeApp(config);
 export const database = firebase.database();
 export const storage = firebase.storage();
 export const auth = firebase.auth();
+
+export const callApi = (method, body) => firebase.functions().httpsCallable(method)(body);
+
 export const signOut = () => auth.signOut();
 export const signIn = ({ email, password }) =>
   auth
@@ -48,7 +52,36 @@ export function getOrderedData(ref, child) {
   return database
     .ref(ref)
     .orderByChild(child)
-    .once('value');
+    .once('value')
+    .then(snapshot => snapshot.val());
+}
+
+export const getOrderedDataEqual = (ref, child, value) =>
+  database
+    .ref(ref)
+    .orderByChild(child)
+    .equalTo(value)
+    .once('value')
+    .then(snapshot => snapshot.val());
+
+export const getRangedDataEqual = (ref, child, value, start, end) =>
+  database
+    .ref(ref)
+    .orderByChild(child)
+    .equalTo(value)
+    .startAt(start)
+    .endAt(end)
+    .once('value')
+    .then(snapshot => snapshot.val());
+
+export function getRangedData(ref, child, start, end) {
+  return database
+    .ref(ref)
+    .orderByChild(child)
+    .startAt(start)
+    .endAt(end)
+    .once('value')
+    .then(snapshot => snapshot.val());
 }
 
 export function getDataStream(ref, cb) {

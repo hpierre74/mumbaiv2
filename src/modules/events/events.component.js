@@ -12,7 +12,6 @@ const styles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
     padding: '10% 0%',
   },
   gridTitle: { padding: '2.5% 0' },
@@ -49,7 +48,7 @@ const colsWidth = width => {
     return 1.25;
   }
 
-  return 1;
+  return 1.1;
 };
 
 function SingleLineGridList(props) {
@@ -73,7 +72,6 @@ function SingleLineGridList(props) {
       <Typography color="primary" className={classes.gridTitle} align="left" gutterBottom variant="h5" component="h3">
         Nos Actus
       </Typography>
-
       <GridList cols={colsWidth(widthPercent)} className={classes.gridList}>
         {renderEventTiles()}
       </GridList>

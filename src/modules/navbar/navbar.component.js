@@ -19,7 +19,7 @@ import Divider from '@material-ui/core/Divider';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import logo from '../../logo.svg';
+import logo from '../../logo-perrok.svg';
 import NavIcon from './navicon.component';
 import SVG from '../../components/svg.component';
 import facebook from '../../style/images/facebook.svg';
@@ -32,27 +32,31 @@ const styles = theme => ({
   root: { display: 'flex' },
   drawer: {
     [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
+      width: theme.navbar.desktop ? drawerWidth : 0,
       flexShrink: 0,
     },
   },
   appBar: {
     marginLeft: drawerWidth,
     [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      display: 'none',
+      width: theme.navbar.desktop ? `calc(100% - ${drawerWidth}px)` : '100%',
+      display: theme.navbar.desktop ? 'none' : 'initial',
     },
   },
   menuButton: {
     marginRight: 20,
-    [theme.breakpoints.up('sm')]: { display: 'none' },
+    [theme.breakpoints.up('sm')]: { display: theme.navbar.desktop ? 'none' : 'initial' },
   },
   toolbar: theme.mixins.toolbar,
-  drawerPaper: { width: drawerWidth },
+  drawerPaper: {
+    width: drawerWidth,
+    background: theme.isBlack ? theme.palette.secondary.main : theme.palette.primary.main,
+  },
   content: {
     flexGrow: 1,
     marginTop: theme.mixins.toolbar.minHeight + 20,
-    [theme.breakpoints.up('sm')]: { marginTop: 0 },
+
+    [theme.breakpoints.up('sm')]: { marginTop: theme.navbar.desktop ? 0 : theme.mixins.toolbar.minHeight - 20 },
   },
   divider: {
     marginTop: '5%',
@@ -69,7 +73,7 @@ const NavBar = props => {
 
   const drawer = (
     <div>
-      <List color="primary">
+      <List color="secondary">
         <ListItem alignItems="center">
           <ListItemAvatar>
             <Avatar alt={name} src={logo} />
@@ -79,10 +83,10 @@ const NavBar = props => {
           page =>
             modules[page.target].enabled && (
               <ListItem component={Link} to={page.path} button key={page.name}>
-                <ListItemIcon>
-                  <NavIcon name={page.target} />
+                <ListItemIcon color="#fff">
+                  <NavIcon dark={theme.isBlack} name={page.target} />
                 </ListItemIcon>
-                <ListItemText color="primary" primary={page.name.toUpperCase()} />
+                <ListItemText color="primary" secondary={page.name.toUpperCase()} />
               </ListItem>
             ),
         )}
@@ -105,7 +109,7 @@ const NavBar = props => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" color="secondary" className={classes.appBar}>
+      <AppBar position="fixed" color={theme.isBlack ? 'secondary' : 'primary'} className={classes.appBar}>
         <Toolbar>
           <IconButton color="inherit" aria-label="Open drawer" onClick={props.toggle} className={classes.menuButton}>
             <MenuIcon />
@@ -126,11 +130,20 @@ const NavBar = props => {
             {drawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
-          <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
-            {drawer}
-          </Drawer>
-        </Hidden>
+        {theme.navbar.desktop && (
+          <Hidden xsDown implementation="css">
+            <Drawer
+              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+              open={props.mobileOpen}
+              onClose={props.toggle}
+              classes={{ paper: classes.drawerPaper }}
+              ModalProps={{ keepMounted: true }}
+              variant={modules.navbar.desktop ? 'permanent' : 'temporary'}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+        )}
       </nav>
       <main className={classes.content}>{props.children}</main>
     </div>

@@ -23,6 +23,7 @@ export default function reducer(state = initialState, action) {
         visible: true,
         content: action.content,
         variant: action.variant,
+        error: action.error,
         options: action.options,
       };
 

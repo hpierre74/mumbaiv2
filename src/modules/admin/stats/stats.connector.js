@@ -1,4 +1,4 @@
 import { connect } from 'react-redux';
-import Charts from '../../../components/charts.components';
+import Stats from './stats.component';
 
-export default connect()(Charts);
+export default connect()(Stats);

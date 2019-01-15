@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withStyles } from '@material-ui/core/styles';
 import { Row, Col } from './grid.components';
 
 const styles = () => ({
@@ -35,7 +35,7 @@ class Confirm extends React.Component {
     return (
       <Dialog fullWidth aria-labelledby="confirm-dialog" {...other}>
         <div className={classes.container}>
-          <Typography color="secondary" variant="h5" component="h3">
+          <Typography variant="h5" component="h3">
             {title}
           </Typography>
           <div>{this.props.children}</div>
@@ -68,7 +68,7 @@ Confirm.propTypes = {
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   classes: PropTypes.shape({}).isRequired,
-  children: PropTypes.shape({}),
+  children: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.bool]),
 };
 
 export default withStyles(styles)(Confirm);
