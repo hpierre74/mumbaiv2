@@ -1,6 +1,5 @@
 import { TOGGLE_NAVBAR, CONFIG_INIT } from './app.action';
 import { HIDE_SPLASH, SHOW_SPLASH } from '../splash/splash.action';
-import { GET_INSTAGRAM_FEED_SUCCESS } from '../instagram/instagram.action';
 
 const initialState = {
   config: {
@@ -10,7 +9,6 @@ const initialState = {
   },
   splash: false,
   splashed: false,
-  instagramed: false,
   mobileOpen: false,
   initialized: false,
 };
@@ -41,12 +39,6 @@ export default function reducer(state = initialState, action) {
         ...state,
         splash: true,
         splashed: true,
-      };
-
-    case GET_INSTAGRAM_FEED_SUCCESS:
-      return {
-        ...state,
-        instagramed: true,
       };
 
     default:
