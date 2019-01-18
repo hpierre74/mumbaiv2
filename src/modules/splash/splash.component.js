@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -15,7 +15,7 @@ const styles = theme => ({
     zIndex: 100000,
     width: '100vw',
     height: '100vh',
-    background: theme.palette.secondary.light,
+    background: theme.palette.secondary.main,
     transition: 'all 0.5s',
   },
   visible: {
@@ -28,26 +28,15 @@ const styles = theme => ({
   },
 });
 
-class Splash extends Component {
-  componentDidMount = () => {};
+const Splash = props => {
+  const { classes, splash } = props;
 
-  componentDidUpdate = () => {
-    const { modules, splashed, showSplash } = this.props;
-    if (!splashed && modules.splash) {
-      showSplash();
-    }
-  };
-
-  render() {
-    const { classes, splash } = this.props;
-
-    return (
-      <div className={classNames(classes.container, splash ? classes.visible : classes.hidden)}>
-        <SVG src={logo} width="300px" alt="logo" />
-      </div>
-    );
-  }
-}
+  return (
+    <div className={classNames(classes.container, splash ? classes.visible : classes.hidden)}>
+      <SVG src={logo} width="300px" alt="logo" />
+    </div>
+  );
+};
 
 Splash.propTypes = {
   splash: PropTypes.bool.isRequired,

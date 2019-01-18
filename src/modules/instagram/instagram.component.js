@@ -14,11 +14,10 @@ const styles = {
 
 class Instagram extends Component {
   componentDidMount = () => {
-    const {
-      instagram: { accessToken },
-      getInstagramFeed,
-    } = this.props;
-    getInstagramFeed(accessToken);
+    const { initialized, accessToken, enabled, getInstagramFeed } = this.props;
+    if (enabled && !initialized) {
+      getInstagramFeed(accessToken);
+    }
   };
 
   renderFeed = feed => {
@@ -49,9 +48,9 @@ class Instagram extends Component {
   };
 
   render() {
-    const { content } = this.props;
+    const { feed } = this.props;
 
-    return content.instafeed ? (
+    return feed ? (
       <div style={{ padding: '2.5%' }}>
         <Row spacing={24}>
           <Col md={12} sm={12} xs={12}>
@@ -59,17 +58,22 @@ class Instagram extends Component {
               Notre Instagram
             </Typography>
           </Col>
-          {this.renderFeed(content.instafeed)}
+          {this.renderFeed(feed)}
         </Row>
       </div>
     ) : null;
   }
 }
+// Instagram.defaultProps = {
+//   feed: null,
+// };
 
 Instagram.propTypes = {
   getInstagramFeed: PropTypes.func.isRequired,
-  instagram: PropTypes.shape({}).isRequired,
-  content: PropTypes.shape({}).isRequired,
+  initialized: PropTypes.bool.isRequired,
+  accessToken: PropTypes.string.isRequired,
+  feed: PropTypes.array.isRequired,
+  enabled: PropTypes.bool.isRequired,
   classes: PropTypes.shape({}).isRequired,
 };
 

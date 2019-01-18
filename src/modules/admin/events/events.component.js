@@ -40,10 +40,15 @@ export default class EventManager extends Component {
   }
 }
 
+EventManager.defaultProps = {
+  events: null,
+  selectedEvent: null,
+};
+
 EventManager.propTypes = {
   getEvents: PropTypes.func.isRequired,
-  events: PropTypes.shape({}).isRequired,
-  selectedEvent: PropTypes.shape({}).isRequired,
+  events: PropTypes.shape({}),
+  selectedEvent: PropTypes.shape({}),
   openEdit: PropTypes.bool.isRequired,
   updateEvent: PropTypes.func.isRequired,
   unsetEditEvent: PropTypes.func.isRequired,

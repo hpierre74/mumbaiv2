@@ -1,12 +1,12 @@
 import React from 'react';
-import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';
-import LineChart from 'recharts/lib/chart/LineChart';
-import Line from 'recharts/lib/cartesian/Line';
+import ComposedChart from 'recharts/lib/chart/ComposedChart';
+import Area from 'recharts/lib/cartesian/Area';
 import XAxis from 'recharts/lib/cartesian/XAxis';
 import YAxis from 'recharts/lib/cartesian/YAxis';
 import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import Legend from 'recharts/lib/component/Legend';
+import Brush from 'recharts/lib/cartesian/Brush';
 
 const months = [
   {
@@ -176,20 +176,23 @@ const months = [
   },
 ];
 
-function SimpleLineChart() {
+function SimpleAreaChart() {
   return (
-    <ResponsiveContainer width="99%" height={320}>
-      <LineChart data={months}>
-        <XAxis dataKey="name" />
-        <YAxis />
-        <CartesianGrid vertical={false} strokeDasharray="3 3" />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="dinner" stroke="#82ca9d" />
-        <Line type="monotone" dataKey="lunch" stroke="#8884d8" />
-      </LineChart>
-    </ResponsiveContainer>
+    <ComposedChart
+      width={window.innerWidth > 1200 ? 500 : window.innerWidth > 700 ? 700 : window.innerWidth - 25}
+      height={300}
+      data={months}
+    >
+      <XAxis dataKey="name" />
+      <YAxis />
+      <CartesianGrid strokeDasharray="3 3" />
+      <Tooltip />
+      <Legend />
+      <Brush dataKey="name" height={30} stroke="#000" />
+      <Area type="monotone" dataKey="dinner" fill="#ce5119" fillOpacity={0.6} stroke="#c2c11d" />
+      <Area type="monotone" dataKey="lunch" fillOpacity={0.6} stroke="#8884d8" />{' '}
+    </ComposedChart>
   );
 }
 
-export default SimpleLineChart;
+export default SimpleAreaChart;

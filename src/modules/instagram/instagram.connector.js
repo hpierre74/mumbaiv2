@@ -3,16 +3,11 @@ import { connect } from 'react-redux';
 import Instagram from './instagram.component';
 import { getInstagramFeed } from './instagram.action';
 
-const obj = {};
-
-const mapStateToProps = ({
-  app: {
-    config: { modules },
-  },
-  pageContent: { content },
-}) => ({
-  instagram: modules.instagram || obj,
-  content,
+const mapStateToProps = ({ instagram: { initialized, accessToken, feed, enabled } }) => ({
+  initialized,
+  accessToken,
+  feed,
+  enabled,
 });
 
 export default connect(

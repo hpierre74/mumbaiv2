@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 
 import UserRoutes from './userRoutes.component';
 import { showToast } from '../toaster/toaster.action';
-import { getComponents } from './components.action';
 
 const mapStateToProps = ({
   pageContent: {
@@ -10,16 +9,16 @@ const mapStateToProps = ({
   },
   app: {
     config: { modules, pages },
+    initialized,
   },
-  components,
 }) => ({
   presentation,
-  components,
   modules,
   pages,
+  initialized,
 });
 
 export default connect(
   mapStateToProps,
-  { showToast, getComponents },
+  { showToast },
 )(UserRoutes);

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
-import moment from 'moment';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -13,8 +12,6 @@ import { Row, Col } from '../../../components/grid.components';
 import Confirm from '../../../components/confirm.component';
 import DateInput from '../../../components/datepicker.component';
 
-moment.locale('fr');
-
 export default class EventForm extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +19,7 @@ export default class EventForm extends Component {
       title: '',
       subtitle: '',
       type: '',
-      date: moment().toDate(),
+      date: new Date(),
       image: '',
       imageName: '',
       imagePath: '',

@@ -5,5 +5,5 @@ export const showSplash = () => dispatch => {
   dispatch({ type: SHOW_SPLASH });
   setTimeout(() => {
     dispatch({ type: HIDE_SPLASH });
-  }, 500);
+  }, 750);
 };

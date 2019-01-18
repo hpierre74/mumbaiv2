@@ -5,7 +5,7 @@ import pageContent from './modules/pageContentManager/pageContent.reducer';
 import admin from './modules/admin/admin.reducer';
 import toaster from './modules/toaster/toaster.reducer';
 import events from './modules/admin/events/events.reducer';
-import components from './modules/routes/components.reducer';
+import instagram from './modules/instagram/instagram.reducer';
 
 export default {
   mail,
@@ -15,5 +15,5 @@ export default {
   toaster,
   admin,
   events,
-  components,
+  instagram,
 };

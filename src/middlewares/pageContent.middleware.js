@@ -1,53 +1,41 @@
-// import { INIT } from '../modules/app/app.action';
 import { getPageContent } from '../modules/pageContentManager/pageContent.action';
 import { CHANGE_LANG } from '../modules/lang/lang.actions';
 import { UPDATE_CONTENT_SUCCESS } from '../modules/admin/editor/editor.action';
+
+const getContentForRoute = (pages, pathname, lang) => dispatch => {
+  if (pathname === '/') {
+    return dispatch(getPageContent('home', lang));
+  }
+
+  const pageItem = Object.values(pages).filter(page => page.path === pathname)[0];
+
+  if (!pageItem) {
+    return;
+  }
+
+  dispatch(getPageContent(pageItem.target, lang));
+};
 
 export default store => next => action => {
   const {
     router: { location },
     lang: { currentLang },
     pageContent: { page },
+    app: {
+      config: { pages },
+    },
   } = store.getState();
 
   next(action);
   switch (action.type) {
     case CHANGE_LANG:
-      switch (location.pathname) {
-        case '/': {
-          store.dispatch(getPageContent('home', action.lang));
-          break;
-        }
-        case '/contact': {
-          store.dispatch(getPageContent('contact', action.lang));
-          break;
-        }
-        case '/book': {
-          store.dispatch(getPageContent('book', action.lang));
-          break;
-        }
-        default:
-          break;
-      }
+      store.dispatch(getContentForRoute(pages, location.pathname, action.lang));
       break;
-    case '@@router/LOCATION_CHANGE': {
-      switch (action.payload.location.pathname) {
-        case '/': {
-          store.dispatch(getPageContent('home', currentLang));
-          break;
-        }
-        case '/contact': {
-          store.dispatch(getPageContent('contact', currentLang));
-          break;
-        }
-        case '/book': {
-          store.dispatch(getPageContent('book', currentLang));
-          break;
-        }
-        default:
-      }
+
+    case '@@router/LOCATION_CHANGE':
+      store.dispatch(getContentForRoute(pages, action.payload.location.pathname, currentLang));
       break;
-    }
+
     case UPDATE_CONTENT_SUCCESS: {
       store.dispatch(getPageContent(page, currentLang));
       break;

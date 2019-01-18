@@ -88,7 +88,7 @@ class AdminRoutes extends Component {
 
     return (
       <div className={classes.wrapper}>
-        {isAdmin && (
+        {isAdmin ? (
           <div>
             <AppBar className={classes.appBar} color="primary" position="fixed">
               <Toolbar>
@@ -119,8 +119,9 @@ class AdminRoutes extends Component {
               {this.renderAdminRoutes()}
             </DrawerComponent>
           </div>
+        ) : (
+          <Login />
         )}
-        {!isAdmin && <Login />}
         <Toaster />
       </div>
     );

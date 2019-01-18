@@ -1,22 +1,25 @@
-import { GET_CONFIG_SUCCESS, TOGGLE_NAVBAR } from './app.action';
+import { TOGGLE_NAVBAR, CONFIG_INIT } from './app.action';
 import { HIDE_SPLASH, SHOW_SPLASH } from '../splash/splash.action';
 
 const initialState = {
   config: {
     pages: {},
     modules: {},
+    style: {},
   },
   splash: false,
   splashed: false,
   mobileOpen: false,
+  initialized: false,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case GET_CONFIG_SUCCESS:
+    case CONFIG_INIT:
       return {
         ...state,
-        config: action.data,
+        config: action.config,
+        initialized: true,
       };
 
     case TOGGLE_NAVBAR:

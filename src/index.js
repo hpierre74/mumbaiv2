@@ -12,8 +12,11 @@ import './style/index.css';
 import App from './App';
 import reducers from './reducers';
 import pageContentMiddleware from './middlewares/pageContent.middleware';
-import toasterMiddleware from './middlewares/toaster.middleware';
+import animationMiddleware from './middlewares/animation.middleware';
 import { configInit } from './modules/app/app.action';
+import { showSplash } from './modules/splash/splash.action';
+
+import initializeApp from './utils/init';
 
 const history = createHistory();
 const routerMiddleware = createRouterMiddleware(history);
@@ -28,18 +31,25 @@ const store = createStore(
     router: connectRouter(history),
     ...reducers,
   }),
-  composeEnhancers(applyMiddleware(thunk, routerMiddleware, pageContentMiddleware, toasterMiddleware)),
+  composeEnhancers(applyMiddleware(thunk, routerMiddleware, pageContentMiddleware, animationMiddleware)),
 );
 
-store.dispatch(configInit());
+store.dispatch(showSplash());
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
-  </Provider>,
-  document.getElementById('root'),
-);
+const init = async () => {
+  const config = await initializeApp();
+  store.dispatch(configInit(config));
 
-serviceWorker.unregister();
+  ReactDOM.render(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <App palette={config.style.client} />
+      </ConnectedRouter>
+    </Provider>,
+    document.getElementById('root'),
+  );
+
+  serviceWorker.unregister();
+};
+
+init();
