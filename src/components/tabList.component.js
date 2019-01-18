@@ -80,7 +80,7 @@ class PageTabs extends React.Component {
 PageTabs.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   action: PropTypes.func.isRequired,
-  items: PropTypes.array.isRequired,
+  items: PropTypes.shape({}).isRequired,
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({}), PropTypes.func]).isRequired,
 };
 

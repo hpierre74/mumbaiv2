@@ -8,12 +8,12 @@ import PageTabs from '../../../components/tabList.component';
 import EditForm from './editForm.connector';
 import { Row, Col } from '../../../components/grid.components';
 
-const styles = () => ({
+const styles = {
   container: {
     width: '95%',
     margin: '0 auto',
   },
-});
+};
 
 class Editor extends PureComponent {
   static getDerivedStateFromProps = nextProps => {
