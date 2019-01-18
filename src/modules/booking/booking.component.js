@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
-import moment from 'moment';
+import setMinutes from 'date-fns/set_minutes';
+import setHours from 'date-fns/set_hours';
+import format from 'date-fns/format';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -21,8 +23,6 @@ import Confirm from '../../components/confirm.component';
 import { Row, Col } from '../../components/grid.components';
 import { setData, getNewKey } from '../../utils/firebase.utils';
 
-moment.locale('fr-fr');
-
 export default class EventForm extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +32,7 @@ export default class EventForm extends Component {
       persons: '',
       tel: '',
       email: '',
-      date: moment().toDate(),
+      date: new Date(),
       hours: '',
       timestamp: null,
       modal: false,
@@ -47,13 +47,12 @@ export default class EventForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  dateWithTime = ({ date, hours }) =>
-    moment(date)
-      .set({
-        hours: parseInt(hours.substring(0, 2), 10),
-        minutes: parseInt(hours.substring(3, 5), 10),
-      })
-      .toDate();
+  dateWithTime = ({ date, hours }) => {
+    const dateWithMinutes = setMinutes(new Date(date), parseInt(hours.substring(3, 5), 10));
+    const dateWithHours = setHours(new Date(dateWithMinutes), parseInt(hours.substring(0, 2), 10));
+
+    return dateWithHours;
+  };
 
   handleDateChange = date => {
     this.setState({ date });
@@ -110,7 +109,7 @@ export default class EventForm extends Component {
   render() {
     return (
       <Card style={{ margin: '2.5%' }}>
-        <CardHeader component="h3" title="Réserver une table" />
+        <CardHeader color="secondary" component="h3" title="Réserver une table" />
         <CardContent>
           <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
             <Col xs={12} md={6}>
@@ -228,7 +227,8 @@ export default class EventForm extends Component {
                 </ListItemText>
                 <ListItemText>
                   <Typography gutterBottom color="secondary" component="p">
-                    {`Vous réservez pour ${this.state.persons}, le  ${moment(this.state.date).format(
+                    {`Vous réservez pour ${this.state.persons}, le  ${format(
+                      new Date(this.state.date),
                       'DD-MM-YYYY HH:mm',
                     )}`}
                   </Typography>

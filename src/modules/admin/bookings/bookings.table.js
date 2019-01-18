@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import format from 'date-fns/format';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,7 +8,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import moment from 'moment';
 
 const styles = theme => ({
   root: {
@@ -42,7 +42,7 @@ function BookingsTable(props) {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell>{moment(row.date).format('DD-MM-YYYY HH:mm')}</TableCell>
+                <TableCell>{format(row.date, 'DD-MM-YYYY HH:mm')}</TableCell>
                 <TableCell>{row.persons}</TableCell>
                 <TableCell>{row.hour}</TableCell>
                 <TableCell>{row.tel}</TableCell>

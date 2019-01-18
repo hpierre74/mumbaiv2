@@ -6,6 +6,7 @@ import theme from './style/mui';
 import NavBar from './modules/navbar/navbar.connector';
 
 import Admin from './pages/admin/admin.component';
+import Splash from './modules/splash/splash.connector';
 import UserRoutes from './modules/routes/userRoutes.connector';
 
 const Toaster = lazy(() => import('./modules/toaster/toast.connector'));
@@ -21,6 +22,7 @@ const App = () => (
           <Toaster />
         </Suspense>
       </NavBar>
+      <Splash />
     </MuiThemeProvider>
     <Switch>
       <Route path="/admin/" component={Admin} />

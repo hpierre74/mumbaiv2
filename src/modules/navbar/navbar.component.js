@@ -55,7 +55,7 @@ const NavBar = props => {
 
   const drawer = (
     <div>
-      <List>
+      <List color="primary">
         <ListItem alignItems="center">
           <ListItemAvatar>
             <Avatar alt={name} src={logo} />
@@ -101,7 +101,7 @@ const NavBar = props => {
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
-          <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open color="primary">
+          <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
             {drawer}
           </Drawer>
         </Hidden>

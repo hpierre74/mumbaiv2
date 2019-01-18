@@ -8,9 +8,11 @@ const obj = {};
 const mapStateToProps = ({
   app: {
     config: { modules },
+    instagramed,
   },
   pageContent: { content },
 }) => ({
+  instagramed,
   instagram: modules.instagram || obj,
   content,
 });

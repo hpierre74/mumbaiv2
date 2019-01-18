@@ -15,10 +15,13 @@ const styles = {
 class Instagram extends Component {
   componentDidMount = () => {
     const {
-      instagram: { accessToken },
+      instagramed,
+      instagram: { accessToken, enabled },
       getInstagramFeed,
     } = this.props;
-    getInstagramFeed(accessToken);
+    if (enabled && !instagramed) {
+      getInstagramFeed(accessToken);
+    }
   };
 
   renderFeed = feed => {
@@ -69,6 +72,7 @@ class Instagram extends Component {
 Instagram.propTypes = {
   getInstagramFeed: PropTypes.func.isRequired,
   instagram: PropTypes.shape({}).isRequired,
+  instagramed: PropTypes.bool.isRequired,
   content: PropTypes.shape({}).isRequired,
   classes: PropTypes.shape({}).isRequired,
 };
