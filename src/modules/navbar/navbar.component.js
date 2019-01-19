@@ -9,16 +9,22 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Toolbar from '@material-ui/core/Toolbar';
-import AppBar from '@material-ui/core/AppBar';
-import MenuIcon from '@material-ui/icons/Menu';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import MenuIcon from '@material-ui/icons/Menu';
+import IconButton from '@material-ui/core/IconButton';
+import Avatar from '@material-ui/core/Avatar';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Divider from '@material-ui/core/Divider';
+
 import { withStyles } from '@material-ui/core/styles';
 
 import logo from '../../logo.svg';
 import NavIcon from './navicon.component';
+import SVG from '../../components/svg.component';
+import facebook from '../../style/images/facebook.svg';
+import instagram from '../../style/images/icon-instagram.svg';
+import uber from '../../style/images/uber-eats.svg';
 
 const drawerWidth = 240;
 
@@ -48,10 +54,18 @@ const styles = theme => ({
     marginTop: theme.mixins.toolbar.minHeight + 20,
     [theme.breakpoints.up('sm')]: { marginTop: 0 },
   },
+  divider: {
+    marginTop: '5%',
+    marginBottom: '5%',
+  },
+  spaceAround: {
+    display: 'flex',
+    justifyContent: 'space-around',
+  },
 });
 
 const NavBar = props => {
-  const { classes, theme, pages, name, modules } = props;
+  const { classes, theme, pages, name, modules, general } = props;
 
   const drawer = (
     <div>
@@ -72,6 +86,18 @@ const NavBar = props => {
               </ListItem>
             ),
         )}
+        <Divider className={classes.divider} variant="middle" />
+        <ListItem className={classes.spaceAround}>
+          <ListItemIcon>
+            <SVG height="26px" width="26px" isLink href={general.facebook} src={facebook} alt="facebook-icon" />
+          </ListItemIcon>
+          <ListItemIcon>
+            <SVG height="26px" width="26px" isLink src={instagram} href={general.instagram} alt="instagram-icon" />
+          </ListItemIcon>
+          <ListItemIcon>
+            <SVG height="20px" width="21px" isLink src={uber} href={general.instagram} alt="uber-eats-icon" />
+          </ListItemIcon>
+        </ListItem>
       </List>
     </div>
   );
@@ -120,6 +146,7 @@ NavBar.propTypes = {
   pages: PropTypes.shape({}).isRequired,
   name: PropTypes.string,
   modules: PropTypes.shape({}).isRequired,
+  general: PropTypes.shape({}).isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(NavBar);
