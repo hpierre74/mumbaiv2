@@ -23,6 +23,7 @@ const init = async () => {
       location: { pathname },
     },
   } = getState();
+  console.log(config);
 
   if (!pathname.includes('admin')) {
     dispatch(showSplash());

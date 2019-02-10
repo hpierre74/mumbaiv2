@@ -19,7 +19,7 @@ import Divider from '@material-ui/core/Divider';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import logo from '../../logo-perrok.svg';
+import logo from '../../logo.svg';
 import NavIcon from './navicon.component';
 import SVG from '../../components/svg.component';
 import facebook from '../../style/images/facebook.svg';
@@ -45,7 +45,7 @@ const styles = theme => ({
   },
   menuButton: {
     marginRight: 20,
-    [theme.breakpoints.up('sm')]: { display: theme.desktop.navbar ? 'none' : 'initial' },
+    // [theme.breakpoints.up('sm')]: { display: theme.desktop.navbar ? 'none' : 'initial' },
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -133,11 +133,11 @@ const NavBar = props => {
         <Hidden xsDown implementation="css">
           <Drawer
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={theme.desktop.navbar ? true : props.mobileOpen}
+            open
             onClose={props.toggle}
             classes={{ paper: classes.drawerPaper }}
             ModalProps={{ keepMounted: true }}
-            variant={modules.navbar.desktop ? 'permanent' : 'temporary'}
+            variant="permanent"
           >
             {drawer}
           </Drawer>

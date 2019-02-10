@@ -8,21 +8,21 @@ export const createTheme = theme =>
         black: '#000',
         white: '#fff',
         type: 'dark',
-        ...theme.palette.common,
+        ...theme.common,
       },
       primary: {
         light: '#7986cb',
         main: '#3f51b5',
         dark: '#303f9f',
         contrastText: '#fff',
-        ...theme.palette.primary,
+        ...theme.primary,
       },
       secondary: {
         light: '#ff4081',
         main: '#f50057',
         dark: '#c51162',
         contrastText: '#fff',
-        ...theme.palette.secondary,
+        ...theme.secondary,
       },
       error: {
         light: '#e57373',
@@ -55,12 +55,12 @@ export const createTheme = theme =>
         default: '#fff',
         hint: 'rgba(0, 0, 0, 0.38)',
         divider: 'rgba(0, 0, 0, 0.12)',
-        ...theme.palette.text,
+        ...theme.text,
       },
       background: {
         paper: '#fafafa',
         default: '#fafafa',
-        ...theme.palette.background,
+        ...theme.background,
       },
       action: {
         active: 'rgba(0, 0, 0, 0.54)',
@@ -69,7 +69,7 @@ export const createTheme = theme =>
         selected: 'rgba(0, 0, 0, 0.14)',
         disabled: 'rgba(0, 0, 0, 0.26)',
         disabledBackground: 'rgba(0, 0, 0, 0.12)',
-        ...theme.palette.action,
+        ...theme.action,
       },
     },
     overrides: {
@@ -80,16 +80,16 @@ export const createTheme = theme =>
       MuiCardHeader: {
         root: {
           margin: 0,
-          background: theme.palette.primary.main,
-          color: theme.palette.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
+          background: theme.primary.main,
+          color: theme.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
         },
         title: {
-          color: theme.palette.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
+          color: theme.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
         },
       },
       MuiSvgIcon: {
         colorSecondary: {
-          color: theme.palette.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
+          color: theme.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
         },
       },
       MuiFormLabel: {
