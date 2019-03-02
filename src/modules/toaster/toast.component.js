@@ -76,8 +76,8 @@ class Toaster extends React.Component {
       <Snackbar
         className={classes.snackBar}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: 'top',
+          horizontal: 'right',
         }}
         open={visible}
         autoHideDuration={6000}

@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
 import SVG from '../../components/svg.component';
-import logo from '../../logo-perrok.svg';
+import logo from '../../logo.svg';
 
 const styles = theme => ({
   container: {

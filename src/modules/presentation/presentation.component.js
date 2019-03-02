@@ -14,7 +14,7 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: { padding: '5% 2.5%' },
     [theme.breakpoints.up('md')]: { padding: '2.5% 2.5%' },
   },
-  title: { padding: '5%', fontFamily: '"Seaweed Script", cursive', fontSize: '2em' },
+  title: { padding: '5%', fontSize: '2em' },
   button: {
     width: '90%',
     margin: '1% auto',

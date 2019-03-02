@@ -19,7 +19,7 @@ import Divider from '@material-ui/core/Divider';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import logo from '../../logo-perrok.svg';
+import logo from '../../logo.svg';
 import NavIcon from './navicon.component';
 import SVG from '../../components/svg.component';
 import facebook from '../../style/images/facebook.svg';
