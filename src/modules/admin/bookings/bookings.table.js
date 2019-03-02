@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import format from 'date-fns/format';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,16 +7,23 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { IconButton } from '@material-ui/core';
+import Delete from '@material-ui/icons/Delete';
+import Edit from '@material-ui/icons/Edit';
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    maxWidth: '95%',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
   },
   table: { minWidth: 700 },
   header: { background: theme.palette.primary[500] },
   cell: { color: '#FFFFFF' },
+  rootCell: {
+    padding: 0,
+    textAlign: 'center',
+  },
 });
 
 function BookingsTable(props) {
@@ -28,29 +34,50 @@ function BookingsTable(props) {
       <Table className={classes.table}>
         <TableHead className={classes.header}>
           <TableRow>
-            <TableCell className={classes.cell}>Nom Prénom</TableCell>
-            <TableCell className={classes.cell}>Date</TableCell>
-            <TableCell className={classes.cell}>Personnes</TableCell>
-            <TableCell className={classes.cell}>Heure</TableCell>
-            <TableCell className={classes.cell}>Téléphone</TableCell>
+            <TableCell classes={{ root: classes.rootCell }} className={classes.cell}>
+              Nom
+            </TableCell>
+            <TableCell classes={{ root: classes.rootCell }} className={classes.cell}>
+              Date
+            </TableCell>
+            <TableCell classes={{ root: classes.rootCell }} className={classes.cell}>
+              Personnes
+            </TableCell>
+            <TableCell classes={{ root: classes.rootCell }} className={classes.cell}>
+              Heure
+            </TableCell>
+            <TableCell classes={{ root: classes.rootCell }} className={classes.cell}>
+              Téléphone
+            </TableCell>
+            <TableCell classes={{ root: classes.rootCell }} className={classes.cell} />
           </TableRow>
         </TableHead>
         <TableBody>
-          {bookings.length > 0 ? (
-            Object.values(bookings).map(row => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell>{format(row.date, 'DD-MM-YYYY HH:mm')}</TableCell>
-                <TableCell>{row.persons}</TableCell>
-                <TableCell>{row.hour}</TableCell>
-                <TableCell>{row.tel}</TableCell>
-              </TableRow>
-            ))
+          {bookings ? (
+            Object.values(bookings).map(row => {
+              return (
+                <TableRow key={row.lastname}>
+                  <TableCell classes={{ root: classes.rootCell }} component="th" scope="row">
+                    {row.lastname}
+                  </TableCell>
+                  <TableCell classes={{ root: classes.rootCell }}>{row.datetime}</TableCell>
+                  <TableCell classes={{ root: classes.rootCell }}>{row.persons}</TableCell>
+                  <TableCell classes={{ root: classes.rootCell }}>{row.hours}</TableCell>
+                  <TableCell classes={{ root: classes.rootCell }}>{row.phone}</TableCell>
+                  <TableCell classes={{ root: classes.rootCell }}>
+                    <IconButton>
+                      <Edit />
+                    </IconButton>
+                    <IconButton>
+                      <Delete />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })
           ) : (
             <TableRow key="none">
-              <TableCell component="th" scope="row">
+              <TableCell classes={{ root: classes.rootCell }} component="th" scope="row">
                 NO BOOKING AVAILABLE
               </TableCell>
             </TableRow>
@@ -63,7 +90,7 @@ function BookingsTable(props) {
 
 BookingsTable.propTypes = {
   classes: PropTypes.shape({}).isRequired,
-  bookings: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  bookings: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({})]).isRequired,
 };
 
 export default withStyles(styles)(BookingsTable);

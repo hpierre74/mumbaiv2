@@ -14,7 +14,7 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: { padding: '5% 2.5%' },
     [theme.breakpoints.up('md')]: { padding: '2.5% 2.5%' },
   },
-  title: { padding: '5%' },
+  title: { padding: '5%', fontFamily: '"Seaweed Script", cursive', fontSize: '2em' },
   button: {
     width: '90%',
     margin: '1% auto',
@@ -39,8 +39,8 @@ const Presentation = props => {
           <Row justify="space-around">
             <Col sm={12} xs={12} md={12}>
               <Typography
-                color="primary"
                 className={classes.title}
+                color="primary"
                 gutterBottom
                 variant="h5"
                 component="h3"

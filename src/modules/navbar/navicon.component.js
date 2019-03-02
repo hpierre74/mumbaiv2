@@ -17,13 +17,14 @@ const iconVariants = {
   contact: ContactIcon,
   shooters: DrinkIcon,
   menu: MenuIcon,
+  styleguide: MenuIcon,
 };
 
 const NavIcon = props => {
   const Icon = iconVariants[props.name];
 
-  return <Icon />;
+  return <Icon color={props.dark ? 'primary' : 'secondary'} />;
 };
 
-NavIcon.propTypes = { name: PropTypes.string.isRequired };
+NavIcon.propTypes = { name: PropTypes.string.isRequired, dark: PropTypes.bool };
 export default NavIcon;

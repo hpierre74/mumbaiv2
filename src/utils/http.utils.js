@@ -5,7 +5,10 @@ export const requestGet = (path, query = {}, headers = {}, timeout = 5000) =>
     .get(path)
     .set(headers)
     .query(query)
-    .timeout(timeout);
+    .timeout(timeout)
+    .set('Content-Type', 'application/javascript')
+    .set('Accept', 'application/javascript')
+    .set('Access-Control-Allow-Origin', true);
 
 export const requestPost = (path, body, query = {}, headers = {}, timeout = 5000) =>
   request

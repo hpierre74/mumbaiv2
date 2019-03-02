@@ -1,12 +1,10 @@
-import { GET_INSTAGRAM_FEED_SUCCESS, GET_INSTAGRAM_FEED_FAILURE } from '../instagram/instagram.action';
+import { GET_INSTAGRAM_FEED_SUCCESS, GET_INSTAGRAM_FEED_PENDING } from '../instagram/instagram.action';
 import { CONFIG_INIT } from '../app/app.action';
 
 const initialState = {
-  feed: [],
+  feed: null,
   initialized: false,
   enabled: false,
-  accessToken: null,
-  clientId: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -15,8 +13,12 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         enabled: action.config.modules.instagram.enabled,
-        accessToken: action.config.modules.instagram.accessToken,
-        clientId: action.config.modules.instagram.clientId,
+      };
+
+    case GET_INSTAGRAM_FEED_PENDING:
+      return {
+        ...state,
+        initialized: true,
       };
 
     case GET_INSTAGRAM_FEED_SUCCESS:
@@ -24,12 +26,6 @@ export default function reducer(state = initialState, action) {
         ...state,
         feed: action.feed,
         initialized: true,
-      };
-
-    case GET_INSTAGRAM_FEED_FAILURE:
-      return {
-        ...state,
-        feed: 'error',
       };
 
     default:

@@ -53,8 +53,8 @@ class Mail extends Component {
     const { firstname, lastname, email, object, content, modal } = this.state;
 
     return (
-      <Card style={{ margin: '2.5%' }}>
-        <CardHeader component="h3" title="NOUS ÉCRIRE" />
+      <Card style={{ margin: '0 2.5%' }}>
+        <CardHeader disableTypography component="h3" color="primary" title="NOUS ÉCRIRE" />
         <CardContent>
           <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
             <Col xs={12} md={6}>
@@ -117,7 +117,7 @@ class Mail extends Component {
         </CardContent>
         <Row style={{ display: 'flex', justifyContent: 'center' }} container spacing={24}>
           <Col xs={12} md={12}>
-            <Button onClick={this.toggleModal} variant="outlined" color="primary">
+            <Button onClick={this.toggleModal} variant="contained" color="primary">
               Envoyer
             </Button>
           </Col>
@@ -130,10 +130,10 @@ class Mail extends Component {
             >
               <List>
                 <ListItemText>
-                  <Typography color="secondary">{`Vous êtes Mr. ${firstname} ${lastname}`}</Typography>
+                  <Typography>{`Vous êtes Mr. ${firstname} ${lastname}`}</Typography>
                 </ListItemText>
                 <ListItemText>
-                  <Typography gutterBottom color="secondary" component="p">
+                  <Typography gutterBottom component="p">
                     Voici votre email...
                   </Typography>
                 </ListItemText>
