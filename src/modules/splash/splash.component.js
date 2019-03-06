@@ -9,6 +9,7 @@ import logo from '../../logo-perrok.svg';
 
 const styles = theme => ({
   container: {
+    display: theme.splash.enabled ? 'initial' : 'none',
     position: 'absolute',
     top: '0px',
     left: '0px',

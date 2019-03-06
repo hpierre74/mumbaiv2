@@ -1,18 +1,13 @@
-import React, { memo } from 'react';
+import React, { memo, lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardActionArea from '@material-ui/core/CardActionArea';
+
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 import { Row, Col } from '../../components/grid.components';
+import { CircularProgress } from '@material-ui/core';
 
-const styles = {
-  focusVisible: {},
-  focusHighlight: { backgroundColor: 'transparent' },
-};
+const InstaTile = lazy(() => import('./instaTile.component'));
 
-const Instagram = ({ getInstagramFeed, feed, enabled, classes }) => {
+const Instagram = ({ getInstagramFeed, feed, enabled }) => {
   if (!feed || !enabled) {
     getInstagramFeed();
 
@@ -27,20 +22,11 @@ const Instagram = ({ getInstagramFeed, feed, enabled, classes }) => {
             Notre Instagram
           </Typography>
         </Col>
-        {feed.map(image => (
-          <Col key={image.link} md={3} sm={4} xs={6}>
-            <Card>
-              <CardActionArea
-                component="a"
-                target="_blank"
-                href={image.link}
-                classes={{ focusHighlight: classes.focusHighlight }}
-              >
-                <CardMedia component="img" src={image.url} alt={image.url} />
-              </CardActionArea>
-            </Card>
-          </Col>
-        ))}
+        <Suspense fallback={<CircularProgress />}>
+          {feed.map(image => (
+            <InstaTile key={image.link} image={image} />
+          ))}
+        </Suspense>
       </Row>
     </div>
   );
@@ -53,8 +39,7 @@ Instagram.defaultProps = {
 Instagram.propTypes = {
   getInstagramFeed: PropTypes.func.isRequired,
   feed: PropTypes.array,
-  classes: PropTypes.shape({}).isRequired,
   enabled: PropTypes.bool.isRequired,
 };
 
-export default memo(withStyles(styles)(Instagram));
+export default memo(Instagram);

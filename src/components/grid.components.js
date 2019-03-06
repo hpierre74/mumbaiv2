@@ -16,4 +16,4 @@ export const Col = props => (
   </Grid>
 );
 
-Col.propTypes = { children: PropTypes.oneOfType([PropTypes.node]).isRequired };
+Col.propTypes = { children: PropTypes.oneOfType([PropTypes.node]) };
